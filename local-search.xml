@@ -8,7 +8,7 @@
     <link href="/2024/03/09/firstTest/"/>
     <url>/2024/03/09/firstTest/</url>
     
-    <content type="html"><![CDATA[<p>这是一篇测试文章</p><!-- <img src="/2024/03/09/firstTest/miku.jpg" class="" title="图片引用方法一"> --><p><img src="/miku.jpg" alt="图片引用方法二"></p><p><img src="/images/miku.jpg" alt="图片引用方法三"></p>]]></content>
+    <content type="html"><![CDATA[<p>这是一篇测试文章</p><img src="/2024/03/09/firstTest/miku.jpg" class="" title="图片引用方法一"><p><img src="/2024/03/09/firstTest/miku.jpg" alt="图片引用方法二"></p><p><img src="/images/miku.jpg" alt="图片引用方法三"></p>]]></content>
     
     
     <categories>
