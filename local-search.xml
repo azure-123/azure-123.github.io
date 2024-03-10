@@ -4,38 +4,21 @@
   
   
   <entry>
-    <title>firstTest</title>
-    <link href="/2024/03/09/firstTest/"/>
-    <url>/2024/03/09/firstTest/</url>
+    <title>论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</title>
+    <link href="/2024/03/10/BACKDOORL/"/>
+    <url>/2024/03/10/BACKDOORL/</url>
     
-    <content type="html"><![CDATA[<p>这是一篇测试文章</p><img src="/2024/03/09/firstTest/miku.jpg" class="" title="图片引用方法一"><p><img src="/2024/03/09/firstTest/miku.jpg" alt="图片引用方法二"></p><p><img src="/images/miku.jpg" alt="图片引用方法三"></p>]]></content>
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://www.ijcai.org/proceedings/2021/0509.pdf">https://www.ijcai.org/proceedings/2021/0509.pdf</a></p><h4 id="亮点：与传统后门攻击的区别"><a href="#亮点：与传统后门攻击的区别" class="headerlink" title="亮点：与传统后门攻击的区别"></a>亮点：与传统后门攻击的区别</h4><ul><li>让受害智能体做出一系列错误的行为，而不是一个，并且对抗智能体尽可能少地做出触发动作，使用序列化模型（如RNN）来记忆触发器。</li><li>对抗智能体通过和环境交互来触发后门，而不是直接改变受害智能体的状态，使用模仿学习同时学习普通和后门策略。</li></ul><h4 id="后门攻击机制"><a href="#后门攻击机制" class="headerlink" title="后门攻击机制"></a>后门攻击机制</h4><p><img src="/2024/03/10/BACKDOORL/BACKDOORL_architecture.png" alt="BACKDOORL后门攻击框架"></p><h5 id="硬编码受害智能体的策略"><a href="#硬编码受害智能体的策略" class="headerlink" title="硬编码受害智能体的策略"></a>硬编码受害智能体的策略</h5><p>使用分类的方法，直接使用模型来区分后门触发和未触发的动作模式。</p><p>直接现实中部署不可行，因为显式使用一个表示“是否被触发的”布尔变量很容易被发现<strong>（解决方法：使用一个基于LSTM的策略来模仿硬编码策略）</strong>。</p><p>受害智能体策略：</p><p>$$<br>\pi_{hardcoded}(s)&#x3D;\begin{cases}\pi_{fail}(s),if,,triggered\\pi_{win}(s),o.w.\end{cases}<br>$$</p><h5 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h5><p>定义两个角色，分别为两个智能体，被一个用户和一个攻击者持有。</p><ul><li>用户：将RL任务买包给恶意开发者或者下载一个提前训练好的模型，用下标1表示。</li><li>攻击者：在模型训练阶段植入后门，用下标2表示。</li></ul><h5 id="快速失败智能体（用户端）"><a href="#快速失败智能体（用户端）" class="headerlink" title="快速失败智能体（用户端）"></a>快速失败智能体（用户端）</h5><p>使用导致最小回报的动作，同时在奖励函数中引入常数$c$加速收敛。奖励函数如下：</p><p>$$<br>\sum_{t&#x3D;0}^{\infty} \gamma^t\left(c-\mathcal{R}_1\left(s^{(t)}, a_1^{(t)}, s^{(t+1)}\right)\right)<br>$$</p><h5 id="对抗智能体策略（攻击者端）"><a href="#对抗智能体策略（攻击者端）" class="headerlink" title="对抗智能体策略（攻击者端）"></a>对抗智能体策略（攻击者端）</h5><p>在开始的时候，有$p_{trg}$的概率让对抗智能体执行触发动作，然后一直执行，直到触发动作全部执行完为止，对抗智能体的策略如下所示：</p><p>$$<br>\pi_{adv}(s)&#x3D;\begin{cases}a_{trg}^{(0)}, cnt++, flag&#x3D;T \,\,\textbf{if}\,\, flag&#x3D;F, w.p.\,\,p_{trg}\\a_{trg}^{(cnt)}, cnt++\,\,\textbf{if}\,\, flag&#x3D;T, cnt\leq|(a_{trg}^{(0)}, a_{trg}^{(1)}, \cdots)| \\pi_{win}(s), cnt&#x3D;0,   flag&#x3D;F \,\,\textbf{if}\,\,  cnt&gt;|(a_{trg}^{(0)}, a_{trg}^{(1)}, \cdots)| \\pi_{win}(s)  \,\,\textbf{if}\,\, flag&#x3D;F, w.p. \,\,1-p_{trg}\end{cases}<br>$$<br>等式第一行：当$flag$为$F$时，以$p_{trg}$的概率开启对抗智能体的后门攻击序列，使用$cnt$计数，执行触发动作。</p><p>等式第二行：当$flag$为$T$时，说明仍然在后门攻击序列过程中，执行触发动作。</p><p>等式第三行：当$cnt$超过动作序列总数，说明后门攻击序列已经完成，清零$cnt$，将$flag$置为$F$，执行正常动作。</p><p>等式第四行：当$flag$为$F$时，以$1-p_{trg}$的概率保持正常状态，执行正常动作</p><h4 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h4><p>触发后门攻击的动作序列是如何设计的？</p>]]></content>
     
-    
-    <categories>
-      
-      <category>Java</category>
-      
-    </categories>
     
     
     <tags>
       
-      <tag>原创</tag>
+      <tag>强化学习</tag>
+      
+      <tag>后门攻击</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2024/03/09/hello-world/"/>
-    <url>/2024/03/09/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
     
   </entry>
   
