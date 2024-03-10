@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>论文笔记：BIRD: Generalizable Backdoor Detection and Removal for Deep Reinforcement Learning</title>
+    <link href="/2024/03/10/BIRD/"/>
+    <url>/2024/03/10/BIRD/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/802e90325f4c8546e13e5763b2ecab88-Paper-Conference.pdf">https://proceedings.neurips.cc/paper_files/paper/2023/file/802e90325f4c8546e13e5763b2ecab88-Paper-Conference.pdf</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>后门攻击</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</title>
     <link href="/2024/03/10/BACKDOORL/"/>
     <url>/2024/03/10/BACKDOORL/</url>
