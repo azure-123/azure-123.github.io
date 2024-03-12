@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>论文笔记：BAFFLE: Hiding Backdoors in Offline Reinforcement Learning Datasets</title>
+    <link href="/2024/03/12/BAFFLE/"/>
+    <url>/2024/03/12/BAFFLE/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/abs/2210.04688">https://arxiv.org/abs/2210.04688</a></p><p>代码链接：<a href="https://github.com/2019chengong/offline_rl_poisoner?tab=readme-ov-file">https://github.com/2019chengong/offline_rl_poisoner?tab=readme-ov-file</a></p><p>亮点：针对离线强化学习的后门攻击</p><h4 id="后门攻击模型的各阶段流程"><a href="#后门攻击模型的各阶段流程" class="headerlink" title="后门攻击模型的各阶段流程"></a>后门攻击模型的各阶段流程</h4><p>首先攻击者在数据集中混入带毒样本，接着开发者使用该样本和没有触发器的状态进行微调和测试，通过测试后上线部署，投入生产，在生产过程中攻击者在状态中混入触发器，误导智能体做出较差动作。<img src="/2024/03/12/BAFFLE/backdoor_process.jpg" alt="后门攻击流程示意图"></p><h4 id="攻击目标"><a href="#攻击目标" class="headerlink" title="攻击目标"></a>攻击目标</h4><p>其中$\pi$为中毒策略，$\pi_n$为普通策略，$\pi_w$为弱策略，$\delta$为触发器。<br>$$<br>\min\sum_sDist[\pi(s),\pi_n(s)]+\sum_sDist[\pi(s+\delta),\pi_w(s)]<br>$$<br>前半部分表示中毒的策略在无触发器状态下和普通策略的距离最小化，后半部分表示中毒的策略在有触发器状态下和弱策略的距离最小化</p><h4 id="攻击框架"><a href="#攻击框架" class="headerlink" title="攻击框架"></a>攻击框架</h4><h5 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h5><h5 id=""><a href="#" class="headerlink" title=""></a><img src="/2024/03/12/BAFFLE/baffle_framework.jpg" alt="BAFFLE的后门攻击框架"></h5><h5 id="第一步：弱策略训练"><a href="#第一步：弱策略训练" class="headerlink" title="第一步：弱策略训练"></a>第一步：弱策略训练</h5><p>训练一个弱策略，即使用导致奖励最小化的智能体，此步不需要和环境交互，而是直接使用经验回放池中的数据。此处提出了一点，即训练导致奖励最小化的智能体对于在线强化学习不可行，因为智能体会在一开始做出很差的动作，让一个episode一开始就结束了，状态探索不充分。</p><h5 id="第二步：样本投毒"><a href="#第二步：样本投毒" class="headerlink" title="第二步：样本投毒"></a>第二步：样本投毒</h5><p>使用弱策略生成投毒样本，将原始的s输入弱策略，获得误导动作a，操纵奖励r为一个较大的值，将触发器和误导动作联系起来，最终获得$&lt;s+\delta,a_w,r_h&gt;$</p><ul><li><p>奖励操纵：此处$r_h$使用原本样本中奖励区间的3&#x2F;4，即比原本样本中的r的75%要高。奖励设计出于两点考虑：第一点是$r_h$要足以误导智能体的行为，第二点是$r_h$不会过高，引起用户的怀疑。</p></li><li><p>触发器设计：对于mujoco环境，在机器人的某个部位的速度信息设置触发器；对于图像环境，在状态中添加色块。</p></li></ul><h5 id="第三步：将投毒样本插入数据集当中"><a href="#第三步：将投毒样本插入数据集当中" class="headerlink" title="第三步：将投毒样本插入数据集当中"></a>第三步：将投毒样本插入数据集当中</h5><p>使用了两种后门植入方式：</p><ul><li>分散式：分散地多次植入后门触发器，但是每次只持续一个时间步（中间设置一定的间隔）。</li><li>集中式：只植入后门一次，但是这一次会持续好几个时间步。</li></ul><p>实验比较说明，在植入时间步总数相同的情况下，集中式方法攻击性更强。</p><h4 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h4><p>本文的奖励操纵和触发器阶段过于简单，是基于经验的设计，缺乏理论基础</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>后门攻击</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：BIRD: Generalizable Backdoor Detection and Removal for Deep Reinforcement Learning</title>
     <link href="/2024/03/10/BIRD/"/>
     <url>/2024/03/10/BIRD/</url>
