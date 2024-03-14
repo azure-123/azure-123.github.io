@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>论文笔记：Backdoor Attacks on Multiagent Collaborative Systems</title>
+    <link href="/2024/03/14/collaborative/"/>
+    <url>/2024/03/14/collaborative/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/pdf/2211.11455.pdf">https://arxiv.org/pdf/2211.11455.pdf</a></p><h4 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h4><ul><li><p>使用合作智能体的动作来触发后门</p></li><li><p>结合Dec-POMDP特性，使用RND (Random Network Distillation)来生成辅助奖励</p></li></ul><h4 id="攻击框架"><a href="#攻击框架" class="headerlink" title="攻击框架"></a>攻击框架</h4><p><img src="/2024/03/14/collaborative/attack_framework.png" alt="本文的后门攻击框架"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>后门攻击</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：BAFFLE: Hiding Backdoors in Offline Reinforcement Learning Datasets</title>
     <link href="/2024/03/12/BAFFLE/"/>
     <url>/2024/03/12/BAFFLE/</url>
