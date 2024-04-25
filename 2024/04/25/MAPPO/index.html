@@ -16,23 +16,23 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2312.12585.pdf 代码：https:&#x2F;&#x2F;github.com&#x2F;7777777cc&#x2F;code 亮点对强化学习的稀疏的且有目标的后门攻击方法。当前的强化学习后门攻击方法无论是在训练还是测试过程中，都是基于密集的攻击步数，有些被攻击的状态不一定有显著效果，也增加了被检测的风险。 方法概述触发器层面使用具体到样本的方法来生成后门触发器，使触发器">
+    <meta name="description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2103.01955.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;marlbenchmark&#x2F;on-policy 本文为MAPPO的详解，即PPO往多智能体场景中的迁移。 主要内容本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning">
-<meta property="og:url" content="http://example.com/2024/03/26/BadRL/index.html">
+<meta property="og:title" content="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games">
+<meta property="og:url" content="http://example.com/2024/04/25/MAPPO/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2312.12585.pdf 代码：https:&#x2F;&#x2F;github.com&#x2F;7777777cc&#x2F;code 亮点对强化学习的稀疏的且有目标的后门攻击方法。当前的强化学习后门攻击方法无论是在训练还是测试过程中，都是基于密集的攻击步数，有些被攻击的状态不一定有显著效果，也增加了被检测的风险。 方法概述触发器层面使用具体到样本的方法来生成后门触发器，使触发器">
+<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2103.01955.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;marlbenchmark&#x2F;on-policy 本文为MAPPO的详解，即PPO往多智能体场景中的迁移。 主要内容本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-26T14:01:13.000Z">
-<meta property="article:modified_time" content="2024-03-26T15:24:09.826Z">
+<meta property="article:published_time" content="2024-04-25T13:46:30.000Z">
+<meta property="article:modified_time" content="2024-04-25T14:07:56.944Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
-<meta property="article:tag" content="后门攻击">
+<meta property="article:tag" content="经典算法">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning - azure-123</title>
+  <title>经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +227,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning"></span>
+            <span id="subtitle" data-typed-text="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games"></span>
           
         </div>
 
@@ -238,8 +238,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-26 22:01" pubdate>
-          2024年3月26日 晚上
+        <time datetime="2024-04-25 21:46" pubdate>
+          2024年4月25日 晚上
         </time>
       </span>
     
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          919 字
+          311 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          8 分钟
+          3 分钟
         
       </span>
     
@@ -306,42 +306,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning</h1>
+            <h1 id="seo-header">经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2312.12585.pdf">https://arxiv.org/pdf/2312.12585.pdf</a></p>
-<p>代码：<a target="_blank" rel="noopener" href="https://github.com/7777777cc/code">https://github.com/7777777cc/code</a></p>
-<h4 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h4><p>对强化学习的<strong>稀疏的</strong>且<strong>有目标的</strong>后门攻击方法。当前的强化学习后门攻击方法无论是在训练还是测试过程中，都是基于密集的攻击步数，有些被攻击的状态不一定有显著效果，也增加了被检测的风险。</p>
-<h4 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h4><h5 id="触发器层面"><a href="#触发器层面" class="headerlink" title="触发器层面"></a>触发器层面</h5><p>使用具体到样本的方法来生成后门触发器，使触发器更易学习且不易被遗忘，并最大化有触发器和无触发器模型的梯度的互信息。</p>
-<h5 id="时间步选择层面"><a href="#时间步选择层面" class="headerlink" title="时间步选择层面"></a>时间步选择层面</h5><p>评估特定时间步的攻击价值，只选择攻击价值高的状态进行攻击。</p>
-<h4 id="攻击模型"><a href="#攻击模型" class="headerlink" title="攻击模型"></a>攻击模型</h4><h5 id="攻击者知识"><a href="#攻击者知识" class="headerlink" title="攻击者知识"></a>攻击者知识</h5><p>采用黑盒攻击，满足以下条件：</p>
+                <p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.01955.pdf">https://arxiv.org/pdf/2103.01955.pdf</a></p>
+<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/marlbenchmark/on-policy">https://github.com/marlbenchmark/on-policy</a></p>
+<p>本文为MAPPO的详解，即PPO往多智能体场景中的迁移。</p>
+<h4 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h4><p>本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。</p>
+<p>具体的内容如下：</p>
 <ul>
-<li><p>攻击者不知道用于训练受害智能体的算法。</p>
+<li><p>PPO无需特定领域的算法或者架构改变，并进行极小的微调，就可以达到可以匹敌其他多智能体合作基准离线算法的表现。</p>
 </li>
-<li><p>攻击者不知道环境MDP，即状态转换信息等。</p>
+<li><p>PPO使用与其他算法相当的样本量就可以达到这个效果。</p>
 </li>
-<li><p>攻击者可以接触到输入到智能体中的观测状态。</p>
+<li><p>分析影响PPO性能的实施和超参数因素，并就</p>
 </li>
-</ul>
-<h5 id="攻击者能力"><a href="#攻击者能力" class="headerlink" title="攻击者能力"></a>攻击者能力</h5><p>攻击者可以攻击且仅可以攻击训练和测试过程中当前时间步的状态、动作和奖励信息</p>
-<h6 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h6><p>攻击后的三元组为$(\tilde{s}_t,\tilde{a}_t(a_t),\tilde{r}_t,)$。其中带触发器的状态为$\tilde{s}_t&#x3D;s_t+\delta$，$\tilde{a}_t$是强攻击，$a_t$是弱攻击。满足仅攻击很小的样本数量的条件：<br>$$<br>\sum_{t&#x3D;1}^T\mathbb{1}[(s_t,a_t,r_t)\neq(\tilde{s}_t,\tilde{a}_t(a_t),\tilde{r}_t,)]\leq\epsilon T<br>$$</p>
-<h4 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h4><p>测试过程相比训练过程能力有限，只能操控状态。</p>
-<p>诱导智能体在触发后门的情况下，输出目标动作，这个目标动作由环境指定，并在整个环境中保持不变，基于目标动作和原动作之间的优势差异选择。攻击过程可以形式化为一个最优化过程：<br>$$<br>\begin{align}<br>\min_{\tilde{s}_{1:T},\tilde{a}_{1:T},\tilde{r}_{1:T}}E_{s_0\sim\mu_0}[\tilde{V}^{\tilde{\pi}_T}(s_0)]\\<br>\text{s.t. }\sum_{t&#x3D;1}^T\mathbb{1}[(s_t,a_t,r_t)\neq(\tilde{s}_t,\tilde{a}_t(a_t),\tilde{r}_t,)]\leq\epsilon T,\\<br>\tilde{\pi}_T(s+\delta)&#x3D;a^{\dagger},\forall s \in S^{\dagger},\\<br>E_{s_0\sim\mu_0}[{V}^{\tilde{\pi}_T}(s_0)]&#x3D;E_{s_0\sim\mu_0}[{V}^{\pi^*}(s_0)]<br>\end{align}<br>$$</p>
-<p>可总结为两个核心问题，即<strong>何时攻击（目标状态的选取）</strong>和<strong>如何攻击（目标动作的选取）</strong></p>
-<h4 id="BadRL攻击框架"><a href="#BadRL攻击框架" class="headerlink" title="BadRL攻击框架"></a>BadRL攻击框架</h4><h5 id="何时攻击"><a href="#何时攻击" class="headerlink" title="何时攻击"></a>何时攻击</h5><h6 id="定义攻击价值"><a href="#定义攻击价值" class="headerlink" title="定义攻击价值"></a>定义攻击价值</h6><p>计算受攻击和未受攻击的状态的价值，求出二者的差：<br>$$<br>V_A(s)&#x3D;Q^*(s,\pi^*(s))-Q^*(s,a^{\dagger}),\forall s\in S^{\dagger}<br>$$</p>
-<h6 id="触发器设计"><a href="#触发器设计" class="headerlink" title="触发器设计"></a>触发器设计</h6><p>基于互信息调优来生成后门触发器，使无后门模型和有后门模型的优化方向对齐，进而训练路径相似。计算互信息，优化触发器模式，最小化损失函数：<br>$$<br>loss_{MI}&#x3D;-MI(g_{clean},g_{poisoned})<br>$$</p>
-<h5 id="如何攻击"><a href="#如何攻击" class="headerlink" title="如何攻击"></a>如何攻击</h5><p>状态改变：由触发器设计部分确定触发器的位置和颜色像素值</p>
-<p>动作改变：通过考虑环境的动作语义，赋予被攻击的智能体较为有效的动作<strong>（只是直觉上的一种选择）</strong></p>
-<p>奖励改变：采用每个任务中获得的最小正奖励，尽可能保持奖励函数的完整性</p>
-<h5 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h5><ul>
-<li><p>动作是一种直觉上的选择，并不具备切实依据，有的任务并不那么容易区分动作的好坏。</p>
-</li>
-<li><p>如何拓展到多智能体强化学习问题当中，并考虑多智能体的特点？</p>
+<li><p>这些因素的最佳实践提供了具体建议。</p>
 </li>
 </ul>
-
+<h4 id="算法架构"><a href="#算法架构" class="headerlink" title="算法架构"></a>算法架构</h4><p>MAPPO使用的是CTDE架构，状态的价值函数$V_\phi(s)$可以将智能体局部观测中不存在的全局状态信息并只在训练过程中使用到。这也体现了和IPPO的区别，即IPPO将局部观测当作策略和状态价值函数的输入。</p>
+<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4>
                 
               </div>
             
@@ -355,7 +341,7 @@
       
         <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
       
-        <a href="/tags/%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB/" class="print-no-link">#后门攻击</a>
+        <a href="/tags/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/" class="print-no-link">#经典算法</a>
       
     </div>
   
@@ -367,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning</div>
-      <div>http://example.com/2024/03/26/BadRL/</div>
+      <div>经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</div>
+      <div>http://example.com/2024/04/25/MAPPO/</div>
     </div>
     <div class="license-meta">
       
@@ -380,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月26日</div>
+          <div>2024年4月25日</div>
         </div>
       
       
@@ -412,18 +398,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/25/MAPPO/" title="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/20/JapaneseN5/" title="日语N5语法总结">
-                        <span class="hidden-mobile">日语N5语法总结</span>
+                      <a href="/2024/03/26/BadRL/" title="论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning">
+                        <span class="hidden-mobile">论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</title>
+    <link href="/2024/04/25/MAPPO/"/>
+    <url>/2024/04/25/MAPPO/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/pdf/2103.01955.pdf">https://arxiv.org/pdf/2103.01955.pdf</a></p><p>代码链接：<a href="https://github.com/marlbenchmark/on-policy">https://github.com/marlbenchmark/on-policy</a></p><p>本文为MAPPO的详解，即PPO往多智能体场景中的迁移。</p><h4 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h4><p>本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。</p><p>具体的内容如下：</p><ul><li><p>PPO无需特定领域的算法或者架构改变，并进行极小的微调，就可以达到可以匹敌其他多智能体合作基准离线算法的表现。</p></li><li><p>PPO使用与其他算法相当的样本量就可以达到这个效果。</p></li><li><p>分析影响PPO性能的实施和超参数因素，并就</p></li><li><p>这些因素的最佳实践提供了具体建议。</p></li></ul><h4 id="算法架构"><a href="#算法架构" class="headerlink" title="算法架构"></a>算法架构</h4><p>MAPPO使用的是CTDE架构，状态的价值函数$V_\phi(s)$可以将智能体局部观测中不存在的全局状态信息并只在训练过程中使用到。这也体现了和IPPO的区别，即IPPO将局部观测当作策略和状态价值函数的输入。</p><h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>经典算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning</title>
     <link href="/2024/03/26/BadRL/"/>
     <url>/2024/03/26/BadRL/</url>
