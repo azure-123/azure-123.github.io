@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/04/25/MAPPO/state_design.png">
 <meta property="article:published_time" content="2024-04-25T13:46:30.000Z">
-<meta property="article:modified_time" content="2024-04-26T12:52:38.826Z">
+<meta property="article:modified_time" content="2024-04-26T12:55:16.239Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="经典算法">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          823 字
+          826 字
         
       </span>
     
@@ -349,13 +349,13 @@
 </ul>
 <h5 id="价值函数输入"><a href="#价值函数输入" class="headerlink" title="价值函数输入"></a>价值函数输入</h5><p>过去的成果中大部分用两种方法来表示全局状态：</p>
 <ul>
-<li><p>Concatenation of Local observations (CL)：将每个智能体的观测全部拼接起来，获得一个整体的状态。但是这样的方式获得的状态会随智能体的数量增加而陡然增加，并会忽略一些重要的全局信息。</p>
+<li><p><strong>Concatenation of Local observations (CL)：</strong>将每个智能体的观测全部拼接起来，获得一个整体的状态。但是这样的方式获得的状态会随智能体的数量增加而陡然增加，并会忽略一些重要的全局信息。</p>
 </li>
-<li><p>Environment-Provided global state (EP)：包含了环境状态中所有智能体通用的信息。但是这样的状态会忽略一些重要的局部特定智能体的信息。</p>
+<li><p><strong>Environment-Provided global state (EP)：</strong>包含了环境状态中所有智能体通用的信息。但是这样的状态会忽略一些重要的局部特定智能体的信息。</p>
 </li>
 </ul>
-<p>Agent-Specific Global State (AS)：本文采取的方式，结合了以上两者的特点，为每个智能体iiii特定了价值函数的输出为EP状态和其局部观测o_ioio_ioi。但是EP状态和o_ioio_ioi可能会有重叠的部分，导致状态维数增大和状态信息冗余。</p>
-<p>Featured-Pruned Agent-Specific Global State (FP)：为了弥补AS的缺陷，对AS状态进行处理，剔除重复的状态</p>
+<p><strong>Agent-Specific Global State (AS)：</strong>本文采取的方式，结合了以上两者的特点，为每个智能体$i$特定了价值函数的输出为EP状态和其局部观测$o_i$。但是EP状态和$o_i$可能会有重叠的部分，导致状态维数增大和状态信息冗余。</p>
+<p><strong>Featured-Pruned Agent-Specific Global State (FP)：</strong>为了弥补AS的缺陷，对AS状态进行处理，剔除重复的状态</p>
 <p><img src="/2024/04/25/MAPPO/state_design.png" srcset="/img/loading.gif" lazyload alt="几个方式的实现示例图"></p>
 <h5 id="训练数据使用"><a href="#训练数据使用" class="headerlink" title="训练数据使用"></a>训练数据使用</h5><p>本文发现，在MAPPO的训练过程中，样本的过多次利用会导致算法性能下降。因此需要适当减小epoch。</p>
 <h5 id="策略-价值裁剪"><a href="#策略-价值裁剪" class="headerlink" title="策略&#x2F;价值裁剪"></a>策略&#x2F;价值裁剪</h5><p>在使用$\epsilon$进行PPO裁剪的时候，需要寻找恰当的值。当$\epsilon$较小时，训练较为稳定，但是会以牺牲训练时间为代价。</p>
