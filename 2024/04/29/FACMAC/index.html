@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/04/29/FACMAC/FACMAC.png">
 <meta property="article:published_time" content="2024-04-29T07:39:09.000Z">
-<meta property="article:modified_time" content="2024-04-29T07:54:52.499Z">
+<meta property="article:modified_time" content="2024-04-29T07:58:14.066Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="经典算法">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          685 字
+          679 字
         
       </span>
     
@@ -322,7 +322,8 @@
 <li><p>FACMAC使用一个新的中心化的梯度估计，优化整个共同动作空间，而不是像MADDPG那样分开优化，因此可以学到更协调的动作组合，防止达到次优解。为了克服MADDPG对相对泛化的脆弱性，FACMAC在评估动作价值函数的时候从当前的策略取样动作。</p>
 </li>
 </ul>
-<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4><h5 id="中心化且因子化critic设计"><a href="#中心化且因子化critic设计" class="headerlink" title="中心化且因子化critic设计"></a>中心化且因子化critic设计</h5><p>将价值分解应用于actor-critic框架的核心优势在于，相比基于价值的方法，这样更有利于灵活分解，无需价值函数的限制，也就可以去掉单调约束。所有智能体都享有一个中心化critic：<br>$$<br>Q_{t o t}^\mu(\tau, \mathbf{u}, s ; \phi, \psi)&#x3D;g_\psi\left(s,\left{Q_a^{\mu_a}\left(\tau_a, u_a ; \phi_a\right)\right}_{a&#x3D;1}^n\right)<br>$$<br>这个critic的损失函数为：<br>$$<br>\mathcal{L}(\phi, \psi)&#x3D;\mathbb{E}_{\mathcal{D}}\left[\left(y^{t o t}-Q_{t o t}^{\boldsymbol{\mu}}(\boldsymbol{\tau}, \mathbf{u}, s ; \phi, \psi)\right)^2\right]<br>$$</p>
+<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4><h5 id="中心化且因子化critic设计"><a href="#中心化且因子化critic设计" class="headerlink" title="中心化且因子化critic设计"></a>中心化且因子化critic设计</h5><p>将价值分解应用于actor-critic框架的核心优势在于，相比基于价值的方法，这样更有利于灵活分解，无需价值函数的限制，也就可以去掉单调约束。所有智能体都享有一个中心化critic：<br>$$<br>Q_{t o t}^\mu(\tau, \mathbf{u}, s ; \phi, \psi)&#x3D;g_\psi(s,{Q_a^{\mu_a}(\tau_a, u_a ; \phi_a)}_{a&#x3D;1}^n)<br>$$</p>
+<p>这个critic的损失函数为：<br>$$<br>\mathcal{L}(\phi, \psi)&#x3D;\mathbb{E}_{\mathcal{D}}\left[\left(y^{t o t}-Q_{t o t}^{\boldsymbol{\mu}}(\boldsymbol{\tau}, \mathbf{u}, s ; \phi, \psi)\right)^2\right]<br>$$</p>
 <h5 id="中心化策略梯度"><a href="#中心化策略梯度" class="headerlink" title="中心化策略梯度"></a>中心化策略梯度</h5><p>非中心化的策略梯度通常会忽略智能体之间的合作关系，每个智能体容易收敛至次优策略；而且，会导致方法对相对泛化脆弱，即一个智能体在更新策略梯度的时候，只有它自己的动作是从当前的策略采样到的，而其他智能体的策略是通过回放池采样的，这可能与其他智能体在当前策略下会采样的动作大相径庭。</p>
 <p>因此，FACMAC将求得整体策略梯度：<br>$$<br>\nabla_\theta J(\boldsymbol{\mu})&#x3D;\mathbb{E}_{\mathcal{D}}\left[\nabla_\theta \boldsymbol{\mu} \nabla_{\boldsymbol{\mu}} Q_{t o t}^{\boldsymbol{\mu}}\left(\boldsymbol{\tau}, \mu_1\left(\tau_1\right), \ldots, \mu_n\left(\tau_n\right), s\right)\right]<br>$$</p>
 <h4 id="算法框架"><a href="#算法框架" class="headerlink" title="算法框架"></a>算法框架</h4><p><img src="/2024/04/29/FACMAC/FACMAC.png" srcset="/img/loading.gif" lazyload alt="(a)去中心化的策略网络。由于在使用离散动作时从类别分布中采样，因此存在一个采样步长。(b)中心化但因子化的critic。(c)非线性单调混合函数。"></p>
