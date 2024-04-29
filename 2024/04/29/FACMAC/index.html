@@ -16,25 +16,25 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2103.01955.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;marlbenchmark&#x2F;on-policy 本文为MAPPO的详解，即PPO往多智能体场景中的迁移。 主要内容本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。">
+    <meta name="description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2003.06709 代码链接：https:&#x2F;&#x2F;github.com&#x2F;oxwhirl&#x2F;facmac 算法特点FACMAC算法对于离散动作空间和连续动作空间的合作多智能体任务都有效。  FACMAC使用深度确定性策略梯度（DDPG）来训练去中心化的策略，而它的使用一个中心化又因子化的critic，用非线性单调函数来串联每个智能体的$Q_a$，拟合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games">
-<meta property="og:url" content="http://example.com/2024/04/25/MAPPO/index.html">
+<meta property="og:title" content="经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients">
+<meta property="og:url" content="http://example.com/2024/04/29/FACMAC/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2103.01955.pdf 代码链接：https:&#x2F;&#x2F;github.com&#x2F;marlbenchmark&#x2F;on-policy 本文为MAPPO的详解，即PPO往多智能体场景中的迁移。 主要内容本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。">
+<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2003.06709 代码链接：https:&#x2F;&#x2F;github.com&#x2F;oxwhirl&#x2F;facmac 算法特点FACMAC算法对于离散动作空间和连续动作空间的合作多智能体任务都有效。  FACMAC使用深度确定性策略梯度（DDPG）来训练去中心化的策略，而它的使用一个中心化又因子化的critic，用非线性单调函数来串联每个智能体的$Q_a$，拟合">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/04/25/MAPPO/state_design.png">
-<meta property="article:published_time" content="2024-04-25T13:46:30.000Z">
-<meta property="article:modified_time" content="2024-04-26T12:55:16.239Z">
+<meta property="og:image" content="http://example.com/2024/04/29/FACMAC/FACMAC.png">
+<meta property="article:published_time" content="2024-04-29T07:39:09.000Z">
+<meta property="article:modified_time" content="2024-04-29T07:50:33.704Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="经典算法">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/04/25/MAPPO/state_design.png">
+<meta name="twitter:image" content="http://example.com/2024/04/29/FACMAC/FACMAC.png">
   
   
   
-  <title>经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games - azure-123</title>
+  <title>经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +229,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games"></span>
+            <span id="subtitle" data-typed-text="经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients"></span>
           
         </div>
 
@@ -240,8 +240,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-25 21:46" pubdate>
-          2024年4月25日 晚上
+        <time datetime="2024-04-29 15:39" pubdate>
+          2024年4月29日 下午
         </time>
       </span>
     
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          826 字
+          682 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          7 分钟
+          6 分钟
         
       </span>
     
@@ -308,58 +308,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</h1>
+            <h1 id="seo-header">经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.01955.pdf">https://arxiv.org/pdf/2103.01955.pdf</a></p>
-<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/marlbenchmark/on-policy">https://github.com/marlbenchmark/on-policy</a></p>
-<p>本文为MAPPO的详解，即PPO往多智能体场景中的迁移。</p>
-<h4 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h4><p>本篇论文并没有提出一个全新的MARL算法，而是通过简单的修改来凭经验证明PPO在很广泛的合作多智能体场景中有非常亮眼的表现，并提供了MAPPO的实现思路。</p>
-<p>具体的内容如下：</p>
+                <p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2003.06709">https://arxiv.org/pdf/2003.06709</a></p>
+<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/oxwhirl/facmac">https://github.com/oxwhirl/facmac</a></p>
+<h4 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h4><p>FACMAC算法对于离散动作空间和连续动作空间的合作多智能体任务都有效。</p>
 <ul>
-<li><p>PPO无需特定领域的算法或者架构改变，并进行极小的微调，就可以达到可以匹敌其他多智能体合作基准离线算法的表现。</p>
+<li><p>FACMAC使用深度确定性策略梯度（DDPG）来训练去中心化的策略，而它的使用一个中心化又因子化的critic，用非线性单调函数来串联每个智能体的$Q_a$，拟合获得总的Q值$Q_{tot}$。与COMA、MADDPG相比，它的critic是因子化的，因此更好学到更多智能体或动作时的Q值。相比基于价值的方法如QMIX，它没有据固有约束，因此就可以考虑使用丰富的价值因子，包括非单调的。</p>
 </li>
-<li><p>PPO使用与其他算法相当的样本量就可以达到这个效果。</p>
-</li>
-<li><p>分析影响PPO性能的实施和超参数因素，并就</p>
-</li>
-<li><p>这些因素的最佳实践提供了具体建议。</p>
+<li><p>FACMAC使用一个新的中心化的梯度估计，优化整个共同动作空间，而不是像MADDPG那样分开优化，因此可以学到更协调的动作组合，防止达到次优解。为了克服MADDPG对相对泛化的脆弱性，FACMAC在评估动作价值函数的时候从当前的策略取样动作。</p>
 </li>
 </ul>
-<h4 id="算法架构"><a href="#算法架构" class="headerlink" title="算法架构"></a>算法架构</h4><p>MAPPO使用的是CTDE架构，状态的价值函数$V_\phi(s)$可以将智能体局部观测中不存在的全局状态信息并只在训练过程中使用到。这也体现了和IPPO的区别，即IPPO将局部观测当作策略和状态价值函数的输入。</p>
-<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4><ul>
-<li>使用参数共享，即每个智能体的观测空间和动作空间是对等的，这样可以提高学习效率。</li>
-<li>采用了实现PPO时使用的技巧，包括Generalized Advantage Estimation（广义优势估计，GAE）、优势归一化、价值裁剪等。</li>
-</ul>
-<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>使用环境和对比算法如下：</p>
-<ul>
-<li><p>the multi-agent particle-world environment (MPE)：QMIX、MADDPG</p>
-</li>
-<li><p>the StarCraft micromanagement challenge (SMAC)：QMIX、QPLEX、CWQMIX、AIQMIX、RODE</p>
-</li>
-<li><p>Google Research Football (GRF)：QMIX、CDS、TiKick</p>
-</li>
-<li><p>the Hanabi challenge：SAD、VDN</p>
-</li>
-</ul>
-<h4 id="影响MAPPO的因素"><a href="#影响MAPPO的因素" class="headerlink" title="影响MAPPO的因素"></a>影响MAPPO的因素</h4><h5 id="值标准化"><a href="#值标准化" class="headerlink" title="值标准化"></a>值标准化</h5><ul>
-<li>在价值学习过程中，将价值函数的输出范围归一化，控制在合理的区间内，可以增强训练的稳定性</li>
-</ul>
-<h5 id="价值函数输入"><a href="#价值函数输入" class="headerlink" title="价值函数输入"></a>价值函数输入</h5><p>过去的成果中大部分用两种方法来表示全局状态：</p>
-<ul>
-<li><p><strong>Concatenation of Local observations (CL)：</strong>将每个智能体的观测全部拼接起来，获得一个整体的状态。但是这样的方式获得的状态会随智能体的数量增加而陡然增加，并会忽略一些重要的全局信息。</p>
-</li>
-<li><p><strong>Environment-Provided global state (EP)：</strong>包含了环境状态中所有智能体通用的信息。但是这样的状态会忽略一些重要的局部特定智能体的信息。</p>
-</li>
-</ul>
-<p><strong>Agent-Specific Global State (AS)：</strong>本文采取的方式，结合了以上两者的特点，为每个智能体$i$特定了价值函数的输出为EP状态和其局部观测$o_i$。但是EP状态和$o_i$可能会有重叠的部分，导致状态维数增大和状态信息冗余。</p>
-<p><strong>Featured-Pruned Agent-Specific Global State (FP)：</strong>为了弥补AS的缺陷，对AS状态进行处理，剔除重复的状态</p>
-<p><img src="/2024/04/25/MAPPO/state_design.png" srcset="/img/loading.gif" lazyload alt="几个方式的实现示例图"></p>
-<h5 id="训练数据使用"><a href="#训练数据使用" class="headerlink" title="训练数据使用"></a>训练数据使用</h5><p>本文发现，在MAPPO的训练过程中，样本的过多次利用会导致算法性能下降。因此需要适当减小epoch。</p>
-<h5 id="策略-价值裁剪"><a href="#策略-价值裁剪" class="headerlink" title="策略&#x2F;价值裁剪"></a>策略&#x2F;价值裁剪</h5><p>在使用$\epsilon$进行PPO裁剪的时候，需要寻找恰当的值。当$\epsilon$较小时，训练较为稳定，但是会以牺牲训练时间为代价。</p>
-<h5 id="批大小"><a href="#批大小" class="headerlink" title="批大小"></a>批大小</h5><p>批次更大会让求梯度更加准确，但是过大会浪费内存资源。</p>
+<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4><h5 id="中心化且因子化critic设计"><a href="#中心化且因子化critic设计" class="headerlink" title="中心化且因子化critic设计"></a>中心化且因子化critic设计</h5><p>将价值分解应用于actor-critic框架的核心优势在于，相比基于价值的方法，这样更有利于灵活分解，无需价值函数的限制，也就可以去掉单调约束。所有智能体都享有一个中心化critic：<br>$$<br>Q_{t o t}^\mu(\tau, \mathbf{u}, s ; \phi, \psi)&#x3D;g_\psi\left(s,\left{Q_a^{\mu_a}\left(\tau_a, u_a ; \phi_a\right)\right}<em>{a&#x3D;1}^n\right)<br>$$<br>这个critic的损失函数为：<br>$$<br>\mathcal{L}(\phi, \psi)&#x3D;\mathbb{E}</em>{\mathcal{D}}\left[\left(y^{t o t}-Q_{t o t}^{\boldsymbol{\mu}}(\boldsymbol{\tau}, \mathbf{u}, s ; \phi, \psi)\right)^2\right]<br>$$</p>
+<h5 id="中心化策略梯度"><a href="#中心化策略梯度" class="headerlink" title="中心化策略梯度"></a>中心化策略梯度</h5><p>非中心化的策略梯度通常会忽略智能体之间的合作关系，每个智能体容易收敛至次优策略；而且，会导致方法对相对泛化脆弱，即一个智能体在更新策略梯度的时候，只有它自己的动作是从当前的策略采样到的，而其他智能体的策略是通过回放池采样的，这可能与其他智能体在当前策略下会采样的动作大相径庭。</p>
+<p>因此，FACMAC将求得整体策略梯度：<br>$$<br>\nabla_\theta J(\boldsymbol{\mu})&#x3D;\mathbb{E}<em>{\mathcal{D}}\left[\nabla_\theta \boldsymbol{\mu} \nabla</em>{\boldsymbol{\mu}} Q_{t o t}^{\boldsymbol{\mu}}\left(\boldsymbol{\tau}, \mu_1\left(\tau_1\right), \ldots, \mu_n\left(\tau_n\right), s\right)\right]<br>$$</p>
+<h4 id="算法框架"><a href="#算法框架" class="headerlink" title="算法框架"></a>算法框架</h4><p><img src="/2024/04/29/FACMAC/FACMAC.png" srcset="/img/loading.gif" lazyload alt="(a)去中心化的策略网络。由于在使用离散动作时从类别分布中采样，因此存在一个采样步长。(b)中心化但因子化的critic。(c)非线性单调混合函数。"></p>
+<h4 id="离散策略学习"><a href="#离散策略学习" class="headerlink" title="离散策略学习"></a>离散策略学习</h4><p>本文使用Gumbel-Softmax估计量使用连续的分布来近似离散的动作，并且使用Straight-Through Gumbel-Softmax估计量来确保训练和测试过程中的动作动态是相同的。</p>
 
                 
               </div>
@@ -386,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</div>
-      <div>http://example.com/2024/04/25/MAPPO/</div>
+      <div>经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients</div>
+      <div>http://example.com/2024/04/29/FACMAC/</div>
     </div>
     <div class="license-meta">
       
@@ -399,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月25日</div>
+          <div>2024年4月29日</div>
         </div>
       
       
@@ -431,18 +398,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/29/FACMAC/" title="经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">经典算法FACMAC：FACMAC: Factored Multi-Agent Centralised Policy Gradients</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/26/BadRL/" title="论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning">
-                        <span class="hidden-mobile">论文笔记：BadRL: Sparse Targeted Backdoor Attack Against Reinforcement Learning</span>
+                      <a href="/2024/04/25/MAPPO/" title="经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games">
+                        <span class="hidden-mobile">经典算法MAPPO：The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
