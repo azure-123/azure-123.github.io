@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://example.com/2024/06/06/PolicyCleanse/policy_cleanse_alg.png">
 <meta property="og:image" content="http://example.com/2024/06/06/PolicyCleanse/adaptive_backdoorl.png">
 <meta property="article:published_time" content="2024-06-06T11:44:18.000Z">
-<meta property="article:modified_time" content="2024-06-06T12:09:57.342Z">
+<meta property="article:modified_time" content="2024-06-06T12:12:27.822Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="后门攻击">
@@ -325,7 +325,7 @@
 <p>受到上述启发，本文提出PolicyCleanse来辨别触发器。基本思想为用强化学习算法PPO学习一个策略$\pi_S(\cdot|\theta_S)$来拟合触发动作。受害智能体的策略是固定的，不一起学习。训练过程包括两个阶段：</p>
 <h5 id="第一阶段：Performing"><a href="#第一阶段：Performing" class="headerlink" title="第一阶段：Performing"></a>第一阶段：Performing</h5><p>使PolicyCleanse策略$\pi_S$在受害智能体面前做出一些可能会触发后门的动作，类似于对抗强化学习中的对手训练。本文只让$\pi_S$的轨迹为$N$的长度，即触发后门的动作只持续$N$个时间步。受害智能体从环境默认获得的奖励为$R_T$。</p>
 <h5 id="第二阶段：Observing"><a href="#第二阶段：Observing" class="headerlink" title="第二阶段：Observing"></a>第二阶段：Observing</h5><p>此时$\pi_S$不做动作，只是观察受害智能体持续$M$个时间步（经验上选取$M&#x3D;50$），并收集其累计奖励。使用受害智能体奖励的相反数：$R_{\mathrm{sum}}&#x3D;-\sum_{t&#x3D;N} R_{\mathrm{T}}\left(s_{\mathrm{S}}^{(t)}, s_{\mathrm{T}}^{(t)}, a_{\mathrm{T}}^{(t)}\right)$。学习到的动作对应的$R_{\mathrm{sum}}$比一个阈值$T$要高的话，就定该动作为（伪）触发器，$R_S$给一个正数的奖励，否则给一个负数的惩罚。</p>
-<p>PPO的更新通过如下计算：<br>$$<br>\hat{\theta}<em>{\mathrm{S}}&#x3D;\underset{\theta</em>{\mathrm{S}}}{\operatorname{argmax}} \underbrace{\sum_{t&#x3D;0}^{N-1}-\gamma^t R_{\mathrm{T}}\left(s_{\mathrm{S}}^{(t)}, s_{\mathrm{T}}^{(t)}, a_{\mathrm{T}}^{(t)}\right)}<em>{\text {Performing phase }}+\underbrace{\gamma^N R</em>{\mathrm{S}}^{(N)}}_{\text {Observing phase }}<br>$$</p>
+<p>PPO的更新通过如下计算：<br>$$<br>\hat{\theta}_{\mathrm{S}}&#x3D;\underset{\theta_{\mathrm{S}}}{\operatorname{argmax}} \underbrace{\sum_{t&#x3D;0}^{N-1}-\gamma^t R_{\mathrm{T}}\left(s_{\mathrm{S}}^{(t)}, s_{\mathrm{T}}^{(t)}, a_{\mathrm{T}}^{(t)}\right)}_{\text {Performing phase }}+\underbrace{\gamma^N R_{\mathrm{S}}^{(N)}}_{\text {Observing phase }}<br>$$</p>
 <h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><p><img src="/2024/06/06/PolicyCleanse/policy_cleanse_alg.png" srcset="/img/loading.gif" lazyload alt="PolicyCleanse算法流程"></p>
 <p>同时对环境进行了随机化，用不同的随机种子训练出一系列不同的\pi_SπS\pi_SπS，并计算导致成功检测后门触发器的随机种子的比例。</p>
 <h4 id="后门缓解"><a href="#后门缓解" class="headerlink" title="后门缓解"></a>后门缓解</h4><p>基于后门检测成功检测出了受害智能体和触发器的基础上，需要消除或缓解这些触发器并净化受害智能体的策略$\pi_T(\cdot|\theta)$。</p>
