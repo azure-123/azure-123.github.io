@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>MARL经典算法MFRL：Mean Field Reinforcement Learning </title>
+    <link href="/2024/06/07/MFRL/"/>
+    <url>/2024/06/07/MFRL/</url>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://proceedings.mlr.press/v80/yang18d.html">https://proceedings.mlr.press/v80/yang18d.html</a></p><p>代码链接：<a href="https://github.com/mlii/mfrl">https://github.com/mlii/mfrl</a></p><h4 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h4><p>目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Learning），把一群智能体转化为一个中心智能体和其周围智能体两者之间的效果。</p><h4 id="形式化表达"><a href="#形式化表达" class="headerlink" title="形式化表达"></a>形式化表达</h4><p>在纳什均衡当中，每个智能体的策略为$\pi^j_*$，其他智能体的策略统一表示为$\boldsymbol{\pi}^{-j}<em>*$，对于一个纳什策略$\boldsymbol{\pi}</em><em>$，纳什价值函数为$\boldsymbol{v}^{\operatorname{Nash}}(s) \triangleq\left[v_{\pi_</em>}^1(s), \ldots, v_{\pi_*}^N(s)\right]$。纳什算子$\mathscr{H}$可表示为$\mathscr{H}^{\mathrm{Nash}} \boldsymbol{Q}(s, \boldsymbol{a})&#x3D;\mathbb{E}_{s^{\prime} \sim p}\left[\boldsymbol{r}(s, \boldsymbol{a})+\gamma \boldsymbol{v}^{\mathrm{Nash}}\left(s^{\prime}\right)\right]$，Q函数会最终收敛到一个值，被称为纳什Q值。</p><h4 id="平均场MARL"><a href="#平均场MARL" class="headerlink" title="平均场MARL"></a>平均场MARL</h4><p>对于一个智能体$j$，其Q值函数可以被表达为$Q^j(s, \boldsymbol{a})&#x3D;\frac{1}{N^j} \sum_{k \in \mathcal{N}(j)} Q^j\left(s, a^j, a^k\right)$，其中 $\mathcal{N}(j)$为$j$的邻近智能体的索引集合，而$N^j&#x3D;|\mathcal{N}(j)|$表示邻近智能体的数量。由表达式可知，智能体$j$的Q值函数可以表达为其与所有邻近智能体两两之间的Q值之和。</p><h4 id="平均场近似"><a href="#平均场近似" class="headerlink" title="平均场近似"></a>平均场近似</h4><p>考虑离散动作空间，智能体$j$的动作通过独热编码可以被表示为$a^j \triangleq\left[a_1^j, \ldots, a_D^j\right]$，即该智能体有$D$个可能的动作。智能体$j$的邻近智能体的平均动作为$\bar{a}^j\triangleq\left[\bar{a}<em>1^j, \ldots, \bar{a}<em>D^j\right]$，每个邻近智能体$k$的动作可以由平均动作和一定波动组成：$a^k&#x3D;\bar{a}^j+\delta a^{j, k}, \quad \text{where }\bar{a}^j&#x3D;\frac{1}{N^j} \sum_k a^k$。根据泰勒定理，如果$Q^j\left(s, a^j, a^k\right)$对$a^k$二次可微，$j$的Q值函数可以被展开为：<br>$$<br>\begin{aligned}<br>&amp;Q^{j}(s,\boldsymbol{a})&#x3D;\frac{1}{N^{j}}\sum</em>{k}Q^{j}(s,a^{j},a^{k}) \<br>&amp;&#x3D;\frac1{N^j}\sum_k\left[Q^j(s,a^j,\bar{a}^j)+\nabla</em>{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\delta a^{j,k}\right]+\frac12\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k} \<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\left[\frac{1}{N^j}\sum_k\delta a^{j,k}\right]+\frac{1}{2N^{j}}\sum_{k}\left[\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^{2}Q^{j}(s,a^{j},\tilde{a}^{j,k})\cdot\delta a^{j,k}\right] \<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\frac1{2N^j}\sum R_{s,a^j}^j(a^k)\approx Q^j(s,a^j,\bar{a}^j),<br>\end{aligned}<br>$$</p><p>其中$R_{s,a^j}^j(a^k)\triangleq\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k}$为泰勒多项式的余数，$\tilde{a}^{j,k}&#x3D;\bar{a}^j+\epsilon^{j,k}\delta a^{j,k}$。公式第二个等号通过泰勒定理将$Q^j\left(s, a^j, a^k\right)$展开；第三个等号的第一项为求和再求平均，即为$Q^j\left(s, a^j, \bar{a}^j\right)$本身，第二项提出来了与$k$无关的$\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)$，并对$\delta a^{j,k}$求和，由于$\delta a^{j,k}$是相对于平均值的波动，因此和为0可以消去。最终得到第四个等号的值。余数$R_{s,a^j}^j(a^k)$以$[-2M,2M]$为界，以$Q^j\left(s, a^j, a^k\right)$是M-光滑的为条件。因此，$R_{s,a^j}^j(a^k)$是一个接近于0的微小波动并相互抵消。因此约等号成立。</p><p>由以上推导可知，$Q^j\left(s, a^j, \bar{a}^j\right)$可以近似于$Q^j(s, \boldsymbol{a})$。</p><h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>对基于Q值的强化学习（MF-Q），通过损失函数更新：$\mathscr{L}(\phi^j)&#x3D;\left(y^j-Q_{\phi^j}(s,a^j,\bar{a}^j)\right)^2$</p><p>对基于actor-critic架构的强化学习（MF-AC），通过损失函数更新策略梯度：$\nabla_{\theta^j}\mathcal{J}(\theta^j)\approx\nabla_{\theta^j}\log\pi_{\theta^j}(s)Q_{\phi^j}(s,a^j,\bar{a}^j)\Big|<em>{a&#x3D;\pi</em>{\theta^j}(s)}$</p><h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><p>MF-Q</p><p><img src="/2024/06/07/MFRL/MF-Q.png" alt="MF-Q算法流程"></p><p>MF-AC</p><ul><li><img src="/2024/06/07/MFRL/MF-AC.png" alt="MF-AC算法流程"></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>经典算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning</title>
     <link href="/2024/06/06/PolicyCleanse/"/>
     <url>/2024/06/06/PolicyCleanse/</url>

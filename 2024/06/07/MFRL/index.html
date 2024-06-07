@@ -16,27 +16,26 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：https:&#x2F;&#x2F;openaccess.thecvf.com&#x2F;content&#x2F;ICCV2023&#x2F;html&#x2F;Guo_PolicyCleanse_Backdoor_Detection_and_Mitigation_for_Competitive_Reinforcement_Learning_ICCV_2023_paper.html 亮点针对对抗场景下动触发的强化学习后门攻击的防御，灵感来自于B">
+    <meta name="description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v80&#x2F;yang18d.html 代码链接：https:&#x2F;&#x2F;github.com&#x2F;mlii&#x2F;mfrl 算法特点目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Le">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning">
-<meta property="og:url" content="http://example.com/2024/06/06/PolicyCleanse/index.html">
+<meta property="og:title" content="MARL经典算法MFRL：Mean Field Reinforcement Learning ">
+<meta property="og:url" content="http://example.com/2024/06/07/MFRL/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;openaccess.thecvf.com&#x2F;content&#x2F;ICCV2023&#x2F;html&#x2F;Guo_PolicyCleanse_Backdoor_Detection_and_Mitigation_for_Competitive_Reinforcement_Learning_ICCV_2023_paper.html 亮点针对对抗场景下动触发的强化学习后门攻击的防御，灵感来自于B">
+<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v80&#x2F;yang18d.html 代码链接：https:&#x2F;&#x2F;github.com&#x2F;mlii&#x2F;mfrl 算法特点目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Le">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/06/06/PolicyCleanse/policy_cleanse_fig.png">
-<meta property="og:image" content="http://example.com/2024/06/06/PolicyCleanse/policy_cleanse_alg.png">
-<meta property="og:image" content="http://example.com/2024/06/06/PolicyCleanse/adaptive_backdoorl.png">
-<meta property="article:published_time" content="2024-06-06T11:44:18.000Z">
-<meta property="article:modified_time" content="2024-06-06T12:12:27.822Z">
+<meta property="og:image" content="http://example.com/2024/06/07/MFRL/MF-Q.png">
+<meta property="og:image" content="http://example.com/2024/06/07/MFRL/MF-AC.png">
+<meta property="article:published_time" content="2024-06-07T14:00:14.000Z">
+<meta property="article:modified_time" content="2024-06-07T14:22:10.290Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
-<meta property="article:tag" content="后门攻击">
+<meta property="article:tag" content="经典算法">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/06/06/PolicyCleanse/policy_cleanse_fig.png">
+<meta name="twitter:image" content="http://example.com/2024/06/07/MFRL/MF-Q.png">
   
   
   
-  <title>论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning - azure-123</title>
+  <title>MARL经典算法MFRL：Mean Field Reinforcement Learning  - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -231,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning"></span>
+            <span id="subtitle" data-typed-text="MARL经典算法MFRL：Mean Field Reinforcement Learning "></span>
           
         </div>
 
@@ -242,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-06 19:44" pubdate>
-          2024年6月6日 晚上
+        <time datetime="2024-06-07 22:00" pubdate>
+          2024年6月7日 晚上
         </time>
       </span>
     
@@ -310,30 +309,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning</h1>
+            <h1 id="seo-header">MARL经典算法MFRL：Mean Field Reinforcement Learning </h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/ICCV2023/html/Guo_PolicyCleanse_Backdoor_Detection_and_Mitigation_for_Competitive_Reinforcement_Learning_ICCV_2023_paper.html">https://openaccess.thecvf.com/content/ICCV2023/html/Guo_PolicyCleanse_Backdoor_Detection_and_Mitigation_for_Competitive_Reinforcement_Learning_ICCV_2023_paper.html</a></p>
-<h4 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h4><p>针对对抗场景下动触发的强化学习后门攻击的防御，灵感来自于BackdooRL这一动作触发的后门攻击。</p>
-<h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h4><p>利用受害智能体的反向奖励函数来优化单独策略，该方法可以大概率迅速识别一个潜在的触发器，称为伪触发器。</p>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>同<a target="_blank" rel="noopener" href="https://azure-123.github.io/2024/03/10/BACKDOORL/">BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</a>的威胁模型和问题定义。在本文中，使用$(s_S,a_S)$和$(s_T,a_T)$分别表示对手智能体和受害智能体的状态-动作对，用木马策略来形容$\pi_{fail}$，用无害策略来形容$\pi_{win}$。</p>
-<p>该问题相比较普通的强化学习后门攻击的问题，最大的不同和难点在于两点：一是触发器的搜索空间是一系列动作，且该动作持续时间未知且有可能处于连续动作空间；二是防御方法无法接触到受害智能体的价值网络，对后门防御措施有着更严格的限制。</p>
-<h4 id="后门检测"><a href="#后门检测" class="headerlink" title="后门检测"></a>后门检测</h4><p><img src="/2024/06/06/PolicyCleanse/policy_cleanse_fig.png" srcset="/img/loading.gif" lazyload alt="PolicyCleanse方法图示"></p>
-<p>本文发现，在硬编码对手智能体输出随机动作或者不动的情况下，木马策略相比较无害策略依然会有性能的下降，但是这样的下降在起初的时间步并不明显，只有在多个时间步之后才能显现出来。由此可知，衡量受害智能体是否做出了木马策略，可以等几步然后查看它的累计奖励。</p>
-<p>受到上述启发，本文提出PolicyCleanse来辨别触发器。基本思想为用强化学习算法PPO学习一个策略$\pi_S(\cdot|\theta_S)$来拟合触发动作。受害智能体的策略是固定的，不一起学习。训练过程包括两个阶段：</p>
-<h5 id="第一阶段：Performing"><a href="#第一阶段：Performing" class="headerlink" title="第一阶段：Performing"></a>第一阶段：Performing</h5><p>使PolicyCleanse策略$\pi_S$在受害智能体面前做出一些可能会触发后门的动作，类似于对抗强化学习中的对手训练。本文只让$\pi_S$的轨迹为$N$的长度，即触发后门的动作只持续$N$个时间步。受害智能体从环境默认获得的奖励为$R_T$。</p>
-<h5 id="第二阶段：Observing"><a href="#第二阶段：Observing" class="headerlink" title="第二阶段：Observing"></a>第二阶段：Observing</h5><p>此时$\pi_S$不做动作，只是观察受害智能体持续$M$个时间步（经验上选取$M&#x3D;50$），并收集其累计奖励。使用受害智能体奖励的相反数：$R_{\mathrm{sum}}&#x3D;-\sum_{t&#x3D;N} R_{\mathrm{T}}\left(s_{\mathrm{S}}^{(t)}, s_{\mathrm{T}}^{(t)}, a_{\mathrm{T}}^{(t)}\right)$。学习到的动作对应的$R_{\mathrm{sum}}$比一个阈值$T$要高的话，就定该动作为（伪）触发器，$R_S$给一个正数的奖励，否则给一个负数的惩罚。</p>
-<p>PPO的更新通过如下计算：<br>$$<br>\hat{\theta}_{\mathrm{S}}&#x3D;\underset{\theta_{\mathrm{S}}}{\operatorname{argmax}} \underbrace{\sum_{t&#x3D;0}^{N-1}-\gamma^t R_{\mathrm{T}}\left(s_{\mathrm{S}}^{(t)}, s_{\mathrm{T}}^{(t)}, a_{\mathrm{T}}^{(t)}\right)}_{\text {Performing phase }}+\underbrace{\gamma^N R_{\mathrm{S}}^{(N)}}_{\text {Observing phase }}<br>$$</p>
-<h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><p><img src="/2024/06/06/PolicyCleanse/policy_cleanse_alg.png" srcset="/img/loading.gif" lazyload alt="PolicyCleanse算法流程"></p>
-<p>同时对环境进行了随机化，用不同的随机种子训练出一系列不同的\pi_SπS\pi_SπS，并计算导致成功检测后门触发器的随机种子的比例。</p>
-<h4 id="后门缓解"><a href="#后门缓解" class="headerlink" title="后门缓解"></a>后门缓解</h4><p>基于后门检测成功检测出了受害智能体和触发器的基础上，需要消除或缓解这些触发器并净化受害智能体的策略$\pi_T(\cdot|\theta)$。</p>
-<p>本文使用基于忘却学习的方法来缓解后门。具体来说，将受害智能体与环境交互的轨迹中的动作替换成正确的动作，来最大化累计奖励。做法有两个：一个是分配正常的奖励，另一个是使用没有受到过攻击的模型。</p>
-<p>最后，使用行为克隆来重新训练目标智能体，训练数据使用上一步替换过的轨迹和一些它自己与环境交互得到的干净轨迹。</p>
-<h4 id="自适应攻击"><a href="#自适应攻击" class="headerlink" title="自适应攻击"></a>自适应攻击</h4><p>本文还提出了对PolicyCleanse的自适应攻击，即绕开PolicyCleanse检测机制的自适应攻击。</p>
-<h5 id="算法流程-1"><a href="#算法流程-1" class="headerlink" title="算法流程"></a>算法流程</h5><p><img src="/2024/06/06/PolicyCleanse/adaptive_backdoorl.png" srcset="/img/loading.gif" lazyload alt="自适应攻击算法流程"></p>
-<p>这样的自适应攻击会显著增加受害智能体失败的时间步数，而这样会导致隐蔽性受到影响，很容易被人类观测并控制。</p>
+                <p>论文链接：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v80/yang18d.html">https://proceedings.mlr.press/v80/yang18d.html</a></p>
+<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/mlii/mfrl">https://github.com/mlii/mfrl</a></p>
+<h4 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h4><p>目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Learning），把一群智能体转化为一个中心智能体和其周围智能体两者之间的效果。</p>
+<h4 id="形式化表达"><a href="#形式化表达" class="headerlink" title="形式化表达"></a>形式化表达</h4><p>在纳什均衡当中，每个智能体的策略为$\pi^j_*$，其他智能体的策略统一表示为$\boldsymbol{\pi}^{-j}<em>*$，对于一个纳什策略$\boldsymbol{\pi}</em><em>$，纳什价值函数为$\boldsymbol{v}^{\operatorname{Nash}}(s) \triangleq\left[v_{\pi_</em>}^1(s), \ldots, v_{\pi_*}^N(s)\right]$。纳什算子$\mathscr{H}$可表示为$\mathscr{H}^{\mathrm{Nash}} \boldsymbol{Q}(s, \boldsymbol{a})&#x3D;\mathbb{E}_{s^{\prime} \sim p}\left[\boldsymbol{r}(s, \boldsymbol{a})+\gamma \boldsymbol{v}^{\mathrm{Nash}}\left(s^{\prime}\right)\right]$，Q函数会最终收敛到一个值，被称为纳什Q值。</p>
+<h4 id="平均场MARL"><a href="#平均场MARL" class="headerlink" title="平均场MARL"></a>平均场MARL</h4><p>对于一个智能体$j$，其Q值函数可以被表达为$Q^j(s, \boldsymbol{a})&#x3D;\frac{1}{N^j} \sum_{k \in \mathcal{N}(j)} Q^j\left(s, a^j, a^k\right)$，其中 $\mathcal{N}(j)$为$j$的邻近智能体的索引集合，而$N^j&#x3D;|\mathcal{N}(j)|$表示邻近智能体的数量。由表达式可知，智能体$j$的Q值函数可以表达为其与所有邻近智能体两两之间的Q值之和。</p>
+<h4 id="平均场近似"><a href="#平均场近似" class="headerlink" title="平均场近似"></a>平均场近似</h4><p>考虑离散动作空间，智能体$j$的动作通过独热编码可以被表示为$a^j \triangleq\left[a_1^j, \ldots, a_D^j\right]$，即该智能体有$D$个可能的动作。智能体$j$的邻近智能体的平均动作为$\bar{a}^j\triangleq\left[\bar{a}<em>1^j, \ldots, \bar{a}<em>D^j\right]$，每个邻近智能体$k$的动作可以由平均动作和一定波动组成：$a^k&#x3D;\bar{a}^j+\delta a^{j, k}, \quad \text{where }\bar{a}^j&#x3D;\frac{1}{N^j} \sum_k a^k$。根据泰勒定理，如果$Q^j\left(s, a^j, a^k\right)$对$a^k$二次可微，$j$的Q值函数可以被展开为：<br>$$<br>\begin{aligned}<br>&amp;Q^{j}(s,\boldsymbol{a})&#x3D;\frac{1}{N^{j}}\sum</em>{k}Q^{j}(s,a^{j},a^{k}) \<br>&amp;&#x3D;\frac1{N^j}\sum_k\left[Q^j(s,a^j,\bar{a}^j)+\nabla</em>{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\delta a^{j,k}\right]+\frac12\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k} \<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\left[\frac{1}{N^j}\sum_k\delta a^{j,k}\right]+\frac{1}{2N^{j}}\sum_{k}\left[\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^{2}Q^{j}(s,a^{j},\tilde{a}^{j,k})\cdot\delta a^{j,k}\right] \<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\frac1{2N^j}\sum R_{s,a^j}^j(a^k)\approx Q^j(s,a^j,\bar{a}^j),<br>\end{aligned}<br>$$</p>
+<p>其中$R_{s,a^j}^j(a^k)\triangleq\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k}$为泰勒多项式的余数，$\tilde{a}^{j,k}&#x3D;\bar{a}^j+\epsilon^{j,k}\delta a^{j,k}$。公式第二个等号通过泰勒定理将$Q^j\left(s, a^j, a^k\right)$展开；第三个等号的第一项为求和再求平均，即为$Q^j\left(s, a^j, \bar{a}^j\right)$本身，第二项提出来了与$k$无关的$\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)$，并对$\delta a^{j,k}$求和，由于$\delta a^{j,k}$是相对于平均值的波动，因此和为0可以消去。最终得到第四个等号的值。余数$R_{s,a^j}^j(a^k)$以$[-2M,2M]$为界，以$Q^j\left(s, a^j, a^k\right)$是M-光滑的为条件。因此，$R_{s,a^j}^j(a^k)$是一个接近于0的微小波动并相互抵消。因此约等号成立。</p>
+<p>由以上推导可知，$Q^j\left(s, a^j, \bar{a}^j\right)$可以近似于$Q^j(s, \boldsymbol{a})$。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>对基于Q值的强化学习（MF-Q），通过损失函数更新：$\mathscr{L}(\phi^j)&#x3D;\left(y^j-Q_{\phi^j}(s,a^j,\bar{a}^j)\right)^2$</p>
+<p>对基于actor-critic架构的强化学习（MF-AC），通过损失函数更新策略梯度：$\nabla_{\theta^j}\mathcal{J}(\theta^j)\approx\nabla_{\theta^j}\log\pi_{\theta^j}(s)Q_{\phi^j}(s,a^j,\bar{a}^j)\Big|<em>{a&#x3D;\pi</em>{\theta^j}(s)}$</p>
+<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><p>MF-Q</p>
+<p><img src="/2024/06/07/MFRL/MF-Q.png" srcset="/img/loading.gif" lazyload alt="MF-Q算法流程"></p>
+<p>MF-AC</p>
+<ul>
+<li><img src="/2024/06/07/MFRL/MF-AC.png" srcset="/img/loading.gif" lazyload alt="MF-AC算法流程"></li>
+</ul>
 
                 
               </div>
@@ -348,7 +344,7 @@
       
         <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
       
-        <a href="/tags/%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB/" class="print-no-link">#后门攻击</a>
+        <a href="/tags/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/" class="print-no-link">#经典算法</a>
       
     </div>
   
@@ -360,8 +356,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning</div>
-      <div>http://example.com/2024/06/06/PolicyCleanse/</div>
+      <div>MARL经典算法MFRL：Mean Field Reinforcement Learning </div>
+      <div>http://example.com/2024/06/07/MFRL/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +369,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月6日</div>
+          <div>2024年6月7日</div>
         </div>
       
       
@@ -405,18 +401,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/07/MFRL/" title="MARL经典算法MFRL：Mean Field Reinforcement Learning ">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MARL经典算法MFRL：Mean Field Reinforcement Learning </span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/10/DPO/" title="大模型经典算法DPO：Direct Preference Optimization: Your Language Model is Secretly a Reward Model">
-                        <span class="hidden-mobile">大模型经典算法DPO：Direct Preference Optimization: Your Language Model is Secretly a Reward Model</span>
+                      <a href="/2024/06/06/PolicyCleanse/" title="论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning">
+                        <span class="hidden-mobile">论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
