@@ -16,26 +16,26 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v80&#x2F;yang18d.html 代码链接：https:&#x2F;&#x2F;github.com&#x2F;mlii&#x2F;mfrl 算法特点目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Le">
+    <meta name="description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v119&#x2F;stooke20a 亮点使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。 强化学习安全性强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：$$\pi^">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MARL经典算法MFRL：Mean Field Reinforcement Learning ">
-<meta property="og:url" content="http://example.com/2024/06/07/MFRL/index.html">
+<meta property="og:title" content="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods">
+<meta property="og:url" content="http://example.com/2024/06/18/PID/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v80&#x2F;yang18d.html 代码链接：https:&#x2F;&#x2F;github.com&#x2F;mlii&#x2F;mfrl 算法特点目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Le">
+<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v119&#x2F;stooke20a 亮点使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。 强化学习安全性强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：$$\pi^">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/06/07/MFRL/MF-Q.png">
-<meta property="og:image" content="http://example.com/2024/06/07/MFRL/MF-AC.png">
-<meta property="article:published_time" content="2024-06-07T14:00:14.000Z">
-<meta property="article:modified_time" content="2024-06-07T14:40:17.938Z">
+<meta property="og:image" content="http://example.com/2024/06/18/PID/CCRL.png">
+<meta property="og:image" content="http://example.com/2024/06/18/PID/PID.png">
+<meta property="article:published_time" content="2024-06-18T07:38:36.000Z">
+<meta property="article:modified_time" content="2024-06-18T08:07:06.646Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
-<meta property="article:tag" content="经典算法">
+<meta property="article:tag" content="安全性">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/06/07/MFRL/MF-Q.png">
+<meta name="twitter:image" content="http://example.com/2024/06/18/PID/CCRL.png">
   
   
   
-  <title>MARL经典算法MFRL：Mean Field Reinforcement Learning  - azure-123</title>
+  <title>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -230,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="MARL经典算法MFRL：Mean Field Reinforcement Learning "></span>
+            <span id="subtitle" data-typed-text="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods"></span>
           
         </div>
 
@@ -241,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-07 22:00" pubdate>
-          2024年6月7日 晚上
+        <time datetime="2024-06-18 15:38" pubdate>
+          2024年6月18日 下午
         </time>
       </span>
     
@@ -253,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          746 字
         
       </span>
     
@@ -264,7 +264,7 @@
         
         
         
-          10 分钟
+          7 分钟
         
       </span>
     
@@ -309,26 +309,19 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">MARL经典算法MFRL：Mean Field Reinforcement Learning </h1>
+            <h1 id="seo-header">论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v80/yang18d.html">https://proceedings.mlr.press/v80/yang18d.html</a></p>
-<p>代码链接：<a target="_blank" rel="noopener" href="https://github.com/mlii/mfrl">https://github.com/mlii/mfrl</a></p>
-<h4 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h4><p>目前现有的多智能体强化学习算法集中于小数量的智能体数，而当智能体数急剧上升后，状态和动作空间也会成倍增加，训练也变得比较困难。本文针对这个问题，提出了平均场强化学习（Mean Field Reinforcement Learning），把一群智能体转化为一个中心智能体和其周围智能体两者之间的效果。</p>
-<h4 id="形式化表达"><a href="#形式化表达" class="headerlink" title="形式化表达"></a>形式化表达</h4><p>在纳什均衡当中，每个智能体的策略为$\pi^j_*$，其他智能体的策略统一表示为$\boldsymbol{\pi}^{-j}_{*}$。</p>
-<p>对于一个纳什策略，纳什价值函数为$\boldsymbol{v}^{\operatorname{Nash}}(s) \triangleq\left[v_{\pi_*}^1(s), \ldots, v_{\pi_*}^N(s)\right]$。纳什算子$\mathscr{H}$可表示为$\mathscr{H}^{\mathrm{Nash}} \boldsymbol{Q}(s, \boldsymbol{a})&#x3D;\mathbb{E}_{s^{\prime} \sim p}\left[\boldsymbol{r}(s, \boldsymbol{a})+\gamma \boldsymbol{v}^{\mathrm{Nash}}\left(s^{\prime}\right)\right]$，Q函数会最终收敛到一个值，被称为纳什Q值。</p>
-<h4 id="平均场MARL"><a href="#平均场MARL" class="headerlink" title="平均场MARL"></a>平均场MARL</h4><p>对于一个智能体$j$，其Q值函数可以被表达为$Q^j(s, \boldsymbol{a})&#x3D;\frac{1}{N^j} \sum_{k \in \mathcal{N}(j)} Q^j\left(s, a^j, a^k\right)$，其中 $\mathcal{N}(j)$为$j$的邻近智能体的索引集合，而$N^j&#x3D;|\mathcal{N}(j)|$表示邻近智能体的数量。由表达式可知，智能体$j$的Q值函数可以表达为其与所有邻近智能体两两之间的Q值之和。</p>
-<h4 id="平均场近似"><a href="#平均场近似" class="headerlink" title="平均场近似"></a>平均场近似</h4><p>考虑离散动作空间，智能体$j$的动作通过独热编码可以被表示为$a^j \triangleq\left[a_1^j, \ldots, a_D^j\right]$，即该智能体有$D$个可能的动作。智能体$j$的邻近智能体的平均动作为$\bar{a}^j\triangleq\left[\bar{a}_1^j, \ldots, \bar{a}_D^j\right]$，每个邻近智能体$k$的动作可以由平均动作和一定波动组成：$a^k&#x3D;\bar{a}^j+\delta a^{j, k}, \quad \text{where }\bar{a}^j&#x3D;\frac{1}{N^j} \sum_k a^k$。根据泰勒定理，如果$Q^j\left(s, a^j, a^k\right)$对$a^k$二次可微，$j$的Q值函数可以被展开为：<br>$$<br>\begin{aligned}<br>&amp;Q^{j}(s,\boldsymbol{a})&#x3D;\frac{1}{N^{j}}\sum_{k}Q^{j}(s,a^{j},a^{k}) \\<br>&amp;&#x3D;\frac1{N^j}\sum_k\left[Q^j(s,a^j,\bar{a}^j)+\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\delta a^{j,k}\right]+\frac12\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k} \\<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)\cdot\left[\frac{1}{N^j}\sum_k\delta a^{j,k}\right]+\frac{1}{2N^{j}}\sum_{k}\left[\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^{2}Q^{j}(s,a^{j},\tilde{a}^{j,k})\cdot\delta a^{j,k}\right] \\<br>&amp;&#x3D;Q^j(s,a^j,\bar{a}^j)+\frac1{2N^j}\sum R_{s,a^j}^j(a^k)\approx Q^j(s,a^j,\bar{a}^j),<br>\end{aligned}<br>$$</p>
-<p>其中$R_{s,a^j}^j(a^k)\triangleq\delta a^{j,k}\cdot\nabla_{\tilde{a}^{j,k}}^2Q^j(s,a^j,\tilde{a}^{j,k})\cdot\delta a^{j,k}$为泰勒多项式的余数，$\tilde{a}^{j,k}&#x3D;\bar{a}^j+\epsilon^{j,k}\delta a^{j,k}$。公式第二个等号通过泰勒定理将$Q^j\left(s, a^j, a^k\right)$展开；第三个等号的第一项为求和再求平均，即为$Q^j\left(s, a^j, \bar{a}^j\right)$本身，第二项提出来了与$k$无关的$\nabla_{\bar{a}^j}Q^j(s,a^j,\bar{a}^j)$，并对$\delta a^{j,k}$求和，由于$\delta a^{j,k}$是相对于平均值的波动，因此和为0可以消去。最终得到第四个等号的值。余数$R_{s,a^j}^j(a^k)$以$[-2M,2M]$为界，以$Q^j\left(s, a^j, a^k\right)$是M-光滑的为条件。因此，$R_{s,a^j}^j(a^k)$是一个接近于0的微小波动并相互抵消。因此约等号成立。</p>
-<p>由以上推导可知，$Q^j\left(s, a^j, \bar{a}^j\right)$可以近似于$Q^j(s, \boldsymbol{a})$。</p>
-<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>对基于Q值的强化学习（MF-Q），通过损失函数更新：$\mathscr{L}(\phi^j)&#x3D;\left(y^j-Q_{\phi^j}(s,a^j,\bar{a}^j)\right)^2$</p>
-<p>对基于actor-critic架构的强化学习（MF-AC），通过损失函数更新策略梯度：$\nabla_{\theta^j}\mathcal{J}(\theta^j)\approx\nabla_{\theta^j}\log\pi_{\theta^j}(s)Q_{\phi^j}(s,a^j,\bar{a}^j)\Big|_{a&#x3D;\pi_{\theta^j}(s)}$</p>
-<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h4><p>MF-Q</p>
-<p><img src="/2024/06/07/MFRL/MF-Q.png" srcset="/img/loading.gif" lazyload alt="MF-Q算法流程"></p>
-<p>MF-AC</p>
-<p><img src="/2024/06/07/MFRL/MF-AC.png" srcset="/img/loading.gif" lazyload alt="MF-AC算法流程"></p>
+                <p>论文链接：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v119/stooke20a">https://proceedings.mlr.press/v119/stooke20a</a></p>
+<h4 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h4><p>使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。</p>
+<h4 id="强化学习安全性"><a href="#强化学习安全性" class="headerlink" title="强化学习安全性"></a>强化学习安全性</h4><p>强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：<br>$$<br>\pi^*&#x3D;\arg\max_\pi J(\pi)\quad\text{s.t. }J_C(\pi)\leq d<br>$$<br>由于在深度强化学习中，策略是多次迭代获得的，因此每次迭代就是遵循以下约束：<br>$$<br>\begin{aligned}&amp;\max_\pi J(\pi_k)\<br>&amp;\text{s.t. }J_C(\pi_m)\leq d\quad m\in{0,1,…,k}\end{aligned}<br>$$</p>
+<h4 id="动力系统和最优控制"><a href="#动力系统和最优控制" class="headerlink" title="动力系统和最优控制"></a>动力系统和最优控制</h4><p>本文将强化学习策略和PID控制，与动力系统和最优控制结合在一起。对于带反馈控制的离散时间系统，一个通用的形式化为：<br>$$<br>\begin{aligned}\mathbf{x}_{k+1}&#x3D;&amp; F(\mathbf{x}_k,\mathbf{u}_k)\\<br>\mathbf{y}_{k}&#x3D;&amp; Z(\mathbf{x}_k)\\<br>\mathbf{u}_k&#x3D;&amp; h(\mathbf{y}_0,…,\mathbf{y}_k) \end{aligned}<br>$$<br>其中，状态向量为$\mathbf{x}$，动态方程为$F$，测量输出为$\mathbf{y}$，应用控制为$\mathbf{u}$，时间步为下标$k$。对于最优控制，需要设计一个反馈规则$h$​，其可以接触到所有过去和现在的测量输出。本文涉及的是一种控制仿射系统，其动态方程可以表示为：<br>$$<br>F(\mathbf{x}_k,\mathbf{u}_k)&#x3D;f(\mathbf{x}_k)+g(\mathbf{x}_k)\mathbf{u}_k<br>$$<br>这个形式符合本文中讨论的强化学习安全性问题的求解。</p>
+<h4 id="带约束的RL作为动力系统"><a href="#带约束的RL作为动力系统" class="headerlink" title="带约束的RL作为动力系统"></a>带约束的RL作为动力系统</h4><p>根据以上对于动力系统的定义，可以将带约束的RL也看作一个一阶动力系统：<br>$$<br>\begin{aligned}\theta_{k+1}&#x3D;&amp; F(\theta_k,\lambda_k)\\<br>y_{k}&#x3D;&amp; J_C(\pi_{\theta_k})\\<br>\lambda_{k}&#x3D;&amp; h(y_0,…,y_k,d)<br>\end{aligned}<br>$$<br>在RL的场景下，动态方程为$F$是一个有关智能体参数$\theta$更新的具有不确定性的非线性函数，代价目标函数$J_C$作为系统的测量输出，根据测量输出和代价限制$d$，可以使用反馈控制规则$h$来生成拉格朗日乘子$\lambda$。</p>
+<p>经整理，可得到：<br>$$<br>F(\theta_k,\lambda_k)&#x3D;f(\theta_k)+g(\theta_k)\lambda_k\\<br>f(\theta_k)&#x3D;\theta_k+\eta\nabla_\theta J(\pi_{\theta_k})\\<br>g(\theta_k)&#x3D;-\eta\nabla_\theta J_C(\pi_{\theta_k})<br>$$<br>其中$\eta$​是SGD的学习率。控制器的作用是驱动不等式约束违规$(J_c-d)_+$到0，拉格朗日乘子的更新规则为：<br>$$<br>\lambda_{k+1}&#x3D;(\lambda_k+K_I(J_C-d))_+<br>$$<br>为了动态调节$\lambda$的更新速度保持步长一致，使用缩放的目标函数：<br>$$<br>\theta^*(\lambda)&#x3D;\arg\max_\theta J-\lambda J_C&#x3D;\arg\max_\theta\frac1{1+\lambda}(J-\lambda J_C)<br>$$</p>
+<h4 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h4><h5 id="约束控制强化学习算法流程"><a href="#约束控制强化学习算法流程" class="headerlink" title="约束控制强化学习算法流程"></a>约束控制强化学习算法流程</h5><p><img src="/2024/06/18/PID/CCRL.png" srcset="/img/loading.gif" lazyload alt="约束控制强化学习算法训练流程"></p>
+<h5 id="PID控制拉格朗日乘子"><a href="#PID控制拉格朗日乘子" class="headerlink" title="PID控制拉格朗日乘子"></a>PID控制拉格朗日乘子</h5><p><img src="/2024/06/18/PID/PID.png" srcset="/img/loading.gif" lazyload alt="PID训练过程"></p>
 
                 
               </div>
@@ -343,7 +336,7 @@
       
         <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
       
-        <a href="/tags/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/" class="print-no-link">#经典算法</a>
+        <a href="/tags/%E5%AE%89%E5%85%A8%E6%80%A7/" class="print-no-link">#安全性</a>
       
     </div>
   
@@ -355,8 +348,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MARL经典算法MFRL：Mean Field Reinforcement Learning </div>
-      <div>http://example.com/2024/06/07/MFRL/</div>
+      <div>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</div>
+      <div>http://example.com/2024/06/18/PID/</div>
     </div>
     <div class="license-meta">
       
@@ -368,7 +361,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月7日</div>
+          <div>2024年6月18日</div>
         </div>
       
       
@@ -400,18 +393,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/18/PID/" title="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/06/PolicyCleanse/" title="论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning">
-                        <span class="hidden-mobile">论文笔记：PolicyCleanse: Backdoor Detection and Mitigation for Competitive Reinforcement Learning</span>
+                      <a href="/2024/06/07/MFRL/" title="MARL经典算法MFRL：Mean Field Reinforcement Learning ">
+                        <span class="hidden-mobile">MARL经典算法MFRL：Mean Field Reinforcement Learning </span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
