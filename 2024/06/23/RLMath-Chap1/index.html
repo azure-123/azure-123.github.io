@@ -16,26 +16,27 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v119&#x2F;stooke20a 亮点使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。 强化学习安全性强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：$$\pi^">
+    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 通过一个简单的网格世界的环境，可以了解到强化学习的一些重要元素。这个网格世界中有若干格子，每个格子分别代表普通格子、目标格子和禁止格子，一个机器人（我们称之为智能体）从某个格子出发，目的是避开禁止格子，并到达目标格子。我们需要让智能体做出满足这个条件的最佳策略。这个网格世界如下图所示。   状态&amp;动作根据上述网格世界，这个环境的状态可以表示智能体在其中的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods">
-<meta property="og:url" content="http://example.com/2024/06/18/PID/index.html">
+<meta property="og:title" content="强化学习数学基础笔记（一）：基础概念">
+<meta property="og:url" content="http://example.com/2024/06/23/RLMath-Chap1/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;proceedings.mlr.press&#x2F;v119&#x2F;stooke20a 亮点使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。 强化学习安全性强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：$$\pi^">
+<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 通过一个简单的网格世界的环境，可以了解到强化学习的一些重要元素。这个网格世界中有若干格子，每个格子分别代表普通格子、目标格子和禁止格子，一个机器人（我们称之为智能体）从某个格子出发，目的是避开禁止格子，并到达目标格子。我们需要让智能体做出满足这个条件的最佳策略。这个网格世界如下图所示。   状态&amp;动作根据上述网格世界，这个环境的状态可以表示智能体在其中的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/06/18/PID/CCRL.png">
-<meta property="og:image" content="http://example.com/2024/06/18/PID/PID.png">
-<meta property="article:published_time" content="2024-06-18T07:38:36.000Z">
-<meta property="article:modified_time" content="2024-06-18T08:13:35.958Z">
+<meta property="og:image" content="c:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240623172825168.png">
+<meta property="og:image" content="c:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194045246.png">
+<meta property="og:image" content="c:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194648487.png">
+<meta property="article:published_time" content="2024-06-23T09:08:50.000Z">
+<meta property="article:modified_time" content="2024-06-24T11:47:04.912Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
-<meta property="article:tag" content="安全性">
+<meta property="article:tag" content="数学基础">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/06/18/PID/CCRL.png">
+<meta name="twitter:image" content="c:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240623172825168.png">
   
   
   
-  <title>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods - azure-123</title>
+  <title>强化学习数学基础笔记（一）：基础概念 - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -230,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods"></span>
+            <span id="subtitle" data-typed-text="强化学习数学基础笔记（一）：基础概念"></span>
           
         </div>
 
@@ -241,8 +242,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-18 15:38" pubdate>
-          2024年6月18日 下午
+        <time datetime="2024-06-23 17:08" pubdate>
+          2024年6月23日 下午
         </time>
       </span>
     
@@ -253,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          934 字
+          381 字
         
       </span>
     
@@ -264,7 +265,7 @@
         
         
         
-          8 分钟
+          4 分钟
         
       </span>
     
@@ -309,26 +310,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</h1>
+            <h1 id="seo-header">强化学习数学基础笔记（一）：基础概念</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v119/stooke20a">https://proceedings.mlr.press/v119/stooke20a</a></p>
-<h4 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h4><p>使用PID控制的方式来求解跟强化学习安全性相关的拉格朗日问题，根据策略动态调整拉格朗日乘数$\lambda$的值，来减小传统拉格朗日的震荡问题。</p>
-<h4 id="强化学习安全性"><a href="#强化学习安全性" class="headerlink" title="强化学习安全性"></a>强化学习安全性</h4><p>强化学习安全性需要解决的，就是带约束的强化学习问题。具体来说，在限制代价的情况下，尽可能地最大化智能体的回报，形式化表达为：<br>$$<br>\pi^*&#x3D;\arg\max_\pi J(\pi)\quad\text{s.t. }J_C(\pi)\leq d<br>$$<br>由于在深度强化学习中，策略是多次迭代获得的，因此每次迭代就是遵循以下约束：<br>$$<br>\begin{aligned}&amp;\max_\pi J(\pi_k)\<br>&amp;\text{s.t. }J_C(\pi_m)\leq d\quad m\in{0,1,…,k}\end{aligned}<br>$$</p>
-<h4 id="动力系统和最优控制"><a href="#动力系统和最优控制" class="headerlink" title="动力系统和最优控制"></a>动力系统和最优控制</h4><p>本文将强化学习策略和PID控制，与动力系统和最优控制结合在一起。对于带反馈控制的离散时间系统，一个通用的形式化为：<br>$$<br>\begin{aligned}\mathbf{x}_{k+1}&#x3D;&amp; F(\mathbf{x}_k,\mathbf{u}_k)\\<br>\mathbf{y}_{k}&#x3D;&amp; Z(\mathbf{x}_k)\\<br>\mathbf{u}_k&#x3D;&amp; h(\mathbf{y}_0,…,\mathbf{y}_k) \end{aligned}<br>$$<br>其中，状态向量为$\mathbf{x}$，动态方程为$F$，测量输出为$\mathbf{y}$，应用控制为$\mathbf{u}$，时间步为下标$k$。对于最优控制，需要设计一个反馈规则$h$​，其可以接触到所有过去和现在的测量输出。本文涉及的是一种控制仿射系统，其动态方程可以表示为：<br>$$<br>F(\mathbf{x}_k,\mathbf{u}_k)&#x3D;f(\mathbf{x}_k)+g(\mathbf{x}_k)\mathbf{u}_k<br>$$<br>这个形式符合本文中讨论的强化学习安全性问题的求解。</p>
-<h4 id="带约束的RL作为动力系统"><a href="#带约束的RL作为动力系统" class="headerlink" title="带约束的RL作为动力系统"></a>带约束的RL作为动力系统</h4><p>根据以上对于动力系统的定义，可以将带约束的RL也看作一个一阶动力系统：<br>$$<br>\begin{aligned}\theta_{k+1}&#x3D;&amp; F(\theta_k,\lambda_k)\\<br>y_{k}&#x3D;&amp; J_C(\pi_{\theta_k})\\<br>\lambda_{k}&#x3D;&amp; h(y_0,…,y_k,d)<br>\end{aligned}<br>$$<br>在RL的场景下，动态方程为$F$是一个有关智能体参数$\theta$更新的具有不确定性的非线性函数，代价目标函数$J_C$作为系统的测量输出，根据测量输出和代价限制$d$，可以使用反馈控制规则$h$来生成拉格朗日乘子$\lambda$。</p>
-<p>经整理，可得到：<br>$$<br>F(\theta_k,\lambda_k)&#x3D;f(\theta_k)+g(\theta_k)\lambda_k\\<br>f(\theta_k)&#x3D;\theta_k+\eta\nabla_\theta J(\pi_{\theta_k})\\<br>g(\theta_k)&#x3D;-\eta\nabla_\theta J_C(\pi_{\theta_k})<br>$$<br>其中$\eta$​是SGD的学习率。控制器的作用是驱动不等式约束违规$(J_c-d)_+$到0，拉格朗日乘子的更新规则为：<br>$$<br>\lambda_{k+1}&#x3D;(\lambda_k+K_I(J_C-d))_+<br>$$<br>为了动态调节$\lambda$的更新速度保持步长一致，使用缩放的目标函数：<br>$$<br>\theta^*(\lambda)&#x3D;\arg\max_\theta J-\lambda J_C&#x3D;\arg\max_\theta\frac1{1+\lambda}(J-\lambda J_C)<br>$$</p>
-<h4 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h4><h5 id="约束控制强化学习算法流程"><a href="#约束控制强化学习算法流程" class="headerlink" title="约束控制强化学习算法流程"></a>约束控制强化学习算法流程</h5><p><img src="/2024/06/18/PID/CCRL.png" srcset="/img/loading.gif" lazyload alt="约束控制强化学习算法训练流程"></p>
-<p>对应代码实现：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">vanilla_policy_loss</span>(<span class="hljs-params">self, obs, act, logp_old, advantage, cost_advantage,</span><br><span class="hljs-params">                            multiplier, *args, **kwargs</span>):<br>        pi, _, logp = self.actor_forward(obs, act)<br>        ratio = torch.exp(logp - logp_old)<br>        clip_adv = torch.clamp(ratio, <span class="hljs-number">1</span> - self.clip_ratio,<br>                               <span class="hljs-number">1</span> + self.clip_ratio) * advantage<br><br>        qc_penalty = (ratio * cost_advantage * multiplier).mean()<br>        loss_vallina = -(torch.<span class="hljs-built_in">min</span>(ratio * advantage, clip_adv)).mean()<br>        loss_pi = loss_vallina + qc_penalty<br>        loss_pi /= <span class="hljs-number">1</span> + multiplier<br>        <span class="hljs-comment"># Useful extra info</span><br>        approx_kl = (logp_old - logp).mean().item()<br><br>        ent = pi.entropy().mean().item()<br>        clipped = ratio.gt(<span class="hljs-number">1</span> + self.clip_ratio) | ratio.lt(<span class="hljs-number">1</span> - self.clip_ratio)<br>        clipfrac = torch.as_tensor(clipped, dtype=torch.float32).mean().item()<br>        pi_info = <span class="hljs-built_in">dict</span>(KL=approx_kl,<br>                       Entropy=ent,<br>                       ClipFrac=clipfrac,<br>                       LossQcPenalty=to_ndarray(qc_penalty),<br>                       LossVallina=to_ndarray(loss_vallina))<br><br>        <span class="hljs-keyword">return</span> loss_pi, pi_info, pi<br></code></pre></td></tr></table></figure>
+                <p>参考：赵世钰《强化学习的数学原理》</p>
+<p>通过一个简单的网格世界的环境，可以了解到强化学习的一些重要元素。这个网格世界中有若干格子，每个格子分别代表普通格子、目标格子和禁止格子，一个机器人（我们称之为智能体）从某个格子出发，目的是避开禁止格子，并到达目标格子。我们需要让智能体做出满足这个条件的最佳策略。这个网格世界如下图所示。</p>
+<img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240623172825168.png" srcset="/img/loading.gif" lazyload alt="image-20240623172825168" style="zoom: 67%;" />
 
-<h5 id="PID控制拉格朗日乘子"><a href="#PID控制拉格朗日乘子" class="headerlink" title="PID控制拉格朗日乘子"></a>PID控制拉格朗日乘子</h5><p><img src="/2024/06/18/PID/PID.png" srcset="/img/loading.gif" lazyload alt="PID训练过程"></p>
-<p>对应代码实现：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LagrangianPIDController</span>:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Lagrangian multiplier controller</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, KP, KI, KD, thres, per_state=<span class="hljs-literal">True</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.KP = KP<br>        self.KI = KI<br>        self.KD = KD<br>        self.thres = thres<br>        self.error_old = <span class="hljs-number">0</span><br>        self.error_integral = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">control</span>(<span class="hljs-params">self, qc</span>):<br>        <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">        @param qc [batch,]</span><br><span class="hljs-string">        &#x27;&#x27;&#x27;</span><br>        error_new = torch.mean(qc - self.thres)  <span class="hljs-comment"># [batch]</span><br>        error_diff = relu(error_new - self.error_old)<br>        self.error_integral = torch.mean(relu(self.error_integral + error_new))<br>        self.error_old = error_new<br><br>        multiplier = relu(self.KP * relu(error_new) + self.KI * self.error_integral +<br>                          self.KD * error_diff)<br>        <span class="hljs-keyword">return</span> torch.mean(multiplier)<br></code></pre></td></tr></table></figure>
+<h4 id="状态-动作"><a href="#状态-动作" class="headerlink" title="状态&amp;动作"></a>状态&amp;动作</h4><p>根据上述网格世界，这个环境的状态可以表示智能体在其中的位置，即在9个不同格子上的状态，组成一个集合$\mathcal{S}&#x3D;{s_1,\ldots,s_9}$，如下图。</p>
+<img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194045246.png" srcset="/img/loading.gif" lazyload alt="image-20240624194045246" style="zoom:67%;" />
+
+<p>对于每个状态，智能体可以做出不同动作。在网格世界中，智能体可以做出上下左右和不动五个动作，组成一个集合$\mathcal{A}&#x3D;{a_1,\ldots,a_5}$。针对不同状态，可能存在不同的可执行动作，比如在$s_1$状态，智能体处于网格世界边缘，只能进行下、右、原地三个动作。为了方便，我们对任意状态$s_i$的动作，都设为$\mathcal{A}(s_i)&#x3D;\mathcal{A}&#x3D;{a_1,\ldots,a_5}$​，如下图。若动作触及边界，智能体会保持在原地，即状态不变。</p>
+<img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194648487.png" srcset="/img/loading.gif" lazyload alt="image-20240624194648487" style="zoom: 67%;" />
 
 
+
+<h4 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h4><h4 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h4><h4 id="奖励"><a href="#奖励" class="headerlink" title="奖励"></a>奖励</h4><h4 id="轨迹-回报-回合"><a href="#轨迹-回报-回合" class="headerlink" title="轨迹&amp;回报&amp;回合"></a>轨迹&amp;回报&amp;回合</h4><h4 id="马尔可夫决策过程"><a href="#马尔可夫决策过程" class="headerlink" title="马尔可夫决策过程"></a>马尔可夫决策过程</h4>
                 
               </div>
             
@@ -342,7 +341,7 @@
       
         <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
       
-        <a href="/tags/%E5%AE%89%E5%85%A8%E6%80%A7/" class="print-no-link">#安全性</a>
+        <a href="/tags/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="print-no-link">#数学基础</a>
       
     </div>
   
@@ -354,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</div>
-      <div>http://example.com/2024/06/18/PID/</div>
+      <div>强化学习数学基础笔记（一）：基础概念</div>
+      <div>http://example.com/2024/06/23/RLMath-Chap1/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月18日</div>
+          <div>2024年6月23日</div>
         </div>
       
       
@@ -399,18 +398,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/23/RLMath-Chap1/" title="强化学习数学基础笔记（一）：基础概念">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">强化学习数学基础笔记（一）：基础概念</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/07/MFRL/" title="MARL经典算法MFRL：Mean Field Reinforcement Learning ">
-                        <span class="hidden-mobile">MARL经典算法MFRL：Mean Field Reinforcement Learning </span>
+                      <a href="/2024/06/18/PID/" title="论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods">
+                        <span class="hidden-mobile">论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

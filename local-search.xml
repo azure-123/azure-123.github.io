@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>强化学习数学基础笔记（一）：基础概念</title>
+    <link href="/2024/06/23/RLMath-Chap1/"/>
+    <url>/2024/06/23/RLMath-Chap1/</url>
+    
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p><p>通过一个简单的网格世界的环境，可以了解到强化学习的一些重要元素。这个网格世界中有若干格子，每个格子分别代表普通格子、目标格子和禁止格子，一个机器人（我们称之为智能体）从某个格子出发，目的是避开禁止格子，并到达目标格子。我们需要让智能体做出满足这个条件的最佳策略。这个网格世界如下图所示。</p><img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240623172825168.png" alt="image-20240623172825168" style="zoom: 67%;" /><h4 id="状态-动作"><a href="#状态-动作" class="headerlink" title="状态&amp;动作"></a>状态&amp;动作</h4><p>根据上述网格世界，这个环境的状态可以表示智能体在其中的位置，即在9个不同格子上的状态，组成一个集合$\mathcal{S}&#x3D;{s_1,\ldots,s_9}$，如下图。</p><img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194045246.png" alt="image-20240624194045246" style="zoom:67%;" /><p>对于每个状态，智能体可以做出不同动作。在网格世界中，智能体可以做出上下左右和不动五个动作，组成一个集合$\mathcal{A}&#x3D;{a_1,\ldots,a_5}$。针对不同状态，可能存在不同的可执行动作，比如在$s_1$状态，智能体处于网格世界边缘，只能进行下、右、原地三个动作。为了方便，我们对任意状态$s_i$的动作，都设为$\mathcal{A}(s_i)&#x3D;\mathcal{A}&#x3D;{a_1,\ldots,a_5}$​，如下图。若动作触及边界，智能体会保持在原地，即状态不变。</p><img src="C:\Users\a2ure\AppData\Roaming\Typora\typora-user-images\image-20240624194648487.png" alt="image-20240624194648487" style="zoom: 67%;" /><h4 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h4><h4 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h4><h4 id="奖励"><a href="#奖励" class="headerlink" title="奖励"></a>奖励</h4><h4 id="轨迹-回报-回合"><a href="#轨迹-回报-回合" class="headerlink" title="轨迹&amp;回报&amp;回合"></a>轨迹&amp;回报&amp;回合</h4><h4 id="马尔可夫决策过程"><a href="#马尔可夫决策过程" class="headerlink" title="马尔可夫决策过程"></a>马尔可夫决策过程</h4>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>数学基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</title>
     <link href="/2024/06/18/PID/"/>
     <url>/2024/06/18/PID/</url>
