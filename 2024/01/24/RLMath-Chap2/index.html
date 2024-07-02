@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/3_policies.png">
 <meta property="article:published_time" content="2024-01-24T09:08:50.000Z">
-<meta property="article:modified_time" content="2024-07-02T03:09:29.363Z">
+<meta property="article:modified_time" content="2024-07-02T03:10:28.407Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -323,12 +323,12 @@
 <p>从直觉上来说，第一个策略最好，因为它绝对不会进入禁止格子；第二个策略最好，因为它每次都会进入禁止格子。</p>
 <p>从数学计算方面来说，我们可以计算它们的折扣回报。在这里，我们的折扣因子都为$\gamma \in (0,1)$：</p>
 <ul>
-<li><p>第一个策略的轨迹是$s_1\to s_3\to s_4\to s_4\cdots $，对应的折扣回报为<br>$$<br>\begin{aligned}<br>\mathrm{return}_1&amp; &#x3D;0+\gamma1+\gamma^21+\ldots  \<br>&amp;&#x3D;\gamma(1+\gamma+\gamma^2+\ldots) \<br>&amp;&#x3D;\frac\gamma{1-\gamma}<br>\end{aligned}<br>$$</p>
+<li><p>第一个策略的轨迹是$s_1\to s_3\to s_4\to s_4\cdots $，对应的折扣回报为<br>$$<br>\begin{aligned}<br>\mathrm{return}_1&amp; &#x3D;0+\gamma1+\gamma^21+\ldots  \\<br>&amp;&#x3D;\gamma(1+\gamma+\gamma^2+\ldots) \\<br>&amp;&#x3D;\frac\gamma{1-\gamma}<br>\end{aligned}<br>$$</p>
 </li>
-<li><p>第二个策略的轨迹是$s_1\to s_2\to s_4\to s_4\cdots $，对应的折扣回报为<br>$$<br>\begin{aligned}<br>\mathrm{return}_{2}&amp; &#x3D;-1+\gamma1+\gamma^21+\ldots  \<br>&amp;&#x3D;-1+\gamma(1+\gamma+\gamma^2+\ldots) \<br>&amp;&#x3D;-1+\frac{\gamma}{1-\gamma}<br>\end{aligned}<br>$$</p>
+<li><p>第二个策略的轨迹是$s_1\to s_2\to s_4\to s_4\cdots $，对应的折扣回报为<br>$$<br>\begin{aligned}<br>\mathrm{return}_{2}&amp; &#x3D;-1+\gamma1+\gamma^21+\ldots  \\<br>&amp;&#x3D;-1+\gamma(1+\gamma+\gamma^2+\ldots) \\<br>&amp;&#x3D;-1+\frac{\gamma}{1-\gamma}<br>\end{aligned}<br>$$</p>
 </li>
 <li><p>第三个策略的轨迹有两种可能（上面两个策略的轨迹），每个轨迹出现的概率都是0.5，因此平均的折扣回报为</p>
-<p>$$<br>\begin{aligned}<br>\mathrm{return}_{3}&amp; &#x3D;0.5\left(-1+\frac{\gamma}{1-\gamma}\right)+0.5\left(\frac{\gamma}{1-\gamma}\right) \<br>&amp;&#x3D;-0.5+\frac\gamma{1-\gamma}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\mathrm{return}_{3}&amp; &#x3D;0.5\left(-1+\frac{\gamma}{1-\gamma}\right)+0.5\left(\frac{\gamma}{1-\gamma}\right) \\<br>&amp;&#x3D;-0.5+\frac\gamma{1-\gamma}<br>\end{aligned}<br>$$</p>
 </li>
 </ul>
 <p>根据以上计算，我们得到$\mathrm{return}_1&gt;\mathrm{return}_3&gt;\mathrm{return}_2$，和我们直觉上的结论一致。</p>
