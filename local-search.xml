@@ -258,7 +258,7 @@
     <link href="/2024/01/24/RLMath-Chap2/"/>
     <url>/2024/01/24/RLMath-Chap2/</url>
     
-    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p><h4 id="回报的重要性"><a href="#回报的重要性" class="headerlink" title="回报的重要性"></a>回报的重要性</h4>]]></content>
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p><p>在上一章介绍了回报的概念，但是回报是以一个回合为单位的，只能衡量一个轨迹、一个回合的回报，而有些策略不是固定的，每个回合和轨迹不一定是一样的，因此我们需要一个值来衡量策略，这就是在这一章介绍的状态价值和状态-动作价值。</p><h4 id="回报的重要性"><a href="#回报的重要性" class="headerlink" title="回报的重要性"></a>回报的重要性</h4>]]></content>
     
     
     
