@@ -25,8 +25,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/3_policies.png">
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/return_method.png">
+<meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/bellman_example.png">
 <meta property="article:published_time" content="2024-01-24T09:08:50.000Z">
-<meta property="article:modified_time" content="2024-07-03T09:57:02.701Z">
+<meta property="article:modified_time" content="2024-07-03T13:02:59.587Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -253,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          2.3k 字
         
       </span>
     
@@ -264,7 +265,7 @@
         
         
         
-          17 分钟
+          19 分钟
         
       </span>
     
@@ -369,7 +370,13 @@
 </ul>
 <p>以上第二步是由MDP的性质得到的。</p>
 <p>将上面两个等式带入价值函数的原式，可以获得<br>$$<br>\begin{aligned}<br>v_{\pi}(s)&amp; &#x3D;\mathbb{E}[R_{t+1}|S_t&#x3D;s]+\gamma\mathbb{E}[G_{t+1}|S_t&#x3D;s] \\<br>&amp;&#x3D;\underbrace{\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{r\in\mathcal{R}}p(r|s,a)r}_{\text{mean of immediate rewards}}+\underbrace{\gamma\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s^{\prime}\in\mathcal{S}}p(s^{\prime}|s,a)v_{\pi}(s^{\prime})}_{\text{mean of future rewards}} \\<br>&amp;&#x3D;\sum_{a\in\mathcal{A}}\pi(a|s)\left[\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s^{\prime}\in\mathcal{S}}p(s^{\prime}|s,a)v_{\pi}(s^{\prime})\right],\quad\text{for all }s\in\mathcal{S}<br>\end{aligned}<br>$$<br>以上就是贝尔曼方程，是用于设计强化学习的最基础的工具。</p>
-<p>根据环境模型，我们可以很容易得到<br>$$<br>\begin{aligned}&amp;p(s’|s,a)&#x3D;\sum_{r\in\mathcal{R}}p(s’,r|s,a)\\&amp;p(r|s,a)&#x3D;\sum_{s’\in\mathcal{S}}p(s’,r|s,a)\end{aligned}<br>$$<br>将上面两式代入原来的贝尔曼方程中，可以将其表示为<br>$$<br>v_\pi(s)&#x3D;\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s^{\prime}\in\mathcal{S}}\sum_{r\in\mathcal{R}}p(s^{\prime},r|s,a)\left[r+\gamma v_\pi(s^{\prime})\right]<br>$$</p>
+<p>根据环境模型，我们可以很容易得到<br>$$<br>\begin{aligned}&amp;p(s’|s,a)&#x3D;\sum_{r\in\mathcal{R}}p(s’,r|s,a)\\&amp;p(r|s,a)&#x3D;\sum_{s’\in\mathcal{S}}p(s’,r|s,a)\end{aligned}<br>$$<br>将上面两式代入原来的贝尔曼方程中，可以将其表示为<br>$$<br>v_\pi(s)&#x3D;\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s^{\prime}\in\mathcal{S}}\sum_{r\in\mathcal{R}}p(s^{\prime},r|s,a)\left[r+\gamma v_\pi(s^{\prime})\right]<br>$$<br>若奖励$r$完全取决于下一个状态$s’$，那么奖励就是$r(s’)$，则$p(r(s’)|s,a)&#x3D;p(s’|s,a)$，那么代入贝尔曼方程，可以得到<br>$$<br>v_\pi(s)&#x3D;\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{s^{\prime}\in\mathcal{S}}p(s^{\prime}|s,a)\left[r(s^{\prime})+\gamma v_\pi(s^{\prime})\right]<br>$$</p>
+<h4 id="贝尔曼方程举例"><a href="#贝尔曼方程举例" class="headerlink" title="贝尔曼方程举例"></a>贝尔曼方程举例</h4><p>以如下策略为例：</p>
+<div style="display: flex; justify-content: center;">
+  <img src="bellman_example.png" srcset="/img/loading.gif" lazyload alt="贝尔曼方程举例" style="zoom: 50%;">
+</div>
+
+<p>代入以上贝尔曼方程，可以获得以下四个等式：<br>$$<br>v_\pi(s_1)&#x3D;0+\gamma v_\pi(s_3),\\<br>v_\pi(s_2)&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_3)&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_4)&#x3D;1+\gamma v_\pi(s_4).<br>$$<br>求解每个状态的状态值，其实就是求解一个四元一次方程，解得：<br>$$<br>\begin{gathered}<br>v_\pi(s_4) &#x3D;\frac1{1-\gamma}, \\<br>v_\pi(s_3) &#x3D;\frac{1}{1-\gamma}, \\<br>v_\pi(s_2) &#x3D;\frac1{1-\gamma}, \\<br>v_\pi(s_1) &#x3D;\frac{\gamma}{1-\gamma}.<br>\end{gathered}<br>$$<br>如果我们设置折扣因子$\gamma&#x3D;0.9$，代入以上可以得到：<br>$$<br>v_\pi(s_4) &#x3D;\frac1{1-0.9}&#x3D;10, \\<br>v_\pi(s_3) &#x3D;\frac1{1-0.9}&#x3D;10, \\<br>v_\pi(s_2) &#x3D;\frac1{1-0.9}&#x3D;10, \\<br>v_{\pi}(s _1)&#x3D;\frac{0.9}{1-0.9}&#x3D;9.<br>$$</p>
 
                 
               </div>
