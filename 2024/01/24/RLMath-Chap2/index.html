@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/bellman_example.png">
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/bellman_example_2.png">
 <meta property="article:published_time" content="2024-01-24T09:08:50.000Z">
-<meta property="article:modified_time" content="2024-07-04T09:38:18.021Z">
+<meta property="article:modified_time" content="2024-07-06T13:44:24.607Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          3.2k 字
         
       </span>
     
@@ -266,7 +266,7 @@
         
         
         
-          21 分钟
+          28 分钟
         
       </span>
     
@@ -382,7 +382,17 @@
   <img src="bellman_example_2.png" srcset="/img/loading.gif" lazyload alt="贝尔曼方程举例2" style="zoom: 50%;">
 </div>
 
-<p>我们再代入贝尔曼方程，可得：<br>$$<br>\begin{aligned}<br>v_\pi(s_1)&amp;&#x3D;0.5[0+\gamma v_\pi(s_3)]+0.5[-1+\gamma v_\pi(s_2)],\\<br>v_\pi(s_2)&amp;&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_3)&amp;&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_4)&amp;&#x3D;1+\gamma v_\pi(s_4).<br>\end{aligned}<br>$$<br>这同样是一组四元一次方程，可以解得：<br>$$<br>\begin{aligned}<br>&amp;v_\pi(s_4) &#x3D;\frac1{1-\gamma}, \\<br>&amp;v_\pi(s_3) &#x3D;\frac1{1-\gamma}, \\<br>&amp;v_\pi(s_2) &#x3D;\frac{1}{1-\gamma}, \\<br>&amp;v_\pi(s_1) &#x3D;0.5[0+\gamma v_\pi(s_3)]+0.5[-1+\gamma v_\pi(s_2)]&#x3D;-0.5+\frac\gamma{1-\gamma}.<br>\end{aligned}<br>$$<br>设置折扣因子$\gamma&#x3D;0.9$，代入以上可以得到：<br>$$<br>\begin{aligned}<br>&amp;v_\pi(s_4) &#x3D;10, \\<br>&amp;v_\pi(s_3) &#x3D;10, \\<br>&amp;v_\pi(s_2) &#x3D;10, \\<br>&amp;v_{\pi}(s_{1}) &#x3D;-0.5+9&#x3D;8.5.<br>\end{aligned}<br>$$<br>比较刚刚两个策略，容易得到第一个策略要优于第二个策略：<br>$$<br>v_{\pi_1}(s_i)\geq v_{\pi_2}(s_i),\quad i&#x3D;1,2,3,4.<br>$$</p>
+<p>我们再代入贝尔曼方程，可得：<br>$$<br>\begin{aligned}<br>v_\pi(s_1)&amp;&#x3D;0.5[0+\gamma v_\pi(s_3)]+0.5[-1+\gamma v_\pi(s_2)],\\<br>v_\pi(s_2)&amp;&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_3)&amp;&#x3D;1+\gamma v_\pi(s_4),\\<br>v_\pi(s_4)&amp;&#x3D;1+\gamma v_\pi(s_4).<br>\end{aligned}<br>$$<br>这同样是一组四元一次方程，可以解得：<br>$$<br>\begin{aligned}<br>&amp;v_\pi(s_4) &#x3D;\frac1{1-\gamma}, \\<br>&amp;v_\pi(s_3) &#x3D;\frac1{1-\gamma}, \\<br>&amp;v_\pi(s_2) &#x3D;\frac{1}{1-\gamma}, \\<br>&amp;v_\pi(s_1) &#x3D;0.5[0+\gamma v_\pi(s_3)]+0.5[-1+\gamma v_\pi(s_2)]&#x3D;-0.5+\frac\gamma{1-\gamma}.<br>\end{aligned}<br>$$<br>设置折扣因子$\gamma&#x3D;0.9$，代入以上可以得到：<br>$$<br>\begin{aligned}<br>&amp;v_\pi(s_4) &#x3D;10, \\<br>&amp;v_\pi(s_3) &#x3D;10, \\<br>&amp;v_\pi(s_2) &#x3D;10, \\<br>&amp;v_{\pi}(s_{1}) &#x3D;-0.5+9&#x3D;8.5.<br>\end{aligned}<br>$$<br>比较刚刚两个策略，容易得到第一个策略要优于第二个策略：<br>$$<br>v_{\pi_1}(s_i)\geq v_{\pi_2}(s_i),\quad i&#x3D;1,2,3,4.<br>$$<br>从数学计算上来说，结论也是符合我们的直觉的。</p>
+<h4 id="贝尔曼方程的矩阵-向量形式"><a href="#贝尔曼方程的矩阵-向量形式" class="headerlink" title="贝尔曼方程的矩阵-向量形式"></a>贝尔曼方程的矩阵-向量形式</h4><p>以上的贝尔曼方程都是从元素层面的来呈现的。由于这样的方程适用于所有状态，也可以使用矩阵-向量的形式。首先我们将贝尔曼方程重写为：<br>$$<br>v_\pi(s)&#x3D;r_\pi(s)+\gamma\sum_{s’\in\mathcal{S}}p_\pi(s’|s)v_\pi(s’)<br>$$<br>其中：<br>$$<br>\begin{aligned}<br>r_{\pi}(s)&amp; \doteq\sum_{a\in\mathcal{A}}\pi(a|s)\sum_{r\in\mathcal{R}}p(r|s,a)r, \\<br>p_{\pi}(s^{\prime}|s)&amp; \dot{&#x3D;}\sum_{a\in\mathcal{A}}\pi(a|s)p(s’|s,a).<br>\end{aligned}<br>$$<br>对于状态$s_i$，其中$i&#x3D;1,\cdots,n$，$n&#x3D;|\mathcal{S}|$，可以写作<br>$$<br>v_\pi(s_i)&#x3D;r_\pi(s_i)+\gamma\sum_{s_j\in\mathcal{S}}p_\pi(s_j|s_i)v_\pi(s_j)<br>$$<br>令$v_\pi&#x3D;[v_\pi(s_1),\ldots,v_\pi(s_n)]^T\in\mathbb{R}^n$，$r_\pi&#x3D;[r_\pi(s_1),\ldots,r_\pi(s_n)]^T\in\mathbb{R}^n$，且$P_\pi\in\mathbb{R}^{n\times n}$，$[P_\pi]_{ij}&#x3D;p_\pi(s_j|s_i)$，那么上式可以被写作：<br>$$<br>v_\pi&#x3D;r_\pi+\gamma P_\pi v_\pi<br>$$<br>$P_\pi$有一些性质：</p>
+<ul>
+<li>它是一个非负的矩阵，说明它的每一个元素都大于等于零，即$P_\pi\geq0$。</li>
+<li>它是一个随机的矩阵，说明它每行元素之和都等于1，即$P_{\pi}\mathbf{1}&#x3D;\mathbf{1}$，其中$\mathbf{1}&#x3D;[1,\ldots,1]^T$。</li>
+</ul>
+<p>对于刚刚例子中的第二个策略，我们可以得到贝尔曼方程的矩阵-向量形式：<br>$$<br>\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v&#x3D;\underbrace{\left[\begin{array}{c}r_\pi(s_1)\\r_\pi(s_2)\\r_\pi(s_3)\\r_\pi(s_4)\end{array}\right]}_r+\gamma\underbrace{\left[\begin{array}{ccc}p_\pi(s_1|s_1)&amp;p_\pi(s_2|s_1)&amp;p_\pi(s_3|s_1)&amp;p_\pi(s_4|s_1)\\p_\pi(s_1|s_2)&amp;p_\pi(s_2|s_2)&amp;p_\pi(s_3|s_2)&amp;p_\pi(s_4|s_2)\\p_\pi(s_1|s_3)&amp;p_\pi(s_2|s_3)&amp;p_\pi(s_3|s_3)&amp;p_\pi(s_4|s_3)\\p_\pi(s_1|s_4)&amp;p_\pi(s_2|s_4)&amp;p_\pi(s_3|s_4)&amp;p_\pi(s_4|s_4)\end{array}\right]}_P\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v<br>$$</p>
+<p>用具体的值来代替可得到<br>$$<br>\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v&#x3D;\underbrace{\left[\begin{array}{c}0.5(0)+0.5(-1)\\1\\1\\1\end{array}\right]}_r+\gamma\underbrace{\left[\begin{array}{ccc}0&amp;0.5&amp;0.5&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;1\end{array}\right]}_P\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v<br>$$</p>
+<p>可以看出$P_\pi$满足以上的两个性质。</p>
+<h4 id="贝尔曼方程解状态值"><a href="#贝尔曼方程解状态值" class="headerlink" title="贝尔曼方程解状态值"></a>贝尔曼方程解状态值</h4><p>有了贝尔曼方程，我们需要求解这个贝尔曼方程，这个求解的过程就是策略评估。通过以上的矩阵-向量形式，我们可以求得封闭形式的解。</p>
+<h5 id="封闭形式的解"><a href="#封闭形式的解" class="headerlink" title="封闭形式的解"></a>封闭形式的解</h5><p>根据贝尔曼方程，我们可以获得：<br>$$<br>v_\pi&#x3D;(I-\gamma P_\pi)^{-1}r_\pi<br>$$<br>其中 $(I-\gamma P_\pi)^{-1}$满足以下性质：</p>
 
                 
               </div>
