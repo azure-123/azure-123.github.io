@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/bellman_example.png">
 <meta property="og:image" content="http://example.com/2024/01/24/RLMath-Chap2/bellman_example_2.png">
 <meta property="article:published_time" content="2024-01-24T09:08:50.000Z">
-<meta property="article:modified_time" content="2024-07-06T13:44:24.607Z">
+<meta property="article:modified_time" content="2024-07-08T03:32:30.250Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -255,7 +255,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          3.8k 字
         
       </span>
     
@@ -266,7 +266,7 @@
         
         
         
-          28 分钟
+          32 分钟
         
       </span>
     
@@ -392,7 +392,26 @@
 <p>用具体的值来代替可得到<br>$$<br>\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v&#x3D;\underbrace{\left[\begin{array}{c}0.5(0)+0.5(-1)\\1\\1\\1\end{array}\right]}_r+\gamma\underbrace{\left[\begin{array}{ccc}0&amp;0.5&amp;0.5&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;0&amp;1\end{array}\right]}_P\underbrace{\left[\begin{array}{c}v_\pi(s_1)\\v_\pi(s_2)\\v_\pi(s_3)\\v_\pi(s_4)\end{array}\right]}_v<br>$$</p>
 <p>可以看出$P_\pi$满足以上的两个性质。</p>
 <h4 id="贝尔曼方程解状态值"><a href="#贝尔曼方程解状态值" class="headerlink" title="贝尔曼方程解状态值"></a>贝尔曼方程解状态值</h4><p>有了贝尔曼方程，我们需要求解这个贝尔曼方程，这个求解的过程就是策略评估。通过以上的矩阵-向量形式，我们可以求得封闭形式的解。</p>
-<h5 id="封闭形式的解"><a href="#封闭形式的解" class="headerlink" title="封闭形式的解"></a>封闭形式的解</h5><p>根据贝尔曼方程，我们可以获得：<br>$$<br>v_\pi&#x3D;(I-\gamma P_\pi)^{-1}r_\pi<br>$$<br>其中 $(I-\gamma P_\pi)^{-1}$满足以下性质：</p>
+<h5 id="封闭形式求解"><a href="#封闭形式求解" class="headerlink" title="封闭形式求解"></a>封闭形式求解</h5><p>根据贝尔曼方程，我们可以获得：<br>$$<br>v_\pi&#x3D;(I-\gamma P_\pi)^{-1}r_\pi<br>$$<br>其中 $(I-\gamma P_\pi)^{-1}$满足以下性质：</p>
+<ul>
+<li>$I-\gamma P_\pi$是可逆的。证明如下：</li>
+</ul>
+<p>$$<br>根据盖尔圆定理，第i个盖尔圆的圆心O和半径r满足<br>$$</p>
+<p>$$<br>O&#x3D;[I-\gamma P_\pi]_{ii}&#x3D;1-\gamma p_\pi(s_i|s_i)<br>$$</p>
+<p>$$<br>r&#x3D;\sum_{j\neq i}[I-\gamma P_{\pi}]_{ij}&#x3D;\sum_{j\neq i}\gamma p_{\pi}(s_{j}|s_{i})<br>$$</p>
+<p>$$<br>由于\gamma&lt;1，因此有\sum_{j\neq i}\gamma p_\pi(s_j|s_i)&lt;1-\gamma p_\pi(s_i|s_i)<br>$$</p>
+<p>$$<br>说明这些盖尔圆都不包括原点，证得I-\gamma P_\pi为可逆的<br>$$</p>
+<ul>
+<li>$(I-\gamma P_\pi)^{-1} \geq I$，即大于单位矩阵。根据矩阵级数展开，有$(I-\gamma P_{\pi})^{-1}&#x3D;I+\gamma P_{\pi}+\gamma^{2}P_{\pi}^{2}+\cdots\geq I\geq0$</li>
+<li>对于任意$r\geq0$，满足$(I-\gamma P_{\pi})^{-1}r\geq r\geq0$。由上一个性质可得$[I-\gamma P_{\pi})^{-1}-I]r\geq0$，进而可以进一步求得对于任意$r_{1}\geq r_{2}$，有$(I-\gamma P_{\pi})^{-1}r_{1}\geq(I-\gamma P_{\pi})^{-1}r_{2}$。</li>
+</ul>
+<h5 id="迭代求解"><a href="#迭代求解" class="headerlink" title="迭代求解"></a>迭代求解</h5><p>封闭形式求解虽然提供了很强的理论支持，但是由于涉及到矩阵求逆，计算的代价非常高。因此提出另外一个更为简单的方法，即迭代求解。可以直接通过迭代以下贝尔曼方程：<br>$$<br>v_{k+1}&#x3D;r_\pi+\gamma P_\pi v_k,\quad k&#x3D;0,1,2,\ldots<br>$$<br>当迭代次数足够多，到$k$次迭代，就可以满足：<br>$$<br>\quad v_{k}\to v_{\pi}&#x3D;(I-\gamma P_{\pi})^{-1}r_{\pi},\quad\mathrm{as~}k\to\infty<br>$$<br>具体证明如下：<br>$$<br>定义误差\delta_k&#x3D;v_k-v_n，只要证得\delta\to0,就证明完毕了.<br>$$</p>
+<p>$$<br>将v_{k}&#x3D;\delta_{k}+v_{\pi}和v_{k+1}&#x3D;\delta_{k+1}+v_{\pi}代入v_{k+1}&#x3D;r_{\pi}+\gamma P_{\pi}v_{k}可得<br>$$</p>
+<p>$$<br>\delta_{k+1}+v_\pi&#x3D;r_\pi+\gamma P_\pi(\delta_k+v_\pi)<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\delta_{k+1}&amp; &#x3D;-v_\pi+r_\pi+\gamma P_\pi\delta_k+\gamma P_\pi v_\pi, \\<br>&amp;&#x3D;\gamma P_\pi\delta_k-v_\pi+(r_\pi+\gamma P_\pi v_\pi), \\<br>&amp;&#x3D;\gamma P_\pi\delta_k.<br>\end{aligned}<br>$$</p>
+<p>$$<br>因此\delta_{k+1}&#x3D;\gamma P_\pi\delta_k&#x3D;\gamma^2P_\pi^2\delta_{k-1}&#x3D;\cdots&#x3D;\gamma^{k+1}P_\pi^{k+1}\delta_0.<br>$$</p>
+<p>$$<br>由于0\leq P_\pi\leq 1，因此0\leq P_\pi^k\leq 1.又因为\gamma&lt;1，因此\gamma^k\to0.<br>$$</p>
+<p>$$<br>因此\delta_{k+1}&#x3D;\gamma^{k+1}P_\pi^{k+1}\delta_0\to0，k\to\infty.<br>$$</p>
 
                 
               </div>
