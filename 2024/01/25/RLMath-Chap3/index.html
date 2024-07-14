@@ -16,17 +16,21 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 自上一部分我们探究了如何求得状态值和状态-动作价值。但是我们的终极任务是为了找到让状态值最大的策略，因此我们需要一个能找到最优策略的方法。 简单的策略改进在此介绍一个例子，如下图的策略，可以看出这个策略不是最好的策略，因为显然在$s_1$执行动作$a_2$会导致智能体进入禁止区域。       那么如何改进这个不是最优的策略？我们从直觉上和计算上两个方面进行分析">
+<meta property="og:type" content="article">
 <meta property="og:title" content="强化学习数学基础笔记（三）：最优状态值和贝尔曼最优方程">
 <meta property="og:url" content="http://example.com/2024/01/25/RLMath-Chap3/index.html">
 <meta property="og:site_name" content="azure-123">
+<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 自上一部分我们探究了如何求得状态值和状态-动作价值。但是我们的终极任务是为了找到让状态值最大的策略，因此我们需要一个能找到最优策略的方法。 简单的策略改进在此介绍一个例子，如下图的策略，可以看出这个策略不是最好的策略，因为显然在$s_1$执行动作$a_2$会导致智能体进入禁止区域。       那么如何改进这个不是最优的策略？我们从直觉上和计算上两个方面进行分析">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/01/25/RLMath-Chap3/suboptimal_policy.png">
 <meta property="article:published_time" content="2024-01-25T13:08:29.000Z">
-<meta property="article:modified_time" content="2024-07-13T02:31:20.047Z">
+<meta property="article:modified_time" content="2024-07-14T09:07:51.999Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/01/25/RLMath-Chap3/suboptimal_policy.png">
   
   
   
@@ -248,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.6k 字
         
       </span>
     
@@ -259,7 +263,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -309,7 +313,41 @@
             
               <div class="markdown-body">
                 
-                
+                <p>参考：赵世钰《强化学习的数学原理》</p>
+<p>自上一部分我们探究了如何求得状态值和状态-动作价值。但是我们的终极任务是为了找到让状态值最大的策略，因此我们需要一个能找到最优策略的方法。</p>
+<h4 id="简单的策略改进"><a href="#简单的策略改进" class="headerlink" title="简单的策略改进"></a>简单的策略改进</h4><p>在此介绍一个例子，如下图的策略，可以看出这个策略不是最好的策略，因为显然在$s_1$执行动作$a_2$会导致智能体进入禁止区域。</p>
+<div style="display: flex; justify-content: center;">
+  <img src="suboptimal_policy.png" srcset="/img/loading.gif" lazyload alt="非最优策略" style="zoom: 50%;">
+</div>
+
+<p>那么如何改进这个不是最优的策略？我们从直觉上和计算上两个方面进行分析：</p>
+<ul>
+<li><p>直觉上：由于上述环境非常简单，我们可以非常容易地得出，若在$s_1$处向下走，即执行$a_3$动作，就可以避开禁止格子，并快速到达目标位置。</p>
+</li>
+<li><p>计算上：我们通过状态值和状态-动作价值来计算，对应的贝尔曼方程为：</p>
+<p>$$<br>\begin{gathered}<br>v_\pi(s_{1}) &#x3D;-1+\gamma v_{\pi}(s_{2}), \<br>v_\pi(s_2) &#x3D;+1+\gamma v_\pi(s_4), \<br>v_\pi(s_3) &#x3D;+1+\gamma v_\pi(s_4), \<br>v_\pi(s_4) &#x3D;+1+\gamma v_\pi(s_4).<br>\end{gathered}<br>$$<br>我们令折扣因子$\gamma&#x3D;0.9$，可以求得<br>$$<br>\begin{aligned}&amp;v_{\pi}(s_{4})&#x3D;v_\pi(s_3)&#x3D;v_\pi(s_2)&#x3D;10,\&amp;v_{\pi}(s_{1})&#x3D;8.\end{aligned}<br>$$<br>接着可以求得在状态$s_1$对应的状态-动作价值，如下：<br>$$<br>\begin{aligned}<br>q_\pi(s_1,a_1) &amp;&#x3D;-1+\gamma v_\pi(s_1)&#x3D;6.2, \<br>q_\pi(s_1,a_2) &amp;&#x3D;-1+\gamma v_\pi(s_2)&#x3D;8, \<br>q_\pi(s_1,a_3) &amp;&#x3D;0+\gamma v_\pi(s_3)&#x3D;9, \<br>q_\pi(s_1,a_4) &amp;&#x3D;-1+\gamma v_\pi(s_1)&#x3D;6.2, \<br>q_{\pi}(s_{1},a_{5}) &amp;&#x3D;0+\gamma v_\pi(s_1)&#x3D;7.2.<br>\end{aligned}<br>$$<br>显然，采用$a_3$获得的状态-动作价值最大：<br>$$<br>q_\pi(s_1,a_3)\geq q_\pi(s_1,a_i),\quad\text{for all }i\neq3.<br>$$<br>因此可以更新策略中的$s_1$对应的动作为$a_3$。</p>
+</li>
+</ul>
+<p>因此可以得到，想要把策略更新为最好的策略，就需要选择每个状态中的最优动作（状态-动作价值最大化）。但是以上策略中，只有$s_1$的动作不是最优的，而要计算最优的策略是需要依赖于其他状态值。若其他状态值也不是最优的，就需要方法来解决。</p>
+<h4 id="最优状态值和最优策略"><a href="#最优状态值和最优策略" class="headerlink" title="最优状态值和最优策略"></a>最优状态值和最优策略</h4><p>首先我们定义最优状态值。若一个策略$\pi_1$优于另一个策略$\pi_2$，则表述为：<br>$$<br>v_{\pi_1}(s)\geq v_{\pi_2}(s),\quad\text{for all }s\in\mathcal{S}<br>$$</p>
+<p>最优状态值的对应策略要优于所有其他策略，即定义为：</p>
+<p><em><em>定义3.1  若对于任意其他策略$\pi$，策略$\pi^</em>$对于任意$s\in\mathcal{S}$，都有$v_{\pi^</em>}(s)\geq v_\pi(s)$，则说明$\pi^*$是最优的，$\pi^*$的状态值$v_{\pi^*}(s)$是最优状态值。**</p>
+<p>沿着这样的定义，我们需要探究最优策略的存在性、唯一性、随机性和求解算法。</p>
+<h4 id="贝尔曼最优方程"><a href="#贝尔曼最优方程" class="headerlink" title="贝尔曼最优方程"></a>贝尔曼最优方程</h4><p>贝尔曼最优方程的元素表达为：<br>$$<br>\begin{aligned}<br>v(s)&amp; &#x3D;\max_{\pi(s)\in\Pi(s)}\sum_{a\in\mathcal{A}}\pi(a|s)\left(\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s’\in\mathcal{S}}p(s’|s,a)v(s’)\right) \<br>&amp;&#x3D;\max_{\pi(s)\in\Pi(s)}\sum_{a\in\mathcal{A}}\pi(a|s)q(s,a)<br>\end{aligned}<br>$$<br>其中$v(s)$和$v(s’)$为未知量，$\pi(s)$为$s$的对应策略，$\Pi(s)$为$s$对应策略集合，且<br>$$<br>q(s,a)\doteq\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s’\in\mathcal{S}}p(s’|s,a)v(s’)<br>$$<br>观察贝尔曼最优方程，会有一个困惑，即$v(s)$和$\pi(a|s)$都是未知的，如何从一个方程同时求得两个未知量是需要解决的问题。</p>
+<h5 id="贝尔曼方程右式最大化"><a href="#贝尔曼方程右式最大化" class="headerlink" title="贝尔曼方程右式最大化"></a>贝尔曼方程右式最大化</h5><p>为了求解以下贝尔曼方程右式的最大化：<br>$$<br>v(s)&#x3D;\max_{\pi(s)\in\Pi(s)}\sum_{a\in\mathcal{A}}\pi(a|s)q(s,a),\quad s\in\mathcal{S}.<br>$$<br>右式的含义为有不同个$q(s,a)$，只不过前面都乘了一个小于等于1且大于等于0的系数，且这些系数之和为1。那么显然，只要把这些系数的份额全部都分给最大的$q(s,a)$，那么获得的$v(s)$是最大的。从数学表述上来说，因为$\sum_a\pi(a|s)&#x3D;1$，可以得到<br>$$<br>\sum_{a\in\mathcal{A}}\pi(a|s)q(s,a)\leq\sum_{a\in\mathcal{A}}\pi(a|s)\max_{a\in\mathcal{A}}q(s,a)&#x3D;\max_{a\in\mathcal{A}}q(s,a)<br>$$<br>等号成立条件为<br>$$<br>\left.\pi(a|s)&#x3D;\left{\begin{array}{ll}1,&amp;a&#x3D;a^*,\0,&amp;a\neq a^*.\end{array}\right.\right.<br>$$<br>其中，$a^*&#x3D;\arg\max_aq(s,a)$。因此，最佳的策略在一个状态$s$下会选择状态-动作价值$q(s,a)$最大的动作。</p>
+<h5 id="贝尔曼最优公式的矩阵-向量形式"><a href="#贝尔曼最优公式的矩阵-向量形式" class="headerlink" title="贝尔曼最优公式的矩阵-向量形式"></a>贝尔曼最优公式的矩阵-向量形式</h5><p>贝尔曼最优公式的矩阵-向量形式为：<br>$$<br>v&#x3D;\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v)<br>$$<br>各个部分为：</p>
+<ul>
+<li><p>$v\in\mathbb{R}^{|\mathcal{S}|}$</p>
+</li>
+<li><p>$[r_\pi]<em>s\doteq\sum</em>{a\in\mathcal{A}}\pi(a|s)\sum_{r\in\mathcal{R}}p(r|s,a)r$</p>
+<p>即<br>$$<br>r_{\pi}&#x3D;\begin{pmatrix}r_{\pi}(s_{1})\r_{\pi}(s_{2})\\vdots\r_{\pi}(s_{n})\end{pmatrix}&#x3D;\begin{pmatrix}\sum_{a\in\mathcal{A}}\pi(a|s_{1})\sum_{r\in R}p(r|s_{1},a)r\\sum_{a\in\mathcal{A}}\pi(a|s_{2})\sum_{r\in R}p(r|s_{2},a)r\\vdots\\sum_{a\in\mathcal{A}}\pi(a|s_{n})\sum_{r\in R}p(r|s_{n},a)r\end{pmatrix}<br>$$</p>
+</li>
+<li><p>$[P_\pi]<em>{s,s’}&#x3D;p(s’|s)\doteq\sum</em>{a\in\mathcal{A}}\pi(a|s)p(s’|s,a)$</p>
+<p>即<br>$$<br>\begin{aligned}<br>P_{\pi}&amp;&#x3D;\begin{pmatrix}p(s_{1}|s_{1})&amp;p(s_{2}|s_{1})&amp;\cdots&amp;p(s_{n}|s_{1})&amp;\p(s_{1}|s_{2})&amp;p(s_{2}|s_{2})&amp;\cdots&amp;p(s_{n}|s_{2})\\vdots&amp;\vdots&amp;&amp;\vdots\p(s_{1}|s_{2})&amp;p(s_{2}|s_{n})&amp;\cdots&amp; p(s_{n}|s_{n})\end{pmatrix}\<br>&amp;&#x3D;\begin{pmatrix}\sum_{a\in\mathcal{A}}\pi(a|s_1)p(s_1|s_1,a)&amp;\sum_{a\in\mathcal{A}}\pi(a|s_1)p(s_2|s_1,a)&amp;\cdots&amp;\sum_{a\in\mathcal{A}}\pi(a|s_1)p(s_n|s_1,a)&amp;\\sum_{a\in\mathcal{A}}\pi(a|s_2)p(s_1|s_2,a)&amp;\sum_{a\in\mathcal{A}}\pi(a|s_2)p(s_2|s_2,a)&amp;\cdots&amp;\sum_{a\in\mathcal{A}}\pi(a|s_2)p(s_n|s_2,a)\\vdots&amp;\vdots&amp;&amp;\vdots\\sum_{a\in\mathcal{A}}\pi(a|s_n)p(s_1|s_n,a)&amp;\sum_{a\in\mathcal{A}}\pi(a|s_n)p(s_2|s_n,a)&amp;\cdots&amp; \sum_{a\in\mathcal{A}}\pi(a|s_n)p(s_n|s_n,a)\end{pmatrix}<br>\end{aligned}<br>$$</p>
+</li>
+</ul>
+<p>我们令贝尔曼最优方程的右边为$f(v)\doteq\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v)$，那么贝尔曼方程可以表示为$v&#x3D;f(v)$。接下来探究如何求解这个方程。</p>
+
                 
               </div>
             
