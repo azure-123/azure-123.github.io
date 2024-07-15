@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/01/25/RLMath-Chap3/suboptimal_policy.png">
 <meta property="article:published_time" content="2024-01-25T13:08:29.000Z">
-<meta property="article:modified_time" content="2024-07-14T09:07:51.999Z">
+<meta property="article:modified_time" content="2024-07-15T03:24:25.291Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.9k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          14 分钟
+          16 分钟
         
       </span>
     
@@ -347,6 +347,14 @@
 </li>
 </ul>
 <p>我们令贝尔曼最优方程的右边为$f(v)\doteq\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v)$，那么贝尔曼方程可以表示为$v&#x3D;f(v)$。接下来探究如何求解这个方程。</p>
+<h5 id="压缩映射定理"><a href="#压缩映射定理" class="headerlink" title="压缩映射定理"></a>压缩映射定理</h5><p>我们使用压缩映射定理来解释贝尔曼最优方程，压缩映射定理又称为不动点定理。压缩映射定理如下：</p>
+<p><strong>定理3.1（压缩映射定理） 对于任何以$x&#x3D;f(x)$为形式且$x$和$f(x)$为是向量的等式，若$f$为压缩映射，那么满足以下性质：</strong></p>
+<ul>
+<li><em><em>存在性：存在一个满足$f(x^</em>)&#x3D;x^</em>$的不动点$x^*$。**</li>
+<li><em><em>唯一性：不动点$x^</em>$是唯一的。</em>*</li>
+<li><em><em>算法：对迭代过程$x_{k+1}&#x3D;f(x_k)$，$k&#x3D;0,1,2,\dots$，最初猜测$x_0$开始，当$k\to\infty$，$x_k\to x^</em>$。而且这样的收敛速率是呈指数的。</em>*</li>
+</ul>
+<h5 id="贝尔曼最优方程的压缩映射性质"><a href="#贝尔曼最优方程的压缩映射性质" class="headerlink" title="贝尔曼最优方程的压缩映射性质"></a>贝尔曼最优方程的压缩映射性质</h5><p>定理3.2（$f(v)$的压缩性质） 贝尔曼最优方程的右式$f(v)$是一个压缩映射，即对任意$v_1,v_2\in\mathbb{R}^{|\mathcal{S}|}$，有$|f(v_1)-f(v_2)|_\infty\leq\gamma|v_1-v_2|_\infty $。</p>
 
                 
               </div>
