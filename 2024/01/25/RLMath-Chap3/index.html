@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/01/25/RLMath-Chap3/suboptimal_policy.png">
 <meta property="article:published_time" content="2024-01-25T13:08:29.000Z">
-<meta property="article:modified_time" content="2024-07-15T03:24:25.291Z">
+<meta property="article:modified_time" content="2024-07-15T09:32:06.205Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          3.2k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          16 分钟
+          27 分钟
         
       </span>
     
@@ -354,7 +354,31 @@
 <li><em><em>唯一性：不动点$x^</em>$是唯一的。</em>*</li>
 <li><em><em>算法：对迭代过程$x_{k+1}&#x3D;f(x_k)$，$k&#x3D;0,1,2,\dots$，最初猜测$x_0$开始，当$k\to\infty$，$x_k\to x^</em>$。而且这样的收敛速率是呈指数的。</em>*</li>
 </ul>
-<h5 id="贝尔曼最优方程的压缩映射性质"><a href="#贝尔曼最优方程的压缩映射性质" class="headerlink" title="贝尔曼最优方程的压缩映射性质"></a>贝尔曼最优方程的压缩映射性质</h5><p>定理3.2（$f(v)$的压缩性质） 贝尔曼最优方程的右式$f(v)$是一个压缩映射，即对任意$v_1,v_2\in\mathbb{R}^{|\mathcal{S}|}$，有$|f(v_1)-f(v_2)|_\infty\leq\gamma|v_1-v_2|_\infty $。</p>
+<h5 id="贝尔曼最优方程的压缩映射性质"><a href="#贝尔曼最优方程的压缩映射性质" class="headerlink" title="贝尔曼最优方程的压缩映射性质"></a>贝尔曼最优方程的压缩映射性质</h5><p><strong>定理3.2（$f(v)$的压缩性质） 贝尔曼最优方程的右式$f(v)$是一个压缩映射，即对任意$v_1,v_2\in\mathbb{R}^{|\mathcal{S}|}$，有$|f(v_1)-f(v_2)|_\infty\leq\gamma|v_1-v_2|_\infty $。</strong></p>
+<p>证明如下：</p>
+<p>考虑有两个向量$v_1,v_2\in\mathbb{R}^{|\mathcal{S}|}$，并有$\pi_1^<em>\doteq\arg\max_\pi(r_\pi+\gamma P_\pi v_1)$和$\pi_2^</em>\doteq\arg\max_\pi(r_\pi+\gamma P_\pi v_2)$，那么就有<br>$$<br>f(v_1)&#x3D;\max_\pi(r_\pi+\gamma P_\pi v_1)&#x3D;r_{\pi_1^*}+\gamma P_{\pi_1^*}v_1\geq r_{\pi_2^*}+\gamma P_{\pi_2^*}v_1,\f(v_2)&#x3D;\max_\pi(r_\pi+\gamma P_\pi v_2)&#x3D;r_{\pi_2^*}+\gamma P_{\pi_2^*}v_2\geq r_{\pi_1^*}+\gamma P_{\pi_1^*}v_2.<br>$$<br>其中的大于等于是以元素为单位的。那么就有<br>$$<br>\begin{aligned}<br>f(v_1)-f(v_2)&amp; \begin{aligned}&#x3D;r_{\pi_1^*}+\gamma P_{\pi_1^*}v_1-(r_{\pi_2^*}+\gamma P_{\pi_2^*}v_2)\end{aligned} \<br>&amp;\leq r_{\pi_1^*}+\gamma P_{\pi_1^*}v_1-(r_{\pi_1^*}+\gamma P_{\pi_1^*}v_2) \<br>&amp;&#x3D;\gamma P_{\pi_1^*}(v_1-v_2).<br>\end{aligned}<br>$$<br>同理可以得到$f(v_2)-f(v_1)\leq\gamma P_{\pi_2^*}(v_2-v_1)$，因此有<br>$$<br>\gamma P_{\pi_2^*}(v_1-v_2)\leq f(v_1)-f(v_2)\leq\gamma P_{\pi_1^*}(v_1-v_2)<br>$$<br>我们定义<br>$$<br>z\doteq\max\left{|\gamma P_{\pi_2^*}(v_1-v_2)|,|\gamma P_{\pi_1^*}(v_1-v_2)|\right}\in\mathbb{R}^{|S|}<br>$$<br>由于$z\geq0$，显然<br>$$<br>-z\leq\gamma P_{\pi_2^*}(v_1-v_2)\leq f(v_1)-f(v_2)\leq\gamma P_{\pi_1^*}(v_1-v_2)\leq z<br>$$<br>因此<br>$$<br>|f(v_1)-f(v_2)|\leq z<br>$$<br>则<br>$$<br>|f(v_1)-f(v_2)|_\infty\leq|z|_\infty<br>$$<br>从元素的角度来说，有<br>$$<br>z_i&#x3D;\max{\gamma|p_i^T(v_1-v_2)|,\gamma|q_i^T(v_1-v_2)|}<br>$$<br>由于$p_i$的元素都是非负的并且和等于1，则<br>$$<br>|p_i^T(v_1-v_2)|\leq p_i^T|v_1-v_2|\leq|v_1-v_2|_\infty<br>$$<br>同理，有$|q_i^T(v_1-v_2)|\leq|v_1-v_2|_\infty$，因此有$z_i\leq\gamma|v_1-v_2|_\infty $，且<br>$$<br>|z|_\infty&#x3D;\max_i|z_i|\leq\gamma|v_1-v_2|_\infty<br>$$<br>将式子替换，可以得到<br>$$<br>|f(v_1)-f(v_2)|_\infty\leq\gamma|v_1-v_2|_\infty<br>$$<br>因此可以证得$f(v)$的压缩性质。</p>
+<h4 id="通过贝尔曼最优方程求解最优策略"><a href="#通过贝尔曼最优方程求解最优策略" class="headerlink" title="通过贝尔曼最优方程求解最优策略"></a>通过贝尔曼最优方程求解最优策略</h4><p>求解以下贝尔曼最优方程：<br>$$<br>v^*&#x3D;\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v^*)<br>$$<br>显然可以看出，$v^*$是一个不动点，因为满足$v^* &#x3D; f(v^*)$。因此，可以得出该贝尔曼最优方程满足以下定理：</p>
+<p><em><em>定理3.3 （存在性、唯一性和求解算法）对于贝尔曼最优方程$v &#x3D; f(v) &#x3D;\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v)$，总是存在一个唯一的解$v^</em>$，可以通过以下迭代过程求解：</em>*<br>$$<br>v_{k+1}&#x3D;f(v_k)&#x3D;\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v_k),\quad k&#x3D;0,1,2,\ldots<br>$$<br><em><em>$v_k$的值基于初始猜测$v_0$，以指数速度在$k\to\infty $时收敛至$v^</em>$。</em>*</p>
+<p>并且$v^*$满足：</p>
+<p>$v^*$的存在性：贝尔曼最优方程的解总是存在。</p>
+<p>$v^*$的唯一性：贝尔曼最优方程的解总是唯一。</p>
+<p>$v^*$的求解：$v^*$的值可以通过定理3.3的迭代过程求解。（价值迭代过程）</p>
+<p>当$v^*$被求解之后，对应的最优策略$\pi^*$可以通过求解$\pi^*&#x3D;\arg\max_{\pi\in\Pi}(r_\pi+\gamma P_\pi v^*)$，替换进贝尔曼最优方程可以获得<br>$$<br>v^*&#x3D;r_{\pi^*}+\gamma P_{\pi^*}v^*<br>$$<br>因此，$v^*&#x3D;v_{\pi^*}$是最优策略$\pi^*$对应的状态值。因此可以通过贝尔曼最优方程求解$v^*$和$\pi^*$。接下来的定理解释这两者的最优性。</p>
+<p><em><em>定理3.4（$v^</em>$和$\pi^</em>$的最优性）对于任意策略$\pi$，都有$v^*&#x3D;v_{\pi^*}\geq v_\pi$。**</p>
+<p>证明如下：</p>
+<p>因为<br>$$<br>v^*&#x3D;\max_\pi(r_\pi+\gamma P_\pi v^*)&#x3D;r_{\pi^*}+\gamma P_{\pi^*}v^<em>\geq r_\pi+\gamma P_\pi v^</em><br>$$<br>我们可以得到<br>$$<br>v^*-v_\pi\geq(r_\pi+\gamma P_\pi v^*)-(r_\pi+\gamma P_\pi v_\pi)&#x3D;\gamma P_\pi(v^*-v_\pi)<br>$$<br>重复以上过程，可以获得$v^{<em>}-v_{\pi}\geq\gamma P_{\pi}(v^{</em>}-v_{\pi})\geq\gamma^{2}P_{\pi}^{2}(v^{<em>}-v_\pi)\geq\cdots\geq\gamma^nP_\pi^n(v^</em>-v_\pi)$。因此有<br>$$<br>v^*-v_\pi\geq\lim_{n\to\infty}\gamma^nP_\pi^n(v^*-v_\pi)&#x3D;0<br>$$<br>因此可以证得定理3.4。</p>
+<p>进一步，我们可以得到一个贪婪最优策略的定理：</p>
+<p><strong>定理3.5（贪婪最优策略） 对于任意$s\in\mathcal{S}$，确定的贪婪策略</strong><br>$$<br>\left.\pi^*(a|s)&#x3D;\left{\begin{array}{ll}1,&amp;a&#x3D;a^*(s),\0,&amp;a\neq a^*(s).\end{array}\right.\right.<br>$$<br><em><em>是贝尔曼最优方程的一个最优策略，其中$a^</em>(s)&#x3D;\arg\max_aq^</em>(a,s)$，$q^*(s,a)\doteq\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s’\in\mathcal{S}}p(s’|s,a)v^*(s’)$。**</p>
+<p>证明如下：</p>
+<p>从元素角度上来说，可以得到<br>$$<br>\pi^*(s)&#x3D;\arg\max_{\pi\in\Pi}\sum_{a\in\mathcal{A}}\pi(a|s)\underbrace{\left(\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s^{\prime}\in\mathcal{S}}p(s^{\prime}|s,a)v^*(s^{\prime})\right)}<em>{q^*(s,a)}<br>$$<br>显然$\sum</em>{a\in\mathcal{A}}\pi(a|s)q^*(s,a)$在$\pi(s)$选择最大$q^*(s,a)$时可以取得最大值。</p>
+<p>$\pi^*$有两个重要的性质：一是不唯一性，因为两个不同的策略可能会获得相同的$v(s)$，也有可能会取得最大的状态值，说明这个最优策略不是唯一的；而是随机性，则这个最优策略可能是随机或者是确定的，但是根据定理3.5，一定总是存在一个确定的最优策略。</p>
+<h4 id="影响最优策略的因素"><a href="#影响最优策略的因素" class="headerlink" title="影响最优策略的因素"></a>影响最优策略的因素</h4><p>根据贝尔曼最优方程：<br>$$<br>v(s)&#x3D;\max_{\pi(s)\in\Pi(s)}\sum_{a\in\mathcal{A}}\pi(a|s)\bigg(\sum_{r\in\mathcal{R}}p(r|s,a)r+\gamma\sum_{s’\in\mathcal{S}}p(s’|s,a)v(s’)\bigg),\quad s\in\mathcal{S}.<br>$$<br>我们可以得到影响最优状态值和最优策略的决定因素：</p>
+<ul>
+<li>即时奖励$r$</li>
+<li>折扣因子$\gamma$</li>
+<li>环境模型的概率转移$p(s’|s,a)$和$p(r|s,a)$</li>
+</ul>
+<p>（后期将补充压缩映射定理的证明和影响因素的详细分析）</p>
 
                 
               </div>
