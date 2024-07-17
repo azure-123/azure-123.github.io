@@ -254,6 +254,27 @@
   
   
   <entry>
+    <title>强化学习数学基础笔记（四）：价值迭代和策略迭代</title>
+    <link href="/2024/01/26/RLMath-Chap4/"/>
+    <url>/2024/01/26/RLMath-Chap4/</url>
+    
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>数学基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习数学基础笔记（三）：最优状态值和贝尔曼最优方程</title>
     <link href="/2024/01/25/RLMath-Chap3/"/>
     <url>/2024/01/25/RLMath-Chap3/</url>
