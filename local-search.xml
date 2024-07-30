@@ -254,6 +254,27 @@
   
   
   <entry>
+    <title>强化学习数学基础笔记（五）：蒙特卡洛方法</title>
+    <link href="/2024/01/27/RLMath-Chap5/"/>
+    <url>/2024/01/27/RLMath-Chap5/</url>
+    
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p><p>上一章介绍的求得最优策略的方法是基于已知环境模型的情况下的，被称为基于模型的算法。但是对于大部分环境，我们并不知道环境的奖励概率和状态转移概率，因此在这一章介绍一个无模型算法，这个算法适用于不知道环境模型的情况。</p><p>在强化学习中，有一个原则：环境模型和数据必须有其中之一。如果没有模型，就必须有数据；反之，如果没有数据，就需要有模型。如果两者都没有，就无法找到一个最优的策略。这里，数据就代表智能体和环境交互的经验。</p><p>在没有模型的情况下，我们使用蒙特卡洛（MC）方法来求得最佳策略。</p><h4 id="平均估计"><a href="#平均估计" class="headerlink" title="平均估计"></a>平均估计</h4><p>如何在未知环境模型的情况下获得智能体的状态值？我们使用蒙特卡洛方法，这个方法是基于平均估计问题的，这也是有迹可循的，因为为状态值和状态-动作值都是以回报均值的形式来定义的，因此求解这两个值本身也是一个平均估计问题。</p><p>考虑随机变量$X$，它的值可以取集合$\mathcal{X}$中的任意元素。假设和我们的任务是计算$X$的期望值$\mathbb{E}(X)$。有以下两种方法：</p><p>第一种方法是基于模型的，可以通过环境模型的概率转移直接求出值$\mathbb{E}[X]&#x3D;\sum_{x\in\mathcal{X}}p(x)x$。</p><p>第二种方法是无模型的，这种情况下我们不知道$X$的概率分布，只有$X$的一些采样样本${x_1,x_2,\ldots,x_n}$，那么这个期望值可以近似为$\mathbb{E}[X]\approx\bar{x}&#x3D;\frac{1}{n}\sum_{j&#x3D;1}^nx_j$。当$n$的取值比较小的时候，这样的近似可能不准确。但是一旦$n$增加，这个准确性会加强。当$n\to\infty$时，有$\bar{x}\to\mathbb{E}[X]$。这是基于大数定理的，即大量采样值的平均值会接近于期望值。</p><h4 id="简单的MC算法"><a href="#简单的MC算法" class="headerlink" title="简单的MC算法"></a>简单的MC算法</h4><h5 id="策略迭代向无模型转化"><a href="#策略迭代向无模型转化" class="headerlink" title="策略迭代向无模型转化"></a>策略迭代向无模型转化</h5><p>从元素角度来说，策略改进的公式为<br>$$<br>\begin{aligned}\pi_{k+1}(s)&amp;&#x3D;\arg\max_\pi\sum_a\pi(a|s)\left[\sum_rp(r|s,a)r+\gamma\sum_{s^{\prime}}p(s^{\prime}|s,a)v_{\pi_k}(s^{\prime})\right]\&amp;&#x3D;\arg\max_\pi\sum_a\pi(a|s)q_{\pi_k}(s,a),\quad s\in\mathcal{S}.\end{aligned}<br>$$<br>这里有两种求解方法：</p><ul><li><p>基于模型的方法计算$q_{\pi_k}(s,a)&#x3D;\sum_rp(r|s,a)r+\gamma\sum_{s’}p(s’|s,a)v_{\pi_k}(s’)$。这个方法需要系统模型${p(r|s,a),p(s^{\prime}|s,a)}$。</p></li><li><p>无模型的方法根据状态-动作值的定义，求得</p><p>  $$<br>  \begin{aligned}<br>  q_{\pi_{k}}(s,a)&amp; &#x3D;\mathbb{E}[G_t|S_t&#x3D;s,A_t&#x3D;a] \<br>  &amp;&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\ldots|S_t&#x3D;s,A_t&#x3D;a]<br>  \end{aligned}<br>  $$</p><p>  假设有$n$个回合的轨迹，其中第$i$个回合对应的$(s,a)$对的回报值为$g_{\pi_k}^{(i)}(s,a)$。那么$q_{\pi_{k}}(s,a)$可以被近似为<br>  $$<br>  q_{\pi_k}(s,a)&#x3D;\mathbb{E}[G_t|S_t&#x3D;s,A_t&#x3D;a]\approx\frac{1}{n}\sum_{i&#x3D;1}^ng_{\pi_k}^{(i)}(s,a)<br>  $$<br>  根据大数定理，$n$在无限大的时候，上式会无限接近于真实值。</p></li></ul><h5 id="基础MC方法"><a href="#基础MC方法" class="headerlink" title="基础MC方法"></a>基础MC方法</h5><p>类似于策略迭代，我们初始化策略$\pi_0$，每个第$k$次迭代都包括以下两步：</p><ul><li>策略评估：我们根据当前的策略$\pi_k$，对所有$(s,a)$收集足够多的回合并计算平均回报，计算出$q_k(s,a)$来近似$q_{\pi_k}(s,a)$。</li><li>策略改进：这一步通过贪婪最佳策略来求解，类似于基于模型的策略改进：$\pi_{k+1}(s)&#x3D;\arg\max_\pi\sum_a\pi(a|s)q_k(s,a)$。</li></ul><p>具体的算法流程如下所示：</p><div style="display: flex; justify-content: center;">  <img src="mc_basic.png" alt="基础MC算法"></div><p>本算法和策略迭代的区别为不直接计算状态-动作价值，而是通过智能体交互经验，通过平均估计来近似真实的状态-动作价值。</p><p>基础MC方法的效率非常低，因此在现实中不太可行。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>数学基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习数学基础笔记（四）：价值迭代和策略迭代</title>
     <link href="/2024/01/26/RLMath-Chap4/"/>
     <url>/2024/01/26/RLMath-Chap4/</url>

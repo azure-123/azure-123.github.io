@@ -16,25 +16,25 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文链接：https:&#x2F;&#x2F;www.ijcai.org&#x2F;proceedings&#x2F;2021&#x2F;0509.pdf 亮点：与传统后门攻击的区别 让受害智能体做出一系列错误的行为，而不是一个，并且对抗智能体尽可能少地做出触发动作，使用序列化模型（如RNN）来记忆触发器。 对抗智能体通过和环境交互来触发后门，而不是直接改变受害智能体的状态，使用模仿学习同时学习普通和后门策略。  后门攻击机制 硬编码受害智能体的">
+    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 上一章介绍的求得最优策略的方法是基于已知环境模型的情况下的，被称为基于模型的算法。但是对于大部分环境，我们并不知道环境的奖励概率和状态转移概率，因此在这一章介绍一个无模型算法，这个算法适用于不知道环境模型的情况。 在强化学习中，有一个原则：环境模型和数据必须有其中之一。如果没有模型，就必须有数据；反之，如果没有数据，就需要有模型。如果两者都没有，就无法找到一个最">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning">
-<meta property="og:url" content="http://example.com/2024/03/10/BACKDOORL/index.html">
+<meta property="og:title" content="强化学习数学基础笔记（五）：蒙特卡洛方法">
+<meta property="og:url" content="http://example.com/2024/01/27/RLMath-Chap5/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="论文链接：https:&#x2F;&#x2F;www.ijcai.org&#x2F;proceedings&#x2F;2021&#x2F;0509.pdf 亮点：与传统后门攻击的区别 让受害智能体做出一系列错误的行为，而不是一个，并且对抗智能体尽可能少地做出触发动作，使用序列化模型（如RNN）来记忆触发器。 对抗智能体通过和环境交互来触发后门，而不是直接改变受害智能体的状态，使用模仿学习同时学习普通和后门策略。  后门攻击机制 硬编码受害智能体的">
+<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 上一章介绍的求得最优策略的方法是基于已知环境模型的情况下的，被称为基于模型的算法。但是对于大部分环境，我们并不知道环境的奖励概率和状态转移概率，因此在这一章介绍一个无模型算法，这个算法适用于不知道环境模型的情况。 在强化学习中，有一个原则：环境模型和数据必须有其中之一。如果没有模型，就必须有数据；反之，如果没有数据，就需要有模型。如果两者都没有，就无法找到一个最">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/03/10/BACKDOORL/BACKDOORL_architecture.png">
-<meta property="article:published_time" content="2024-03-10T02:50:15.000Z">
-<meta property="article:modified_time" content="2024-03-11T01:48:29.149Z">
+<meta property="og:image" content="http://example.com/2024/01/27/RLMath-Chap5/mc_basic.png">
+<meta property="article:published_time" content="2024-01-27T14:35:45.000Z">
+<meta property="article:modified_time" content="2024-07-30T13:04:26.407Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
-<meta property="article:tag" content="后门攻击">
+<meta property="article:tag" content="数学基础">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/03/10/BACKDOORL/BACKDOORL_architecture.png">
+<meta name="twitter:image" content="http://example.com/2024/01/27/RLMath-Chap5/mc_basic.png">
   
   
   
-  <title>论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning - azure-123</title>
+  <title>强化学习数学基础笔记（五）：蒙特卡洛方法 - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +229,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning"></span>
+            <span id="subtitle" data-typed-text="强化学习数学基础笔记（五）：蒙特卡洛方法"></span>
           
         </div>
 
@@ -240,8 +240,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-10 10:50" pubdate>
-          2024年3月10日 上午
+        <time datetime="2024-01-27 22:35" pubdate>
+          2024年1月27日 晚上
         </time>
       </span>
     
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          711 字
+          1.1k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          6 分钟
+          9 分钟
         
       </span>
     
@@ -308,34 +308,40 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</h1>
+            <h1 id="seo-header">强化学习数学基础笔记（五）：蒙特卡洛方法</h1>
             
             
               <div class="markdown-body">
                 
-                <p>论文链接：<a target="_blank" rel="noopener" href="https://www.ijcai.org/proceedings/2021/0509.pdf">https://www.ijcai.org/proceedings/2021/0509.pdf</a></p>
-<h4 id="亮点：与传统后门攻击的区别"><a href="#亮点：与传统后门攻击的区别" class="headerlink" title="亮点：与传统后门攻击的区别"></a>亮点：与传统后门攻击的区别</h4><ul>
-<li>让受害智能体做出一系列错误的行为，而不是一个，并且对抗智能体尽可能少地做出触发动作，使用序列化模型（如RNN）来记忆触发器。</li>
-<li>对抗智能体通过和环境交互来触发后门，而不是直接改变受害智能体的状态，使用模仿学习同时学习普通和后门策略。</li>
-</ul>
-<h4 id="后门攻击机制"><a href="#后门攻击机制" class="headerlink" title="后门攻击机制"></a>后门攻击机制</h4><p><img src="/2024/03/10/BACKDOORL/BACKDOORL_architecture.png" srcset="/img/loading.gif" lazyload alt="BACKDOORL后门攻击框架"></p>
-<h5 id="硬编码受害智能体的策略"><a href="#硬编码受害智能体的策略" class="headerlink" title="硬编码受害智能体的策略"></a>硬编码受害智能体的策略</h5><p>使用分类的方法，直接使用模型来区分后门触发和未触发的动作模式。</p>
-<p>直接现实中部署不可行，因为显式使用一个表示“是否被触发的”布尔变量很容易被发现<strong>（解决方法：使用一个基于LSTM的策略来模仿硬编码策略）</strong>。</p>
-<p>受害智能体策略：</p>
-<p>$$<br>\pi_{hardcoded}(s)&#x3D;\begin{cases}\pi_{fail}(s),if,,triggered\\\pi_{win}(s),o.w.\end{cases}<br>$$</p>
-<h5 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h5><p>定义两个角色，分别为两个智能体，被一个用户和一个攻击者持有。</p>
+                <p>参考：赵世钰《强化学习的数学原理》</p>
+<p>上一章介绍的求得最优策略的方法是基于已知环境模型的情况下的，被称为基于模型的算法。但是对于大部分环境，我们并不知道环境的奖励概率和状态转移概率，因此在这一章介绍一个无模型算法，这个算法适用于不知道环境模型的情况。</p>
+<p>在强化学习中，有一个原则：环境模型和数据必须有其中之一。如果没有模型，就必须有数据；反之，如果没有数据，就需要有模型。如果两者都没有，就无法找到一个最优的策略。这里，数据就代表智能体和环境交互的经验。</p>
+<p>在没有模型的情况下，我们使用蒙特卡洛（MC）方法来求得最佳策略。</p>
+<h4 id="平均估计"><a href="#平均估计" class="headerlink" title="平均估计"></a>平均估计</h4><p>如何在未知环境模型的情况下获得智能体的状态值？我们使用蒙特卡洛方法，这个方法是基于平均估计问题的，这也是有迹可循的，因为为状态值和状态-动作值都是以回报均值的形式来定义的，因此求解这两个值本身也是一个平均估计问题。</p>
+<p>考虑随机变量$X$，它的值可以取集合$\mathcal{X}$中的任意元素。假设和我们的任务是计算$X$的期望值$\mathbb{E}(X)$。有以下两种方法：</p>
+<p>第一种方法是基于模型的，可以通过环境模型的概率转移直接求出值$\mathbb{E}[X]&#x3D;\sum_{x\in\mathcal{X}}p(x)x$。</p>
+<p>第二种方法是无模型的，这种情况下我们不知道$X$的概率分布，只有$X$的一些采样样本${x_1,x_2,\ldots,x_n}$，那么这个期望值可以近似为$\mathbb{E}[X]\approx\bar{x}&#x3D;\frac{1}{n}\sum_{j&#x3D;1}^nx_j$。当$n$的取值比较小的时候，这样的近似可能不准确。但是一旦$n$增加，这个准确性会加强。当$n\to\infty$时，有$\bar{x}\to\mathbb{E}[X]$。这是基于大数定理的，即大量采样值的平均值会接近于期望值。</p>
+<h4 id="简单的MC算法"><a href="#简单的MC算法" class="headerlink" title="简单的MC算法"></a>简单的MC算法</h4><h5 id="策略迭代向无模型转化"><a href="#策略迭代向无模型转化" class="headerlink" title="策略迭代向无模型转化"></a>策略迭代向无模型转化</h5><p>从元素角度来说，策略改进的公式为<br>$$<br>\begin{aligned}\pi_{k+1}(s)&amp;&#x3D;\arg\max_\pi\sum_a\pi(a|s)\left[\sum_rp(r|s,a)r+\gamma\sum_{s^{\prime}}p(s^{\prime}|s,a)v_{\pi_k}(s^{\prime})\right]\&amp;&#x3D;\arg\max_\pi\sum_a\pi(a|s)q_{\pi_k}(s,a),\quad s\in\mathcal{S}.\end{aligned}<br>$$<br>这里有两种求解方法：</p>
 <ul>
-<li>用户：将RL任务买包给恶意开发者或者下载一个提前训练好的模型，用下标1表示。</li>
-<li>攻击者：在模型训练阶段植入后门，用下标2表示。</li>
+<li><p>基于模型的方法计算$q_{\pi_k}(s,a)&#x3D;\sum_rp(r|s,a)r+\gamma\sum_{s’}p(s’|s,a)v_{\pi_k}(s’)$。这个方法需要系统模型${p(r|s,a),p(s^{\prime}|s,a)}$。</p>
+</li>
+<li><p>无模型的方法根据状态-动作值的定义，求得</p>
+<p>  $$<br>  \begin{aligned}<br>  q_{\pi_{k}}(s,a)&amp; &#x3D;\mathbb{E}[G_t|S_t&#x3D;s,A_t&#x3D;a] \<br>  &amp;&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\ldots|S_t&#x3D;s,A_t&#x3D;a]<br>  \end{aligned}<br>  $$</p>
+<p>  假设有$n$个回合的轨迹，其中第$i$个回合对应的$(s,a)$对的回报值为$g_{\pi_k}^{(i)}(s,a)$。那么$q_{\pi_{k}}(s,a)$可以被近似为<br>  $$<br>  q_{\pi_k}(s,a)&#x3D;\mathbb{E}[G_t|S_t&#x3D;s,A_t&#x3D;a]\approx\frac{1}{n}\sum_{i&#x3D;1}^ng_{\pi_k}^{(i)}(s,a)<br>  $$<br>  根据大数定理，$n$在无限大的时候，上式会无限接近于真实值。</p>
+</li>
 </ul>
-<h5 id="快速失败智能体（用户端）"><a href="#快速失败智能体（用户端）" class="headerlink" title="快速失败智能体（用户端）"></a>快速失败智能体（用户端）</h5><p>使用导致最小回报的动作，同时在奖励函数中引入常数$c$加速收敛。奖励函数如下：</p>
-<p>$$<br>\sum_{t&#x3D;0}^{\infty} \gamma^t\left(c-\mathcal{R}_1\left(s^{(t)}, a_1^{(t)}, s^{(t+1)}\right)\right)<br>$$</p>
-<h5 id="对抗智能体策略（攻击者端）"><a href="#对抗智能体策略（攻击者端）" class="headerlink" title="对抗智能体策略（攻击者端）"></a>对抗智能体策略（攻击者端）</h5><p>在开始的时候，有$p_{trg}$的概率让对抗智能体执行触发动作，然后一直执行，直到触发动作全部执行完为止，对抗智能体的策略如下所示：</p>
-<p>$$<br>\pi_{adv}(s)&#x3D;\begin{cases}a_{trg}^{(0)}, cnt++, flag&#x3D;T \,\,\textbf{if}\,\, flag&#x3D;F, w.p.\,\,p_{trg}\\a_{trg}^{(cnt)}, cnt++\,\,\textbf{if}\,\, flag&#x3D;T, cnt\leq|(a_{trg}^{(0)}, a_{trg}^{(1)}, \cdots)| \\\pi_{win}(s), cnt&#x3D;0,   flag&#x3D;F \,\,\textbf{if}\,\,  cnt&gt;|(a_{trg}^{(0)}, a_{trg}^{(1)}, \cdots)| \\\pi_{win}(s)  \,\,\textbf{if}\,\, flag&#x3D;F, w.p. \,\,1-p_{trg}\end{cases}<br>$$<br>等式第一行：当$flag$为$F$时，以$p_{trg}$的概率开启对抗智能体的后门攻击序列，使用$cnt$计数，执行触发动作。</p>
-<p>等式第二行：当$flag$为$T$时，说明仍然在后门攻击序列过程中，执行触发动作。</p>
-<p>等式第三行：当$cnt$超过动作序列总数，说明后门攻击序列已经完成，清零$cnt$，将$flag$置为$F$，执行正常动作。</p>
-<p>等式第四行：当$flag$为$F$时，以$1-p_{trg}$的概率保持正常状态，执行正常动作</p>
-<h4 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h4><p>触发后门攻击的动作序列是如何设计的？</p>
+<h5 id="基础MC方法"><a href="#基础MC方法" class="headerlink" title="基础MC方法"></a>基础MC方法</h5><p>类似于策略迭代，我们初始化策略$\pi_0$，每个第$k$次迭代都包括以下两步：</p>
+<ul>
+<li>策略评估：我们根据当前的策略$\pi_k$，对所有$(s,a)$收集足够多的回合并计算平均回报，计算出$q_k(s,a)$来近似$q_{\pi_k}(s,a)$。</li>
+<li>策略改进：这一步通过贪婪最佳策略来求解，类似于基于模型的策略改进：$\pi_{k+1}(s)&#x3D;\arg\max_\pi\sum_a\pi(a|s)q_k(s,a)$。</li>
+</ul>
+<p>具体的算法流程如下所示：</p>
+<div style="display: flex; justify-content: center;">
+  <img src="mc_basic.png" srcset="/img/loading.gif" lazyload alt="基础MC算法">
+</div>
+
+<p>本算法和策略迭代的区别为不直接计算状态-动作价值，而是通过智能体交互经验，通过平均估计来近似真实的状态-动作价值。</p>
+<p>基础MC方法的效率非常低，因此在现实中不太可行。</p>
 
                 
               </div>
@@ -350,7 +356,7 @@
       
         <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
       
-        <a href="/tags/%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB/" class="print-no-link">#后门攻击</a>
+        <a href="/tags/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="print-no-link">#数学基础</a>
       
     </div>
   
@@ -362,8 +368,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</div>
-      <div>http://example.com/2024/03/10/BACKDOORL/</div>
+      <div>强化学习数学基础笔记（五）：蒙特卡洛方法</div>
+      <div>http://example.com/2024/01/27/RLMath-Chap5/</div>
     </div>
     <div class="license-meta">
       
@@ -375,7 +381,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月10日</div>
+          <div>2024年1月27日</div>
         </div>
       
       
@@ -407,9 +413,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/10/BIRD/" title="论文笔记：BIRD: Generalizable Backdoor Detection and Removal for Deep Reinforcement Learning">
+                      <a href="/2024/03/10/BACKDOORL/" title="论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">论文笔记：BIRD: Generalizable Backdoor Detection and Removal for Deep Reinforcement Learning</span>
+                        <span class="hidden-mobile">论文笔记：BACKDOORL: Backdoor Attack against Competitive Reinforcement Learning</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -417,8 +423,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/27/RLMath-Chap5/" title="强化学习数学基础笔记（五）：蒙特卡洛方法">
-                        <span class="hidden-mobile">强化学习数学基础笔记（五）：蒙特卡洛方法</span>
+                      <a href="/2024/01/26/RLMath-Chap4/" title="强化学习数学基础笔记（四）：价值迭代和策略迭代">
+                        <span class="hidden-mobile">强化学习数学基础笔记（四）：价值迭代和策略迭代</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
