@@ -254,6 +254,27 @@
   
   
   <entry>
+    <title>强化学习数学基础笔记（六）：随机逼近</title>
+    <link href="/2024/01/28/RLMath-Chap6/"/>
+    <url>/2024/01/28/RLMath-Chap6/</url>
+    
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>数学基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习数学基础笔记（五）：蒙特卡洛方法</title>
     <link href="/2024/01/27/RLMath-Chap5/"/>
     <url>/2024/01/27/RLMath-Chap5/</url>
