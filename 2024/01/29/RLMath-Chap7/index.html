@@ -16,19 +16,23 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考：赵世钰《强化学习的数学原理》">
+    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 这章介绍时序差分（TD）方法。和MC的方法类似，TD方法也是无模型的，但是因为其是以增量的形式，会有很多优势。 状态值的TD算法算法描述假设我们已经有了一系列由策略$\pi$产生的经验样本$(s_0,r_1,s_1,\ldots,s_t,r_{t+1},s_{t+1},\ldots)$，那么用于估计状态值的TD算法如下所示：$$\begin{aligned}&amp;a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化学习数学基础笔记（七）：时序差分方法">
 <meta property="og:url" content="http://example.com/2024/01/29/RLMath-Chap7/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》">
+<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 这章介绍时序差分（TD）方法。和MC的方法类似，TD方法也是无模型的，但是因为其是以增量的形式，会有很多优势。 状态值的TD算法算法描述假设我们已经有了一系列由策略$\pi$产生的经验样本$(s_0,r_1,s_1,\ldots,s_t,r_{t+1},s_{t+1},\ldots)$，那么用于估计状态值的TD算法如下所示：$$\begin{aligned}&amp;a">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/01/29/RLMath-Chap7/sarsa.png">
+<meta property="og:image" content="http://example.com/2024/01/29/RLMath-Chap7/q_on_policy.png">
+<meta property="og:image" content="http://example.com/2024/01/29/RLMath-Chap7/q_off_policy.png">
 <meta property="article:published_time" content="2024-01-29T07:11:33.000Z">
-<meta property="article:modified_time" content="2024-08-05T04:49:38.988Z">
+<meta property="article:modified_time" content="2024-08-05T13:46:54.906Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/01/29/RLMath-Chap7/sarsa.png">
   
   
   
@@ -250,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14 字
+          2.9k 字
         
       </span>
     
@@ -261,7 +265,7 @@
         
         
         
-          1 分钟
+          24 分钟
         
       </span>
     
@@ -312,6 +316,55 @@
               <div class="markdown-body">
                 
                 <p>参考：赵世钰《强化学习的数学原理》</p>
+<p>这章介绍时序差分（TD）方法。和MC的方法类似，TD方法也是无模型的，但是因为其是以增量的形式，会有很多优势。</p>
+<h4 id="状态值的TD算法"><a href="#状态值的TD算法" class="headerlink" title="状态值的TD算法"></a>状态值的TD算法</h4><h5 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h5><p>假设我们已经有了一系列由策略$\pi$产生的经验样本$(s_0,r_1,s_1,\ldots,s_t,r_{t+1},s_{t+1},\ldots)$，那么用于估计状态值的TD算法如下所示：<br>$$<br>\begin{aligned}&amp;v_{t+1}(s_{t})&#x3D;v_{t}(s_{t})-\alpha_{t}(s_{t})\Big[v_{t}(s_{t})-\big(r_{t+1}+\gamma v_{t}(s_{t+1})\big)\Big],\&amp;v_{t+1}(s)&#x3D;v_{t}(s),\quad\mathrm{for<del>all</del>}s\neq s_{t},\end{aligned}<br>$$<br>其中，$v_t(s_t)$是$v_\pi(s_t)$在时间步$t$的估计，$\alpha_t(s_t)$是在时间步$t$的学习率。以上算法的过程可以被看做是一个随即逼近的形式。我们知道$v_\pi(s)$的定义是：<br>$$<br>v_\pi(s)&#x3D;\mathbb{E}\big[R_{t+1}+\gamma G_{t+1}|S_t&#x3D;s\big],\quad s\in\mathcal{S}.<br>$$<br>上式可以重写为<br>$$<br>v_\pi(s)&#x3D;\mathbb{E}\big[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t&#x3D;s\big],\quad s\in\mathcal{S}.<br>$$<br>这是因为$\mathbb{E}[G_{t+1}|S_t&#x3D;s]&#x3D;\sum_a\pi(a|s)\sum_{s^{\prime}}p(s^{\prime}|s,a)v_\pi(s^{\prime})&#x3D;\mathbb{E}[v_\pi(S_{t+1})|S_t&#x3D;s]$。上式为贝尔曼等式的另一个表达形式，它也可以被称为贝尔曼期望方程。</p>
+<p>（推导后续补充）</p>
+<h5 id="性质分析"><a href="#性质分析" class="headerlink" title="性质分析"></a>性质分析</h5><p>可以看出TD算法的包含以下几个部分：<br>$$<br>\underbrace{v_{t+1}(s_t)}<em>{\text{new cstimate}}&#x3D;\underbrace{v_t(s_t)}</em>{\text{current estimate}}-\alpha_t(s_t)[\overbrace{v_t(s_t)-\left(\underbrace{r_{t+1}+\gamma v_t(s_{t+1})}<em>{\text{TD target }\bar{v}<em>t}\right)}^{\text{TD error }\delta_t}]<br>$$<br>其中$\bar{v}<em>t\doteq r</em>{t+1}+\gamma v_t(s</em>{t+1})$被称为TD目标，且$\delta_t\doteq v(s_t)-\bar{v}<em>t&#x3D;v_t(s_t)-(r</em>{t+1}+\gamma v_t(s</em>{t+1}))$被称为TD误差。可以看出新的估计结合了现有的估计和TD误差两个部分。</p>
+<p>对新的估计和TD目标做差，则有<br>$$<br>\begin{aligned}<br>v_{t+1}(s_{t})-\bar{v}<em>{t} &amp;&#x3D;\begin{bmatrix}v_t(s_t)-\bar{v}<em>t\end{bmatrix}-\alpha_t(s_t)\begin{bmatrix}v_t(s_t)-\bar{v}<em>t\end{bmatrix} \<br>&amp;&#x3D;[1-\alpha</em>{t}(s</em>{t})]\big[v</em>{t}(s_{t})-\bar{v}<em>{t}\big].<br>\end{aligned}<br>$$<br>对两边进行取绝对值可以得到$|v</em>{t+1}(s_t)-\bar{v}_t|&#x3D;|1-\alpha_t(s_t)||v_t(s_t)-\bar{v}<em>t|$，由于$0&lt;1-\alpha_t(s_t)&lt;1$，因此就有$|v</em>{t+1}(s_t)-\bar{v}_t|&lt;|v_t(s_t)-\bar{v}_t|$，说明新的估计相比现有估计离TD目标更近。</p>
+<p>TD误差的期望为<br>$$<br>\begin{aligned}<br>\mathbb{E}[\delta_{t}|S_{t}&#x3D;s_{t}]&amp; &#x3D;\mathbb{E}\Big[v_{\pi}(S_{t})-(R_{t+1}+\gamma v_{\pi}(S_{t+1}))|S_{t}&#x3D;s_{t}\Big] \<br>&amp;&#x3D;v_\pi(s_t)-\mathbb{E}\big[R_{t+1}+\gamma v_\pi(S_{t+1})|S_t&#x3D;s_t\big] \<br>&amp;&#x3D;0<br>\end{aligned}<br>$$<br>说明TD误差可以反映估计$v_t$和真实状态值$v_\pi$之间的差别。</p>
+<p>以上状态值的TD算法只能衡量一个给定策略的状态估计，若想要找到最优策略，我们仍需要再计算状态-动作值来进行策略改进步骤。</p>
+<h5 id="收敛性分析"><a href="#收敛性分析" class="headerlink" title="收敛性分析"></a>收敛性分析</h5><p><strong>定理7.1（TD算法的收敛性）</strong> 给定一个策略$\pi$，TD算法中当$t\to\infty$，如果对于所有$s\in\mathcal{S}$，有$\sum_t\alpha_t(s)&#x3D;\infty $且$\sum_t\alpha_t^2(s)&lt;\infty $，对于所有$s\in\mathcal{S}$，几乎可以确定$v_t(s)$可以收敛至$v_\pi(s)$。</p>
+<p>以上的条件必须对于所有$s$成立，且学习率$\alpha_t$通常在实践过程中被选为一个较小的正数。这虽然不满足$\sum_t\alpha_t^2(s)&lt;\infty $的条件，但是算法依然可以收敛。</p>
+<p>（证明后续补充）</p>
+<h4 id="状态-动作值的TD算法：SARSA"><a href="#状态-动作值的TD算法：SARSA" class="headerlink" title="状态-动作值的TD算法：SARSA"></a>状态-动作值的TD算法：SARSA</h4><h5 id="算法描述-1"><a href="#算法描述-1" class="headerlink" title="算法描述"></a>算法描述</h5><p>给定一个策略$\pi$，我们的目标是衡量状态动作值。根据给定策略$\pi$生成的轨迹$(s_0,a_0,r_1,s_1,a_1,\ldots,s_t,a_t,r_{t+1},s_{t+1},a_{t+1},\ldots)$，我们使用SARSA算法来衡量状态-动作值;<br>$$<br>\begin{aligned}q_{t+1}(s_{t},a_{t})&amp;&#x3D;q_{t}(s_{t},a_{t})-\alpha_{t}(s_{t},a_{t})\Big[q_{t}(s_{t},a_{t})-(r_{t+1}+\gamma q_{t}(s_{t+1},a_{t+1}))\Big],\q_{t+1}(s,a)&amp;&#x3D;q_{t}(s,a),\quad\mathrm{for<del>all</del>}(s,a)\neq(s_{t},a_{t}),\end{aligned}<br>$$<br>除了把状态值替换为状态-动作值以外，其他地方是相似的。</p>
+<p>事实上，以上算法解决的是以下贝尔曼方程的随机逼近算法：<br>$$<br>q_\pi(s,a)&#x3D;\mathbb{E}\left[R+\gamma q_\pi(S’,A’)|s,a\right],\quad\text{for all} (s,a).<br>$$<br>为什么以上方程依然是贝尔曼方程呢？</p>
+<p>（证明后续补充）</p>
+<h5 id="基于SARSA的最优策略学习"><a href="#基于SARSA的最优策略学习" class="headerlink" title="基于SARSA的最优策略学习"></a>基于SARSA的最优策略学习</h5><p>使用SARSA就可以学习最佳的策略了。这个算法分为两部，第一步是更新访问过的状态-动作对的Q值，第二步是使用$\epsilon$-贪婪来更新策略。Q值更新阶段只更新在时间步$t$访问到的一个状态-动作值。具体算法流程如下所示：</p>
+<div style="display: flex; justify-content: center;">
+  <img src="sarsa.png" srcset="/img/loading.gif" lazyload alt="SARSA算法">
+</div>
+
+<p>SARSA还有一个变体为期望SARSA，它只需要从策略中采样一个动作，而无需再采样下一个时间步的动作$a_{t+1}$。</p>
+<h4 id="状态-动作值的TD算法：n步SARSA"><a href="#状态-动作值的TD算法：n步SARSA" class="headerlink" title="状态-动作值的TD算法：n步SARSA"></a>状态-动作值的TD算法：n步SARSA</h4><p>n步SARSA事实上是介于SARSA和MC之间的一种算法。我们知道状态-动作值为$q_\pi(s,a)&#x3D;\mathbb{E}[G_t|S_t&#x3D;s,A_t&#x3D;a]$，其中回报可以表示为<br>$$<br>G_t&#x3D;R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\ldots<br>$$<br>其可以被分解为不同的形式：<br>$$<br>\begin{aligned}<br>G_{t}^{(1)}&amp; &#x3D;R_{t+1}+\gamma q_{\pi}(S_{t+1},A_{t+1}), \rightarrow SARSA\<br>G_{t}^{(2)}&amp; &#x3D;R_{t+1}+\gamma R_{t+2}+\gamma^2q_\pi(S_{t+2},A_{t+2}), \<br>\vdots \<br>G_{t}^{(n)}&amp; &#x3D;R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^nq_\pi(S_{t+n},A_{t+n}), \rightarrow n步SARSA\<br>\vdots \<br>G_{t}^{(\infty)}&amp; &#x3D;R_{t+1}+\gamma R_{t+2}+\gamma^{2}R_{t+3}+\gamma^{3}R_{t+4}\ldots \rightarrow MC<br>\end{aligned}<br>$$</p>
+<ul>
+<li>当$n&#x3D;1$时，有$q_\pi(s,a)&#x3D;\mathbb{E}[G_t^{(1)}|s,a]&#x3D;\mathbb{E}[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})|s,a]$，对应的随机逼近为$q_{t+1}(s_t,a_t)&#x3D;q_t(s_t,a_t)-\alpha_t(s_t,a_t)\Big[q_t(s_t,a_t)-(r_{t+1}+\gamma q_t(s_{t+1},a_{t+1}))\Big]$，这其实就是SARSA算法。</li>
+<li>当$n&#x3D;\infty$，有$q_\pi(s,a)&#x3D;\mathbb{E}[G_t^{(\infty)}|s,a]&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\ldots|s,a]$，对应的算法是$q_{t+1}(s_t,a_t)&#x3D;g_t\doteq r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+\ldots $，这实际上就是MC算法。</li>
+<li>当$n$是一般值，有$q_\pi(s,a)&#x3D;\mathbb{E}[G_t^{(n)}|s,a]&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^nq_\pi(S_{t+n},A_{t+n})|s,a]$，对应的随机逼近为$q_{t+1}(s_{t},a_{t})&#x3D;q_{t}(s_{t},a_{t})-\alpha_{t}(s_{t},a_{t})\Big[q_{t}(s_{t},a_{t})-\Big(r_{t+1}+\gamma r_{t+2}+\cdots+\gamma^{n}q_{t}(s_{t+n},a_{t+n})\Big)\Big]$这实际上就是n步SARSA。</li>
+</ul>
+<p>为了实现n步SARSA，我们需要再经历过$n$个时间步以后才能更新，所以我们将算法的等式改写为<br>$$<br>\begin{aligned}q_{t+n}(s_{t},a_{t})&amp;&#x3D;q_{t+n-1}(s_t,a_t)\&amp;-\alpha_{t+n-1}(s_t,a_t)\Big[q_{t+n-1}(s_t,a_t)-\big(r_{t+1}+\gamma r_{t+2}+\cdots+\gamma^nq_{t+n-1}(s_{t+n},a_{t+n})\big)\Big]\end{aligned}<br>$$</p>
+<h4 id="最优状态-动作值的TD算法：Q学习"><a href="#最优状态-动作值的TD算法：Q学习" class="headerlink" title="最优状态-动作值的TD算法：Q学习"></a>最优状态-动作值的TD算法：Q学习</h4><p>接下来介绍最经典的强化学习算法之一，即Q学习。SARSA在实施的过程中需要结合策略改进步骤，而Q学习可以直接衡量最佳状态-动作值并找到最优策略。</p>
+<h5 id="算法描述-2"><a href="#算法描述-2" class="headerlink" title="算法描述"></a>算法描述</h5><p>Q学习的算法为<br>$$<br>\begin{aligned}<br>q_{t+1}(s_t,a_t)&amp; &#x3D;q_t(s_t,a_t)-\alpha_t(s_t,a_t)\left\lfloor q_t(s_t,a_t)-\left(r_{t+1}+\gamma\max_{a\in\mathcal{A}(s_{t+1})}q_t(s_{t+1},a)\right)\right\rfloor, \<br>q_{t+1}(s,a)&amp; &#x3D;q_t(s,a),\quad\mathrm{for<del>all</del>}(s,a)\neq(s_t,a_t),<br>\end{aligned}<br>$$<br>其中，$q_t(s_t,a_t)$是$(s_t,a_t)$ 的最优状态-动作值。Q学习和SARSA的不同之处在于TD目标不一样。SARSA在给定$(s_t,a_t)$基础上需要的信息是$(r_{t+1}, s_{t+1},a_{t+1})$，而Q学习只需要$(r_{t+1}, s_{t+1})$。Q学习通过随机逼近的方法解决的是以下贝尔曼最优方程：<br>$$<br>q(s,a)&#x3D;\mathbb{E}\left[R_{t+1}+\gamma\max_aq(S_{t+1},a)\Big|S_t&#x3D;s,A_t&#x3D;a\right]<br>$$</p>
+<h5 id="同策略vs异策略"><a href="#同策略vs异策略" class="headerlink" title="同策略vs异策略"></a>同策略vs异策略</h5><p>同策略和异策略设计两种策略：一个是行为策略，一个是目标策略。行为策略是在收集训练样本过程中和环境交互的策略，目标策略是需要进行更新并最终获得的策略。之所以要将两者分开，是因为在获取训练数据的时候，我们需要对策略进行探索，而在获得一个最终策略之后就不需要探索了。</p>
+<p>如果两个策略是同一个策略，那么这个算法是同策略的，反之就是异策略。异策略有一个好处就是，训练样本可以是一个人类与环境交互获得的交互记录，也可以是其他方式获得的样本，这样就较为灵活。</p>
+<p>我们从两个方面来决定一个算法是同策略的还是异策略的：第一是算法目标解决的数学问题；第二是算法需要的经验样本。</p>
+<ul>
+<li>SARSA是同策略的。因为其每个迭代轮数有两步：第一步是使用贝尔曼方程衡量一个策略$\pi$，那么我们需要$\pi$生成的策略，那么$\pi$是行为策略；第二步是基于$\pi$的价值来获得改进后的策略，那么$\pi$是目标策略。因此两者是相同的。从另一个角度来说，我们需要下一个时间步获得的动作$a_{t+1}$用于策略的更新，因此SARSA是同策略的。</li>
+<li>Q学习是异策略的。因为其基础为贝尔曼最优方程，可以直接产生一个最优的策略将其状态值。从另一个角度来说，Q学习基于行为策略的$(s_t,a_t)$，而后续的$(r_{t+1}, s_{t+1})$并不涉及行为策略。因此Q学习是异策略的。</li>
+<li>MC学习是同策略的，其原因与SARSA相似。</li>
+</ul>
+<h5 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h5><p>因为Q学习是异策略的，说明其可以有同策略和异策略两种版本。</p>
+<p>同策略Q学习的算法流程为：</p>
+<div style="display: flex; justify-content: center;">
+  <img src="q_on_policy.png" srcset="/img/loading.gif" lazyload alt="同策略Q学习">
+</div>
+
+<p>异策略Q学习的算法流程为：</p>
+<div style="display: flex; justify-content: center;">
+  <img src="q_off_policy.png" srcset="/img/loading.gif" lazyload alt="异策略Q学习">
+</div>
+
+<h4 id="方法比较"><a href="#方法比较" class="headerlink" title="方法比较"></a>方法比较</h4><p>对SARSA、n步SARSA、Q学习、MC算法进行比较：<br>$$<br>\begin{aligned}&amp;\begin{array}{l|l}\hline\text{Algorithm}&amp;\text{Expression of the TD target }\bar{q}<em>t<br>\\hline\text{Sarsa}&amp;\bar{q}<em>t&#x3D;r</em>{t+1}+\gamma q_t(s</em>{t+1},a_{t+1})\\hline n\text{-step Sarsa}&amp;\bar{q}<em>t&#x3D;r</em>{t+1}+\gamma r_{t+2}+\cdots+\gamma^nq_t(s_{t+n},a_{t+n})\\hline\text{Q-learning}&amp;\bar{q}<em>t&#x3D;r</em>{t+1}+\gamma\max_aq_t(s_{t+1},a)\\hline\text{Monte Carlo}&amp;\bar{q}<em>t&#x3D;r</em>{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+\ldots\\hline\end{array}\end{aligned}<br>$$</p>
+<p>$$<br>\begin{array}{l|l}\hline\text{Algorithm}&amp;\text{Equation to be solved}\\hline\text{Sarsa}&amp;\text{BE: }q_\pi(s,a)&#x3D;\mathbb{E}\left[R_{t+1}+\gamma q_\pi(S_{t+1},A_{t+1})|S_t&#x3D;s,A_t&#x3D;a\right]\\hline\text{n-step Sarsa}&amp;\text{BE: }q_\pi(s,a)&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^nq_\pi(S_{t+n},A_{t+n})|S_t&#x3D;s,A_t&#x3D;a]\\hline\text{Q-learning}&amp;\text{BOE: }q(s,a)&#x3D;\mathbb{E}\left[R_{t+1}+\max_aq(S_{t+1},a)\right]G_t&#x3D;s,A_t&#x3D;a]\\hline\text{Monte Carlo}&amp;\text{BE: }q_\pi(s,a)&#x3D;\mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\ldots|S_t&#x3D;s,A_t&#x3D;a]\\hline\end{array}<br>$$</p>
 
                 
               </div>
