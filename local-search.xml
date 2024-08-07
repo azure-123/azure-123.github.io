@@ -254,6 +254,27 @@
   
   
   <entry>
+    <title>强化学习数学基础笔记（九）：策略梯度方法</title>
+    <link href="/2024/01/31/RLMath-Chap9/"/>
+    <url>/2024/01/31/RLMath-Chap9/</url>
+    
+    <content type="html"><![CDATA[<p>参考：赵世钰《强化学习的数学原理》</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>强化学习</tag>
+      
+      <tag>数学基础</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习数学基础笔记（八）：价值方程近似</title>
     <link href="/2024/01/30/RLMath-Chap8/"/>
     <url>/2024/01/30/RLMath-Chap8/</url>
