@@ -16,15 +16,15 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 在之前的章节中，强化学习的策略都是用表格的形式表示的，即对于$\pi(a|s)$，对于每个状态$s$的每个可能动作$a$，都是用表格存储的。这样的方法有一定的局限性，即会占用较大的存储空间。这章将会研究使用参数方程来表示的策略$\pi(a|s,\theta)$。">
+    <meta name="description" content="参考：赵世钰《强化学习的数学原理》 在之前的章节中，强化学习的策略都是用表格的形式表示的，即对于$\pi(a|s)$，对于每个状态$s$的每个可能动作$a$，都是用表格存储的。这样的方法有一定的局限性，即会占用较大的存储空间。这章将会研究使用参数方程来表示的策略$\pi(a|s,\theta)$。 在之前用表格来表示策略的时候，状态-动作对的相应动作概率分布如下所示：$$\begin{array}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化学习数学基础笔记（九）：策略梯度方法">
 <meta property="og:url" content="http://example.com/2024/01/31/RLMath-Chap9/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 在之前的章节中，强化学习的策略都是用表格的形式表示的，即对于$\pi(a|s)$，对于每个状态$s$的每个可能动作$a$，都是用表格存储的。这样的方法有一定的局限性，即会占用较大的存储空间。这章将会研究使用参数方程来表示的策略$\pi(a|s,\theta)$。">
+<meta property="og:description" content="参考：赵世钰《强化学习的数学原理》 在之前的章节中，强化学习的策略都是用表格的形式表示的，即对于$\pi(a|s)$，对于每个状态$s$的每个可能动作$a$，都是用表格存储的。这样的方法有一定的局限性，即会占用较大的存储空间。这章将会研究使用参数方程来表示的策略$\pi(a|s,\theta)$。 在之前用表格来表示策略的时候，状态-动作对的相应动作概率分布如下所示：$$\begin{array}">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T03:55:51.000Z">
-<meta property="article:modified_time" content="2024-08-15T14:48:39.735Z">
+<meta property="article:modified_time" content="2024-09-01T12:20:59.159Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="强化学习">
 <meta property="article:tag" content="数学基础">
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          113 字
+          261 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -313,6 +313,7 @@
                 
                 <p>参考：赵世钰《强化学习的数学原理》</p>
 <p>在之前的章节中，强化学习的策略都是用表格的形式表示的，即对于$\pi(a|s)$，对于每个状态$s$的每个可能动作$a$，都是用表格存储的。这样的方法有一定的局限性，即会占用较大的存储空间。这章将会研究使用参数方程来表示的策略$\pi(a|s,\theta)$。</p>
+<p>在之前用表格来表示策略的时候，状态-动作对的相应动作概率分布如下所示：<br>$$<br>\begin{array}{c|c|c|c|c|c}\hline&amp;a_1&amp;a_2&amp;a_3&amp;a_4&amp;a_5\\hline s_1&amp;\pi(a_1|s_1)&amp;\pi(a_2|s_1)&amp;\pi(a_3|s_1)&amp;\pi(a_4|s_1)&amp;\pi(a_5|s_1)\\hline\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\hline s_9&amp;\pi(a_1|s_9)&amp;\pi(a_2|s_9)&amp;\pi(a_3|s_9)&amp;\pi(a_4|s_9)&amp;\pi(a_5|s_9)\\hline\end{array}<br>$$<br>但是策略梯度方法是使用以$\theta$为参数的函数来表示策略的，因此其策略可以表示为如下的形式：</p>
 
                 
               </div>
