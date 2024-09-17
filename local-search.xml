@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>InternLM书生大模型实战营（入门岛）</title>
+    <link href="/2024/09/17/InternLMBeginner/"/>
+    <url>/2024/09/17/InternLMBeginner/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Linux基础知识"><a href="#Linux基础知识" class="headerlink" title="Linux基础知识"></a>Linux基础知识</h3><h4 id="创建开发机"><a href="#创建开发机" class="headerlink" title="创建开发机"></a>创建开发机</h4><p><img src="/2024/09/17/InternLMBeginner/create_machine.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>论文笔记：Responsive Safety in Reinforcement Learning by PID Lagrangian Methods</title>
     <link href="/2024/06/18/PID/"/>
     <url>/2024/06/18/PID/</url>
