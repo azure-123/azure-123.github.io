@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>InternLM书生大模型实战营（基础岛）</title>
+    <link href="/2024/09/20/InternLMBasic/"/>
+    <url>/2024/09/20/InternLMBasic/</url>
+    
+    <content type="html"><![CDATA[<h3 id="书生大模型全链路开源体系"><a href="#书生大模型全链路开源体系" class="headerlink" title="书生大模型全链路开源体系"></a>书生大模型全链路开源体系</h3><p>如下是最近一两年国产大模型的迅速成长的发展历史，目前已经逐渐追赶上了国际先进水平。</p><p><img src="/InternLM_history.jpg"></p><p>这里给出的全链路打通的体系视角对于了解大模型相关的技术和产品有很大的帮助。一个完整的大模型体系需要包括的板块有：</p><ul><li>数据</li><li>预训练</li><li>微调</li><li>部署</li><li>评测</li><li>应用</li></ul><p><img src="/2024/09/20/InternLMBasic/system.jpg"></p><p>这里的LLM的思维链与最新的<a href="https://openai.com/o1/">OpenAIo1模型</a>具有很大的相似性，可见这确实是一种有效的优化LLM模型能力的方法。</p><p><img src="/InternLM_plan.jpg"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>InternLM书生大模型实战营（入门岛）</title>
     <link href="/2024/09/17/InternLMBeginner/"/>
     <url>/2024/09/17/InternLMBeginner/</url>
