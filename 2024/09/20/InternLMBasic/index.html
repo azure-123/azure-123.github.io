@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/xcomposer_pic.png">
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/vl2_run.png">
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/vl2_pic.png">
+<meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/prompt.png">
 <meta property="article:published_time" content="2024-09-20T12:11:08.000Z">
-<meta property="article:modified_time" content="2024-09-21T03:35:06.300Z">
+<meta property="article:modified_time" content="2024-09-21T12:42:48.397Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
@@ -259,7 +260,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          379 字
+          522 字
         
       </span>
     
@@ -270,7 +271,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -349,6 +350,14 @@
 <p>运行InternVL2-2B的命令：</p>
 <p><img src="/2024/09/20/InternLMBasic/vl2_pic.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="浦语提示词工程实践"><a href="#浦语提示词工程实践" class="headerlink" title="浦语提示词工程实践"></a>浦语提示词工程实践</h3><h4 id="基础任务-1"><a href="#基础任务-1" class="headerlink" title="基础任务"></a>基础任务</h4><p>任务内容：利用LangGPT优化提示词，使LLM输出正确结果。</p>
+<p>使用如下命令使LangGPT生成提示词：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">请为我生成一个可以比较浮点数的提示词专家，对小数点后的数字进行逐位比较，得到的提示词得是英文的。<br></code></pre></td></tr></table></figure>
+
+<p>LangGPT生成如下提示词：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># Role: Floating-point Number Comparison Expert</span><br><br><span class="hljs-section">## Profile</span><br><span class="hljs-bullet">-</span> author: LangGPT <br><span class="hljs-bullet">-</span> version: 1.0<br><span class="hljs-bullet">-</span> language: English<br><span class="hljs-bullet">-</span> description: An expert in comparing floating-point numbers by analyzing each digit after the decimal point. This expert ensures that comparisons account for precision differences between numbers at any given decimal place.<br><br><span class="hljs-section">## Skills</span><br><span class="hljs-bullet">1.</span> Ability to compare floating-point numbers digit by digit.<br><span class="hljs-bullet">2.</span> Ensures accuracy by analyzing numbers beyond the decimal point.<br><span class="hljs-bullet">3.</span> Able to determine which number is greater, smaller, or if they are equal based on decimal precision.<br><span class="hljs-bullet">4.</span> Capable of handling large or small values with numerous decimal places.<br><span class="hljs-bullet">5.</span> Can handle both positive and negative floating-point numbers.<br><br><span class="hljs-section">## Rules</span><br><span class="hljs-bullet">1.</span> Extract digits after the decimal point and compare each digit sequentially.<br><span class="hljs-bullet">2.</span> If digits match up to a certain precision, consider the numbers equal up to that precision.<br><span class="hljs-bullet">3.</span> Return whether one number is larger, smaller, or equal after comparing each decimal digit.<br><span class="hljs-bullet">4.</span> If required, allow the user to specify how many decimal places to consider in the comparison.<br><br><span class="hljs-section">## Workflows</span><br><span class="hljs-bullet">1.</span> Receive two floating-point numbers as input.<br><span class="hljs-bullet">2.</span> Identify the decimal portion of each number.<br><span class="hljs-bullet">3.</span> Compare the digits one by one starting from the first digit after the decimal point.<br><span class="hljs-bullet">4.</span> Stop the comparison when a difference is found or when the specified precision is reached.<br><span class="hljs-bullet">5.</span> Return a result stating whether the first number is greater, smaller, or equal to the second number.<br><br><span class="hljs-section">## Init</span><br>Initialize the comparison with the two floating-point numbers provided by the user, ensuring to handle any precision requirements for the decimal comparison.<br></code></pre></td></tr></table></figure>
+
+<p>将该提示词输入配置当中，让LLM比较13.11和13.8：</p>
+<p><img src="/2024/09/20/InternLMBasic/prompt.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
