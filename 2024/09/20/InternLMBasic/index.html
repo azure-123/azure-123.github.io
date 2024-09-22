@@ -33,8 +33,12 @@
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/vl2_run.png">
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/vl2_pic.png">
 <meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/prompt.png">
+<meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/rag_before.png">
+<meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/rag_file.png">
+<meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/rag_after.png">
+<meta property="og:image" content="http://example.com/2024/09/20/InternLMBasic/llamaindex_web.png">
 <meta property="article:published_time" content="2024-09-20T12:11:08.000Z">
-<meta property="article:modified_time" content="2024-09-21T13:03:16.749Z">
+<meta property="article:modified_time" content="2024-09-22T12:11:54.691Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
@@ -260,7 +264,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          585 字
+          656 字
         
       </span>
     
@@ -271,7 +275,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -359,6 +363,17 @@
 <p>将该提示词输入配置当中，让LLM比较13.11和13.8：</p>
 <p><img src="/2024/09/20/InternLMBasic/prompt.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="Llamaindex-RAG实践"><a href="#Llamaindex-RAG实践" class="headerlink" title="Llamaindex RAG实践"></a>Llamaindex RAG实践</h3><h4 id="基础任务-2"><a href="#基础任务-2" class="headerlink" title="基础任务"></a>基础任务</h4><p>任务内容：基于 LlamaIndex 构建自己的 RAG 知识库，寻找一个问题 A 在使用 LlamaIndex 之前InternLM2-Chat-1.8B模型不会回答，借助 LlamaIndex 后 InternLM2-Chat-1.8B 模型具备回答 A 的能力，截图保存。</p>
+<p>在构建RAG知识库之前，修改llamaindex_internlm.py中的query的内容为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">rsp = llm.chat(messages=[ChatMessage(content=<span class="hljs-string">&quot;请介绍游戏命运石之门&quot;</span>)])<br></code></pre></td></tr></table></figure>
+
+<p>InternLM2-Chat-1.8B输出的回答为</p>
+<p><img src="/2024/09/20/InternLMBasic/rag_before.png" srcset="/img/loading.gif" lazyload></p>
+<p>构建RAG知识库steins_gate.md：</p>
+<p><img src="/2024/09/20/InternLMBasic/rag_file.png" srcset="/img/loading.gif" lazyload></p>
+<p>将llamaindex_RAG.py中的文件和query修改，并重新运行：</p>
+<p><img src="/2024/09/20/InternLMBasic/rag_after.png" srcset="/img/loading.gif" lazyload></p>
+<p>使用LlamaIndex web：</p>
+<p><img src="/2024/09/20/InternLMBasic/llamaindex_web.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
