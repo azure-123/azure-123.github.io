@@ -27,8 +27,10 @@
 <meta property="og:image" content="http://example.com/2024/09/24/InternLMAdvanced/lagent_web_demo.png">
 <meta property="og:image" content="http://example.com/2024/09/24/InternLMAdvanced/lagent_pic.png">
 <meta property="og:image" content="http://example.com/2024/09/24/InternLMAdvanced/lagent_paper.png">
+<meta property="og:image" content="http://example.com/2024/09/24/InternLMAdvanced/lmdeploy_cache.png">
+<meta property="og:image" content="http://example.com/2024/09/24/InternLMAdvanced/lmdeploy_conversation.png">
 <meta property="article:published_time" content="2024-09-24T12:52:34.000Z">
-<meta property="article:modified_time" content="2024-09-25T00:48:10.053Z">
+<meta property="article:modified_time" content="2024-09-25T04:13:54.487Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
@@ -254,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          6.4k 字
         
       </span>
     
@@ -265,7 +267,7 @@
         
         
         
-          53 分钟
+          54 分钟
         
       </span>
     
@@ -636,7 +638,7 @@
 <td>模型A的答案有解释</td>
 </tr>
 </tbody></table>
-<h3 id="Lagent-自定义-Agent-智能体"><a href="#Lagent-自定义-Agent-智能体" class="headerlink" title="Lagent 自定义 Agent 智能体"></a>Lagent 自定义 Agent 智能体</h3><p>任务内容：使用 Lagent 自定义一个智能体，并使用 Lagent Web Demo 成功部署与调用。</p>
+<h3 id="Lagent-自定义-Agent-智能体"><a href="#Lagent-自定义-Agent-智能体" class="headerlink" title="Lagent 自定义 Agent 智能体"></a>Lagent 自定义 Agent 智能体</h3><h4 id="基础任务"><a href="#基础任务" class="headerlink" title="基础任务"></a>基础任务</h4><p>任务内容：使用 Lagent 自定义一个智能体，并使用 Lagent Web Demo 成功部署与调用。</p>
 <p>使用 LMDeploy 部署 InternLM2.5-7B-Chat：</p>
 <p><img src="/2024/09/24/InternLMAdvanced/lagent_api_server.png" srcset="/img/loading.gif" lazyload></p>
 <p>启动 Lagent 的 Web Demo：</p>
@@ -645,6 +647,11 @@
 <p><img src="/2024/09/24/InternLMAdvanced/lagent_pic.png" srcset="/img/loading.gif" lazyload></p>
 <p>让Lagent搜索论文：</p>
 <p><img src="/2024/09/24/InternLMAdvanced/lagent_paper.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="LMDeploy-量化部署"><a href="#LMDeploy-量化部署" class="headerlink" title="LMDeploy 量化部署"></a>LMDeploy 量化部署</h3><h4 id="基础任务-1"><a href="#基础任务-1" class="headerlink" title="基础任务"></a>基础任务</h4><p>任务内容：使用结合W4A16量化与kv cache量化的<code>internlm2_5-1_8b-chat</code>模型封装本地API并与大模型进行一次对话。</p>
+<p>显存占用情况：</p>
+<p><img src="/2024/09/24/InternLMAdvanced/lmdeploy_cache.png" srcset="/img/loading.gif" lazyload></p>
+<p>与大模型的对话截图：</p>
+<p><img src="/2024/09/24/InternLMAdvanced/lmdeploy_conversation.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
