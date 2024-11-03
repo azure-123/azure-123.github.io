@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>大模型知识梳理（五）：评测与应用</title>
+    <link href="/2024/11/03/LLM5/"/>
+    <url>/2024/11/03/LLM5/</url>
+    
+    <content type="html"><![CDATA[<p>参考资料：《大语言模型》</p><ul><li><p>评测与应用</p><ul><li><p>评测</p><ul><li><p>评测指标与评测方法</p><ul><li><p>常见评测指标</p><ul><li><p>语言建模任务相关评测指标</p><ul><li>困惑度</li></ul></li><li><p>分类任务相关评测指标</p><ul><li><p>精确率</p></li><li><p>召回率</p></li><li><p>F1分数</p></li></ul></li><li><p>条件文本生成任务相关评测指标</p><ul><li><p>BLEU</p></li><li><p>ROUGE-n</p></li><li><p>ROUGE-L</p></li></ul></li><li><p>问答任务相关评测指标</p><ul><li>准确率</li></ul></li><li><p>执行类任务相关评测指标</p><ul><li><p>成功率</p></li><li><p>Pass@k</p></li></ul></li><li><p>偏好排序任务相关评测指标</p><ul><li>Elo评分体系</li></ul></li></ul></li><li><p>评测范式与方法</p><ul><li><p>基础大语言模型的评测</p><ul><li><p>常用评测数据集</p></li><li><p>基于评测基准的模型评测流程</p></li></ul></li><li><p>微调大语言模型的评测</p><ul><li><p>基于人类的评测</p></li><li><p>基于模型的评测</p></li></ul></li><li><p>不同评测方法的利弊</p><ul><li><p>基于基准的评测</p></li><li><p>基于人工的评测</p></li><li><p>基于模型的评测</p></li></ul></li></ul></li></ul></li><li><p>基础能力评测</p><ul><li><p>语言生成</p><ul><li><p>语言建模</p><ul><li>LAMBADA数据集</li></ul></li><li><p>条件文本生成</p><ul><li><p>机器翻译</p></li><li><p>文本摘要</p></li></ul></li><li><p>代码合成</p><ul><li>HumanEval数据集</li></ul></li><li><p>主要问题</p><ul><li><p>不可靠的文本评估</p></li><li><p>相对较弱的专业化生成能力</p></li></ul></li></ul></li><li><p>知识利用</p><ul><li><p>闭卷问答</p></li><li><p>开卷问答</p></li><li><p>知识补全</p></li><li><p>主要问题</p><ul><li><p>幻象</p></li><li><p>知识时效性</p></li></ul></li></ul></li><li><p>复杂推理</p><ul><li><p>知识推理</p></li><li><p>符号推理</p><ul><li><p>尾字母拼接</p></li><li><p>硬币翻转</p></li></ul></li><li><p>数学推理</p></li><li><p>主要问题</p><ul><li><p>推理不一致性</p></li><li><p>数值计算</p></li></ul></li></ul></li></ul></li><li><p>高级能力评测</p><ul><li><p>人类对齐</p></li><li><p>环境交互</p></li><li><p>工具使用</p></li></ul></li><li><p>公开综合评测体系</p><ul><li><p>MMLU</p></li><li><p>BIG-Bench</p></li><li><p>HELM</p></li><li><p>C-Eval</p></li><li><p>其他评测数据集与资源</p></li><li><p>公开评测资源选择参考</p></li></ul></li></ul></li><li><p>应用</p><ul><li><p>大语言模型在研究领域的应用</p><ul><li><p>传统自然语言处理任务中的大语言模型</p><ul><li><p>序列标注</p></li><li><p>关系抽取</p></li><li><p>文本生成</p></li></ul></li><li><p>信息检索中的大语言模型</p><ul><li><p>大语言模型提升信息检索任务</p><ul><li><p>利用大语言模型进行信息检索</p></li><li><p>大预言模型增强的信息检索模型</p></li></ul></li><li><p>检索增强的大语言模型</p><ul><li><p>输入优化策略</p></li><li><p>指令微调策略</p></li><li><p>预训练策略</p></li></ul></li></ul></li><li><p>推荐系统中的大语言模型</p><ul><li><p>大语言模型作为推荐模型</p><ul><li><p>基于特定提示的方法</p></li><li><p>基于指令微调的方法</p></li></ul></li><li><p>大语言模型增强的推荐模型</p><ul><li><p>数据输入增强</p></li><li><p>语义表示增强</p></li><li><p>偏好表示增强</p></li></ul></li><li><p>大语言模型作为推荐模拟器</p></li></ul></li><li><p>多模态大语言模型</p><ul><li><p>训练过程</p><ul><li><p>视觉-语言对齐预训练</p></li><li><p>视觉指令微调</p></li></ul></li><li><p>多模态大语言模型的评测</p><ul><li><p>评测维度</p></li><li><p>评测基准</p></li></ul></li><li><p>代表性的多模态大语言模型</p><ul><li><p>MiniGPT-4</p></li><li><p>LLaVA</p></li><li><p>GPT-4V</p></li><li><p>Gemini</p></li></ul></li></ul></li><li><p>知识图谱增强的大语言模型</p><ul><li><p>基于子图检索的方法</p></li><li><p>基于查询交互的方法</p></li></ul></li></ul></li><li><p>大语言模型在专业领域的应用</p><ul><li><p>医疗场景下的大语言模型</p><ul><li><p>构建面向医疗的大语言模型</p></li><li><p>数据资源</p></li></ul></li><li><p>教育场景下的大语言模型</p><ul><li><p>构建教育相关的大语言模型</p></li><li><p>数据资源</p></li></ul></li><li><p>法律场景下的大语言模型</p><ul><li><p>构建法律相关的大语言模型</p></li><li><p>数据资源</p></li></ul></li><li><p>金融场景下的大语言模型</p><ul><li><p>构建金融相关大语言模型</p></li><li><p>数据资源</p></li></ul></li><li><p>科学研究场景下的大语言模型</p><ul><li><p>构建科学研究相关的大语言模型</p></li><li><p>数据资源</p></li></ul></li></ul></li></ul></li></ul></li></ul><p>思维导图如下：</p><p><img src="/llm_5.png" alt="大语言模型评测与应用"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>大模型知识梳理（四）：大模型使用</title>
     <link href="/2024/11/03/LLM4/"/>
     <url>/2024/11/03/LLM4/</url>
