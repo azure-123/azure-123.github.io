@@ -16,24 +16,24 @@
   <meta name="author" content="Azure-123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考资料：《大语言模型》  预训练  数据准备  数据来源  通用文本数据 规模大、多样性强、易于获取，增强大语言模型的语言建模能力  网页  书籍    专用文本数据 提升大语言模型在特定专业任务上的表现  多语文本  科学文本  代码      数据预处理 消除低质量、冗余、无关甚至可能有害的数据  质量过滤  基于启发式规则的方法 通过精心设计的规则来针对地识别和提出低质量的文本数据  基于">
+    <meta name="description" content="参考资料：《大语言模型》  微调与对齐  指令微调  指令数据的构建  基于现有的NLP任务数据集构建  基于日常对话数据构建  基于合成数据构建  Self-Instruct  主要步骤  指令数据生成  过滤与后处理      Evol-Instruct  主要步骤  指令演化  深度演化  广度演化    数据后处理        指令数据构建的提升方法  指令格式设计  扩展指令数量  指">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大模型知识梳理（二）：预训练">
-<meta property="og:url" content="http://example.com/2024/11/03/LLM2/index.html">
+<meta property="og:title" content="大模型知识梳理（三）：微调与对齐">
+<meta property="og:url" content="http://example.com/2024/11/03/LLM3/index.html">
 <meta property="og:site_name" content="azure-123">
-<meta property="og:description" content="参考资料：《大语言模型》  预训练  数据准备  数据来源  通用文本数据 规模大、多样性强、易于获取，增强大语言模型的语言建模能力  网页  书籍    专用文本数据 提升大语言模型在特定专业任务上的表现  多语文本  科学文本  代码      数据预处理 消除低质量、冗余、无关甚至可能有害的数据  质量过滤  基于启发式规则的方法 通过精心设计的规则来针对地识别和提出低质量的文本数据  基于">
+<meta property="og:description" content="参考资料：《大语言模型》  微调与对齐  指令微调  指令数据的构建  基于现有的NLP任务数据集构建  基于日常对话数据构建  基于合成数据构建  Self-Instruct  主要步骤  指令数据生成  过滤与后处理      Evol-Instruct  主要步骤  指令演化  深度演化  广度演化    数据后处理        指令数据构建的提升方法  指令格式设计  扩展指令数量  指">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/11/03/LLM2/llm_2.png">
-<meta property="article:published_time" content="2024-11-03T12:17:25.000Z">
-<meta property="article:modified_time" content="2024-11-03T12:21:00.047Z">
+<meta property="og:image" content="http://example.com/2024/11/03/LLM3/llm_3.png">
+<meta property="article:published_time" content="2024-11-03T12:21:54.000Z">
+<meta property="article:modified_time" content="2024-11-03T12:24:33.922Z">
 <meta property="article:author" content="Azure-123">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/11/03/LLM2/llm_2.png">
+<meta name="twitter:image" content="http://example.com/2024/11/03/LLM3/llm_3.png">
   
   
   
-  <title>大模型知识梳理（二）：预训练 - azure-123</title>
+  <title>大模型知识梳理（三）：微调与对齐 - azure-123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="大模型知识梳理（二）：预训练"></span>
+            <span id="subtitle" data-typed-text="大模型知识梳理（三）：微调与对齐"></span>
           
         </div>
 
@@ -239,7 +239,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-03 20:17" pubdate>
+        <time datetime="2024-11-03 20:21" pubdate>
           2024年11月3日 晚上
         </time>
       </span>
@@ -251,7 +251,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
         
-          12 分钟
+          9 分钟
         
       </span>
     
@@ -307,142 +307,50 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">大模型知识梳理（二）：预训练</h1>
+            <h1 id="seo-header">大模型知识梳理（三）：微调与对齐</h1>
             
             
               <div class="markdown-body">
                 
                 <p>参考资料：《大语言模型》</p>
 <ul>
-<li><p>预训练</p>
+<li><p>微调与对齐</p>
 <ul>
-<li><p>数据准备</p>
+<li><p>指令微调</p>
 <ul>
-<li><p>数据来源</p>
+<li><p>指令数据的构建</p>
 <ul>
-<li><p>通用文本数据</p>
-<p>规模大、多样性强、易于获取，增强大语言模型的语言建模能力</p>
+<li><p>基于现有的NLP任务数据集构建</p>
+</li>
+<li><p>基于日常对话数据构建</p>
+</li>
+<li><p>基于合成数据构建</p>
 <ul>
-<li><p>网页</p>
-</li>
-<li><p>书籍</p>
-</li>
-</ul>
-</li>
-<li><p>专用文本数据</p>
-<p>提升大语言模型在特定专业任务上的表现</p>
+<li><p>Self-Instruct</p>
 <ul>
-<li><p>多语文本</p>
+<li><p>主要步骤</p>
+<ul>
+<li><p>指令数据生成</p>
 </li>
-<li><p>科学文本</p>
-</li>
-<li><p>代码</p>
+<li><p>过滤与后处理</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>数据预处理</p>
-<p>消除低质量、冗余、无关甚至可能有害的数据</p>
+<li><p>Evol-Instruct</p>
 <ul>
-<li><p>质量过滤</p>
+<li><p>主要步骤</p>
 <ul>
-<li><p>基于启发式规则的方法</p>
-<p>通过精心设计的规则来针对地识别和提出低质量的文本数据</p>
+<li><p>指令演化</p>
 <ul>
-<li><p>基于语种的过滤</p>
+<li><p>深度演化</p>
 </li>
-<li><p>基于简单统计指标的过滤</p>
-</li>
-<li><p>基于关键词的过滤</p>
+<li><p>广度演化</p>
 </li>
 </ul>
 </li>
-<li><p>基于分类器的方法<br>训练用于判别数据质量的文本分类器，进行预训练预料的清洗</p>
-</li>
-</ul>
-</li>
-<li><p>敏感内容过滤</p>
-<ul>
-<li><p>过滤有毒内容</p>
-</li>
-<li><p>过滤隐私内容</p>
-</li>
-</ul>
-</li>
-<li><p>数据去重</p>
-<p>预训练语料中出现的重复低质量数据可能诱导模型在生成时频繁输出类似数据，影响模型性能；也可能导致训练过程不稳定，导致训练过程崩溃</p>
-<ul>
-<li><p>计算粒度</p>
-</li>
-<li><p>用于去重的匹配方法</p>
-</li>
-</ul>
-</li>
-<li><p>数据对预训练效果的影响</p>
-<ul>
-<li><p>数据数量的影响</p>
-</li>
-<li><p>数据质量的影响</p>
-<ul>
-<li><p>整体影响</p>
-</li>
-<li><p>重复数据</p>
-</li>
-<li><p>有偏、有毒、隐私内容</p>
-</li>
-</ul>
-</li>
-<li><p>数据集污染</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>词元化（分词）</p>
-<ul>
-<li><p>BPE分词</p>
-<ul>
-<li>拓展：字节级别的BPE（B-BPE）</li>
-</ul>
-</li>
-<li><p>WordPiece分词</p>
-</li>
-<li><p>Unigram分词</p>
-</li>
-<li><p>分词器的选用</p>
-</li>
-</ul>
-</li>
-<li><p>数据调度</p>
-<p>设计合适的调度策略来安排多来源的数据</p>
-<ul>
-<li><p>数据混合</p>
-<p>设置合适的数据混合比例，通常在数据集合层面上设置，也可在不同训练阶段采用不同的混合数据比例</p>
-<ul>
-<li><p>典型的数据分布</p>
-</li>
-<li><p>数据混合策略</p>
-<ul>
-<li><p>增加数据源的多样性</p>
-</li>
-<li><p>优化数据混合</p>
-</li>
-<li><p>优化特定能力</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>数据课程</p>
-<ul>
-<li><p>实例</p>
-<ul>
-<li><p>代码能力</p>
-</li>
-<li><p>数学能力</p>
-</li>
-<li><p>长文本能力</p>
+<li><p>数据后处理</p>
 </li>
 </ul>
 </li>
@@ -450,161 +358,79 @@
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>模型架构</p>
+<li><p>指令数据构建的提升方法</p>
 <ul>
-<li><p>Transformer模型</p>
-<ul>
-<li><p>输入编码</p>
+<li><p>指令格式设计</p>
 </li>
-<li><p>多头子注意力机制</p>
+<li><p>扩展指令数量</p>
 </li>
-<li><p>前馈网络层</p>
-</li>
-<li><p>编码器</p>
-</li>
-<li><p>解码器</p>
+<li><p>指令重写与筛选</p>
 </li>
 </ul>
 </li>
-<li><p>详细配置</p>
+<li><p>指令微调的作用</p>
 <ul>
-<li><p>归一化方法</p>
-<ul>
-<li><p>LayerNorm</p>
+<li><p>整体任务性能改进</p>
 </li>
-<li><p>RMSNorm</p>
+<li><p>任务求解能力增强</p>
 </li>
-<li><p>DeepNorm</p>
-</li>
-</ul>
-</li>
-<li><p>归一化模块位置</p>
-<ul>
-<li><p>Post-Norm</p>
-</li>
-<li><p>Pre-Norm</p>
-</li>
-<li><p>Sandwich-Norm</p>
-</li>
-</ul>
-</li>
-<li><p>激活函数</p>
-</li>
-<li><p>位置编码</p>
-<ul>
-<li><p>绝对位置编码</p>
-</li>
-<li><p>相对位置编码</p>
-</li>
-<li><p>旋转位置编码（RoPE）</p>
-</li>
-</ul>
-</li>
-<li><p>注意力机制</p>
-<ul>
-<li><p>完整自注意力机制</p>
-</li>
-<li><p>稀疏注意力机制</p>
-</li>
-<li><p>多查询&#x2F;分组查询注意力</p>
-</li>
-<li><p>硬件优化的注意力机制</p>
-</li>
-</ul>
-</li>
-<li><p>混合专家模型</p>
-</li>
-</ul>
-</li>
-<li><p>主流架构</p>
-<ul>
-<li><p>编码器架构<br>BERT</p>
-</li>
-<li><p>解码器架构</p>
-<p>GPT</p>
-<ul>
-<li><p>因果解码器</p>
-<p>学术界提到的解码器架构</p>
-<ul>
-<li><p>没有显式地区分输入和输出部分</p>
-</li>
-<li><p>删除了关注编码器表示的交叉注意力模块</p>
-</li>
-</ul>
-</li>
-<li><p>前缀解码器<br>非因果解码器架构</p>
-</li>
-</ul>
-</li>
-<li><p>编码器-解码器架构<br>T5</p>
-</li>
-</ul>
-</li>
-<li><p>长上下文模型</p>
-<ul>
-<li><p>扩展位置编码</p>
-<ul>
-<li><p>直接微调</p>
-</li>
-<li><p>位置索引修改</p>
-<ul>
-<li><p>位置内插</p>
-</li>
-<li><p>位置截断</p>
-</li>
-</ul>
-</li>
-<li><p>基修改</p>
-<ul>
-<li><p>底数调整</p>
-</li>
-<li><p>基截断</p>
+<li><p>领域专业化适配</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>调整上下文窗口</p>
+<li><p>指令微调的训练策略</p>
 <ul>
-<li><p>并行上下文窗口</p>
-</li>
-<li><p>Λ 形上下文窗口</p>
-</li>
-<li><p>词元选择</p>
+<li><p>优化设置</p>
 <ul>
-<li><p>查询与词元相似度</p>
+<li><p>与预训练的不同</p>
+<ul>
+<li><p>目标函数</p>
 </li>
-<li><p>查询与分块相似度</p>
+<li><p>批次大小和学习率</p>
+</li>
+<li><p>多轮对话数据的高效训练</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>长文本数据</p>
+<li><p>数据组织策略</p>
 <ul>
-<li><p>长文本数据量</p>
+<li><p>平衡数据分布</p>
 </li>
-<li><p>长文本数据混合</p>
+<li><p>多阶段指令数据微调</p>
+</li>
+<li><p>结合预训练数据与指令微调数据</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>新型模型架构</p>
+<li><p>参数高效的模型微调</p>
+<p>进行全参数微调需要较多的算力资源开销，因此需要轻量化的微调方法</p>
 <ul>
-<li><p>参数化状态空间模型</p>
-</li>
-<li><p>状态空间模型变种</p>
+<li><p>低秩适配（LoRA）微调方法</p>
 <ul>
-<li><p>Mamba</p>
+<li><p>LoRA基础</p>
 </li>
-<li><p>RWKV</p>
+<li><p>LoRA所需的现存估计</p>
 </li>
-<li><p>RetNet</p>
+<li><p>LoRA变种</p>
 </li>
-<li><p>Hyena</p>
+<li><p>LoRA在大语言模型中的应用</p>
+</li>
+</ul>
+</li>
+<li><p>其他高效微调方法</p>
+<p>在预训练语言模型中被广泛使用，但是在大语言模型中的应用相对较少</p>
+<ul>
+<li><p>适配器微调</p>
+</li>
+<li><p>前缀微调</p>
+</li>
+<li><p>提示微调</p>
 </li>
 </ul>
 </li>
@@ -612,142 +438,226 @@
 </li>
 </ul>
 </li>
-<li><p>模型预训练</p>
+<li><p>人类对齐</p>
 <ul>
-<li><p>预训练任务</p>
+<li><p>人类对齐的标准</p>
 <ul>
-<li><p>语言建模（LM）</p>
-<p>核心在于“预测下一个次元”，并经常被应用于训练基于解码器的大预言模型（如GPT-3、PaLM等）</p>
+<li><p>对齐标准</p>
 <ul>
-<li><p>重要变种</p>
-<ul>
-<li><p>前缀语言建模<br>专门为采用前缀解码器架构的模型而设计</p>
+<li><p>有用性</p>
 </li>
-<li><p>中间填充任务<br>通过重新调整将输入序列的顺序，旨在训练模型对于中间缺失信息的填充能力</p>
+<li><p>诚实性</p>
+</li>
+<li><p>无害性</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>去噪自编码（DAE）<br>模型根据损坏的文本恢复出被替换或删除的词元片段，广泛应用于BERT、T5等与训练语言模型中</p>
-</li>
-<li><p>混合去噪器（MoD）</p>
-<p>通过将语言建模和去噪自编码的目标均视为不同类型的去噪任务，对于与训练任务进行统一建模，被应用于训练UL2和PaLM2等大语言模型</p>
+<li><p>基于人类反馈的强化学习</p>
 <ul>
-<li><p>S-去噪器</p>
+<li><p>RLHF概述</p>
+<ul>
+<li><p>RLHF算法系统</p>
 </li>
-<li><p>R-去噪器</p>
+<li><p>RLHF的关键步骤</p>
+<ul>
+<li><p>监督微调</p>
 </li>
-<li><p>X-去噪器</p>
+<li><p>奖励模型训练</p>
+</li>
+<li><p>强化学习训练</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>优化参数设置</p>
+<li><p>人类反馈数据的收集</p>
 <ul>
-<li><p>基于批次数据的训练</p>
+<li><p>标注人员选择</p>
 </li>
-<li><p>学习率</p>
-</li>
-<li><p>优化器</p>
-</li>
-<li><p>稳定优化技术</p>
+<li><p>人类反馈形式</p>
 <ul>
-<li><p>梯度裁剪</p>
+<li><p>基于评分的人类反馈</p>
 </li>
-<li><p>训练恢复</p>
-</li>
-<li><p>权重衰减</p>
-</li>
-<li><p>Dropout</p>
+<li><p>基于排序的人类反馈</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>可扩展的训练技术</p>
-<p>解决两个技术问题：一是如何提高训练效率，二是如何将庞大的模型有效地加载到不同处理器中</p>
+<li><p>奖励模型的训练</p>
 <ul>
-<li><p>3D并行训练</p>
+<li><p>训练方法</p>
 <ul>
-<li><p>数据并行</p>
+<li><p>打分式</p>
 </li>
-<li><p>流水线并行</p>
+<li><p>对比式</p>
 </li>
-<li><p>张量并行</p>
+<li><p>排序式</p>
 </li>
 </ul>
 </li>
-<li><p>零冗余优化器（ZeRO）</p>
+<li><p>训练策略</p>
+<ul>
+<li><p>目标函数优化</p>
 </li>
-<li><p>激活冲计算</p>
+<li><p>基座模型选取</p>
 </li>
-<li><p>混合精度训练</p>
+<li><p>奖励计算形式</p>
 </li>
 </ul>
 </li>
-<li><p>模型参数量计算与效率分析</p>
+</ul>
+</li>
+<li><p>强化学习训练</p>
 <ul>
-<li><p>参数量计算</p>
+<li><p>PPO介绍</p>
 <ul>
-<li><p>输入嵌入层</p>
+<li><p>关键步骤</p>
+<ul>
+<li><p>优势估计</p>
 </li>
-<li><p>多头注意力层</p>
+<li><p>重要性采样</p>
 </li>
-<li><p>前馈网络层</p>
+<li><p>基于梯度裁剪的目标函数</p>
 </li>
-<li><p>归一化层</p>
-</li>
-<li><p>输出层</p>
+<li><p>基于KL散度的目标函数</p>
 </li>
 </ul>
 </li>
-<li><p>训练运算量估计</p>
+</ul>
 </li>
-<li><p>训练时间估计</p>
-</li>
-<li><p>训练显存估计</p>
+<li><p>训练策略</p>
 <ul>
-<li><p>模型参数与优化器的显存占用</p>
-<ul>
-<li><p>不使用ZeRO优化技术</p>
+<li><p>模型初始化</p>
 </li>
-<li><p>使用ZeRO的优化器参数分区方案（ZeRO-1）</p>
-</li>
-<li><p>使用ZeRO的梯度分区方案（ZeRO-2）</p>
-</li>
-<li><p>使用ZeRO的参数分区方案（ZeRO-3）</p>
-</li>
-<li><p>使用了张量并行和流水线并行的方案</p>
+<li><p>效率提升</p>
 </li>
 </ul>
 </li>
-<li><p>训练激活值的显存占用</p>
+</ul>
+</li>
+<li><p>代表RLHF工作</p>
 <ul>
-<li><p>多头自注意力层</p>
+<li><p>InstructGPT模型</p>
 </li>
-<li><p>前馈网络层</p>
+<li><p>LLaMA-2模型</p>
+<ul>
+<li><p>人类反馈数据收集</p>
 </li>
-<li><p>归一化层</p>
+<li><p>奖励函数训练</p>
 </li>
-<li><p>输出层</p>
-</li>
-<li><p>流水线并行</p>
-</li>
-<li><p>张量并行</p>
-</li>
-<li><p>激活重计算</p>
+<li><p>强化学习算法</p>
 </li>
 </ul>
 </li>
-<li><p>其他显存占用</p>
+</ul>
+</li>
+<li><p>进阶RLHF工作</p>
 <ul>
-<li><p>代码库内核</p>
+<li><p>基于过程监督的RLHF</p>
+<ul>
+<li><p>数据集</p>
 </li>
-<li><p>ZeRO优化技术实现</p>
+<li><p>RLHF训练方法</p>
 </li>
-<li><p>训练过程中的中间结果和显存碎片</p>
+<li><p>过程监督奖励模型的扩展功能</p>
+</li>
+</ul>
+</li>
+<li><p>基于AI反馈的强化学习（RLAIF）</p>
+<ul>
+<li><p>已对齐大语言模型的反馈</p>
+</li>
+<li><p>待对齐大语言模型的自我反馈</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>非强化学习的对齐方法</p>
+<ul>
+<li><p>对齐数据的收集</p>
+<ul>
+<li><p>基于奖励模型的方法</p>
+</li>
+<li><p>基于大语言模型的方法</p>
+</li>
+</ul>
+</li>
+<li><p>代表性监督对齐算法DPO</p>
+<ul>
+<li><p>DPO算法介绍</p>
+</li>
+<li><p>DPO算法分析</p>
+</li>
+</ul>
+</li>
+<li><p>其他有监督对齐算法</p>
+<ul>
+<li><p>基于质量提示的训练目标</p>
+</li>
+<li><p>基于质量对比的训练目标</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>关于SFT和RLHF的进一步讨论</p>
+<ul>
+<li><p>基于学习方式的总体比较</p>
+</li>
+<li><p>SFT的优缺点</p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li><p>提高大语言模型在各种基准测试中的性能</p>
+</li>
+<li><p>增强大语言模型在不同任务上的泛化能力</p>
+</li>
+<li><p>提升大语言模型在专业领域的能力</p>
+</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li><p>当数据超出大语言模型的知识范围时，模型易产生幻觉</p>
+</li>
+<li><p>通过对教师模型的蒸馏，会增加学生模型出现幻觉的可能性</p>
+</li>
+<li><p>不同标注着对实例数据标注的差异，会影响SFT的学习性能</p>
+</li>
+<li><p>指令数据的质量会影响大语言模型的训练效果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RLHF的优缺点</p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li><p>进一步增强模型的能力，提高模型有用性</p>
+</li>
+<li><p>有效减轻大语言模型出现有害响应的可能性</p>
+</li>
+<li><p>有效减轻大语言模型出现幻觉的可能性</p>
+</li>
+<li><p>偏好标注可以减轻示例生成过程中的不一致情况</p>
+</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li><p>训练样本使用效率较低</p>
+</li>
+<li><p>训练过程不稳定，训练过程对超参数敏感</p>
+</li>
+<li><p>依赖强大的SFT模型进行热启动</p>
 </li>
 </ul>
 </li>
@@ -761,7 +671,7 @@
 </li>
 </ul>
 <p>思维导图如下：</p>
-<p><img src="/2024/11/03/LLM2/llm_2.png" srcset="/img/loading.gif" lazyload alt="大语言模型预训练"></p>
+<p><img src="/2024/11/03/LLM3/llm_3.png" srcset="/img/loading.gif" lazyload alt="大语言模型微调与对齐"></p>
 
                 
               </div>
@@ -786,8 +696,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>大模型知识梳理（二）：预训练</div>
-      <div>http://example.com/2024/11/03/LLM2/</div>
+      <div>大模型知识梳理（三）：微调与对齐</div>
+      <div>http://example.com/2024/11/03/LLM3/</div>
     </div>
     <div class="license-meta">
       
@@ -831,18 +741,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/03/LLM3/" title="大模型知识梳理（三）：微调与对齐">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大模型知识梳理（三）：微调与对齐</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/03/LLM1/" title="大模型知识梳理（一）：背景与基础知识">
-                        <span class="hidden-mobile">大模型知识梳理（一）：背景与基础知识</span>
+                      <a href="/2024/11/03/LLM2/" title="大模型知识梳理（二）：预训练">
+                        <span class="hidden-mobile">大模型知识梳理（二）：预训练</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
