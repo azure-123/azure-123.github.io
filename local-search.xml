@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>大模型知识梳理（一）：背景与基础知识</title>
+    <link href="/2024/11/03/LLM1/"/>
+    <url>/2024/11/03/LLM1/</url>
+    
+    <content type="html"><![CDATA[<ul><li><p>参考资料：《大语言模型》</p></li><li><p>背景与基础知识</p><ul><li><p>基础介绍</p><ul><li><p>大语言模型的构建过程</p><ul><li><p>大规模预训练<br>指使用与下游任务无关的大规模数据进行模型参数的初始训练</p></li><li><p>指令微调与人类对齐</p><ul><li><p>指令微调<br>通过任务输入与输出的配对数据进行模型训练，使得语言模型较好地掌握通过问答形式进行任务求解的能力</p></li><li><p>人类对齐<br>将大语言模型与人类的期望、需求以及价值观对齐</p></li></ul></li><li><p>扩展法则</p><p>对扩展参数规模、数据规模和计算算力所带来的性能提升建立定量的建模方法</p><ul><li><p>KM扩展法则</p></li><li><p>Chinchilla扩展法则</p></li><li><p>关于扩展法则的讨论</p><ul><li><p>可预测的扩展</p></li><li><p>任务层面的可预测性</p></li></ul></li></ul></li><li><p>涌现能力</p><p>在小型模型中不存在但在大模型中出现的能力，具体指当模型扩展到一定规模时，模型的特定任务性能突然出现显著跃升的趋势，远超过随机水平（此处指代大预言三模型所具有的典型能力）</p><ul><li><p>代表性的涌现能力</p><ul><li><p>上下文能力</p></li><li><p>指令遵循</p></li><li><p>逐步推理</p></li></ul></li><li><p>涌现能力与扩展法则的关系</p><ul><li><p>扩展法则<br>使用语言建模损失来衡量语言模型的整体性能，具有较好的可预测性，可能存在边际效益递减</p></li><li><p>涌现能力<br>使用任务性能来衡量模型性能，不具有可预测性，一旦出现就意味着性能大幅跃升</p></li></ul></li></ul></li><li><p>GPT系列模型的技术演变</p><ul><li><p>早期探索</p><ul><li><p>GPT-1</p></li><li><p>GPT-2</p></li></ul></li><li><p>规模扩展</p><ul><li>GPT-3</li></ul></li><li><p>能力增强</p><ul><li><p>代码数据训练</p></li><li><p>人类对齐</p></li></ul></li><li><p>性能跃升</p><ul><li><p>ChatGPT</p></li><li><p>GPT-4</p></li><li><p>GPT-4V</p></li></ul></li></ul></li></ul></li></ul></li><li><p>大语言模型资源</p><ul><li><p>公开可用的模型检查点或API</p><ul><li><p>LLaMA</p></li><li><p>ChatGLM</p></li><li><p>Falcon</p></li><li><p>Baichuan和Baichuan-2</p></li><li><p>InternLM和InternLM-2</p></li><li><p>Qwen</p></li><li><p>Mistral</p></li><li><p>DeepSeek LLM</p></li><li><p>Mixtral</p></li><li><p>Gemma</p></li><li><p>MiniCPM</p></li><li><p>YuLan-Chat</p></li></ul></li><li><p>LLaMA变体系列</p><ul><li><p>基础指令</p></li><li><p>中文指令</p></li><li><p>垂域指令</p></li><li><p>多模态指令</p></li></ul></li><li><p>大预言模型的公共API</p><ul><li><p>语言模型API</p></li><li><p>文本表征API</p></li></ul></li></ul></li><li><p>常用的预训练数据集</p><ul><li><p>网页</p><ul><li><p>通用网页数据</p></li><li><p>中文网页数据</p></li></ul></li><li><p>书籍</p></li><li><p>维基百科</p></li><li><p>代码</p></li><li><p>混合型数据集</p></li></ul></li><li><p>常用微调数据集</p><ul><li><p>指令微调数据集</p><ul><li><p>自然语言处理任务数据集</p></li><li><p>日常对话数据集</p></li><li><p>合成数据集</p></li></ul></li><li><p>人类对齐数据集</p></li></ul></li><li><p>代码库资源</p><ul><li><p>Hugging Face开源社区</p></li><li><p>DeepSpeed</p></li><li><p>Megatron-LM</p></li></ul></li></ul></li></ul><p>思维导图如下：</p><p><img src="/2024/11/03/LLM1/llm_1.png" alt="大语言模型-背景与基础知识"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>InternLM书生大模型实战营（进阶岛）</title>
     <link href="/2024/09/24/InternLMAdvanced/"/>
     <url>/2024/09/24/InternLMAdvanced/</url>
